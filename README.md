@@ -1,2 +1,2 @@
-# RIS_Alpha
-The test bed for the Main RIS
+# bootstrap_barrio_biopama
+The theme for the Global RIS
