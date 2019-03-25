@@ -1,0 +1,228 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the SASS Starterkit subtheme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use \Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_form_system_theme_settings_alter() for settings form.
+ *
+ * Replace Barrio setting options with subtheme ones.
+ * 
+ * Example on how to alter theme settings form
+ * 
+ */
+function bootstrap_barrio_biopama_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = array(
+      'bg-primary' => t('Primary'),
+      'bg-secondary' => t('Secondary'),
+      'bg-light' => t('Light'),
+      'bg-dark' => t('Dark'),
+      'bg-white' => t('White'),
+      'bg-transparent' => t('Transparent'),
+  );
+  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = array(
+      'bg-primary' => t('Primary'),
+      'bg-secondary' => t('Secondary'),
+      'bg-light' => t('Light'),
+      'bg-dark' => t('Dark'),
+      'bg-white' => t('White'),
+      'bg-transparent' => t('Transparent'),
+  );
+}
+/*
+* implements hook_view_pre_render()
+*/
+function bootstrap_barrio_biopama_views_pre_render(\Drupal\views\ViewExecutable $view)
+{
+	switch($view->current_display){
+		case 'region_list':
+		case 'rest_export_1':
+		case 'rest_export_2':
+		case 'rest_export_3':
+			break;
+		default:
+			$userAnon = \Drupal::currentUser()->isAnonymous();
+			$nids = array(); // array of nodes to prevent duplicates
+			$resultNoDoubleNodes = array(); // manipulated results
+			$skipped = 0;
+			$nothin = 0;
+			foreach($view->result as $key => $result) // check each node of the result array on its nid
+			{
+				$nid = $result->nid;
+				//dsm($view->result); 
+				if (!in_array($nid, $nids)) // if this node isn't a duplicate
+				{
+					$view->result[$key]->index = ($key - $skipped);
+					$resultNoDoubleNodes[] = $view->result[$key]; // add it to the manipulated results
+					$nids[$key] = $nid; // mark this nid as in results to prevent duplicates from now on
+				} else {
+					$skipped++;
+				}
+			}
+			$view->result = $resultNoDoubleNodes; // replace the old results with the results without duplicates
+			foreach($view->result as $key => $result) // check each node of the result array on its nid
+			{
+				$entity = $result->_entity;
+				$isPub = $entity->isPublished();
+				if($userAnon == TRUE && $isPub == FALSE){
+					unset($view->result[$key]);
+				}
+			}
+		  break;
+	}
+
+	
+/*   switch($view->current_display)
+  {
+    case 'block_global':
+	case 'block_regional':
+	case 'block_national':
+	case 'block_local':
+	case 'goal_block_1':
+	case 'indicator_block_1':
+	case 'indicator_list':
+	case 'indicator_theme':
+		$userAnon = \Drupal::currentUser()->isAnonymous();
+		$nids = array(); // array of nodes to prevent duplicates
+		$resultNoDoubleNodes = array(); // manipulated results
+		$skipped = 0;
+		$nothin = 0;
+		foreach($view->result as $key => $result) // check each node of the result array on its nid
+		{
+			$nid = $result->nid;
+			//dsm($view->result); 
+			if (!in_array($nid, $nids)) // if this node isn't a duplicate
+			{
+				$view->result[$key]->index = ($key - $skipped);
+				$resultNoDoubleNodes[] = $view->result[$key]; // add it to the manipulated results
+				$nids[$key] = $nid; // mark this nid as in results to prevent duplicates from now on
+			} else {
+				$skipped++;
+			}
+		}
+		$view->result = $resultNoDoubleNodes; // replace the old results with the results without duplicates
+		foreach($view->result as $key => $result) // check each node of the result array on its nid
+		{
+			$entity = $result->_entity;
+			$isPub = $entity->isPublished();
+			if($userAnon == TRUE && $isPub == FALSE){
+				unset($view->result[$key]);
+			}
+		}
+		break;
+	//case 'goal_block_1':
+	//  $node = \Drupal\node\Entity\Node::load($id);
+	//  $node->getTitle();
+	//  break;
+    default:
+      break;
+  } */
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ * https://www.drupal.org/node/2521876#comment-10684366
+ */
+function bootstrap_barrio_biopama_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $node = NULL;
+  $revision = NULL;
+  if (\Drupal::routeMatch()->getParameter('node')) {
+	//revision IDs are strings and node ids are strings when a revision is loaded.
+    $node = \Drupal::routeMatch()->getParameter('node');
+	$revision = \Drupal::routeMatch()->getRawParameter('node_revision');
+  }
+  $tid = NULL;
+  $term = NULL;
+  if (\Drupal::routeMatch()->getRawParameter('taxonomy_term')) {
+	$tid = \Drupal::routeMatch()->getRawParameter('taxonomy_term');
+    $term = Term::load($tid);
+  }
+  
+  //node parameters loaded by getParameter are objects and the bundle can be accessed normally.
+  if (!empty($node)) {
+    if ($revision) {
+      $revised_node = \Drupal::entityTypeManager()
+                             ->getStorage('node')
+                             ->loadRevision($revision);
+      $content_type = $revised_node->bundle();
+    }
+    else {
+      $content_type = $node->bundle();
+    }
+    $suggestions[] = 'page__' . $content_type;
+  }
+  if (!empty($term)) {
+     $vid = $term->vid->getValue();
+     $suggestions[] = 'page__taxonomy__vocabulary__' . $vid[0]['target_id'];
+   }
+}
+ 
+function bootstrap_barrio_biopama_preprocess(&$variables, $hook) {
+  $variables['current_path'] = \Drupal::service('path.current')->getPath();
+  $variables['current_uri'] = \Drupal::request()->getRequestUri();
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (Exception $e) {
+    $variables['is_front'] = FALSE;
+  }
+  // Ensure the cache varies correctly (new in Drupal 8.3).
+  $variables['#cache']['contexts'][] = 'url.path.is_front';
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  $variables['language'] = $language;
+}
+function bootstrap_barrio_biopama_preprocess_page(&$variables) {
+	$current_path = \Drupal::service('path.current')->getPath();
+	//dsm($current_path); 
+	//\Drupal::logger('theme')->notice($current_path);
+  if ($current_path == '/focus') {
+    $variables['#attached']['library'][] = 'bootstrap_barrio_biopama/focus-page';
+  }
+  if ($current_path == '/rest') {
+    $variables['#attached']['library'][] = 'bootstrap_barrio_biopama/rest-checker';
+  }
+}
+
+function bootstrap_barrio_biopama_preprocess_node(&$variables) {
+	//\Drupal::logger('theme')->notice('preprocess_node was called');
+	$node = $variables['node'];
+	
+ 	switch($node->getType()){
+		case 'country':
+			$variables['#attached']['library'][] = 'bootstrap_barrio_biopama/region-country-pa-page';
+			break; 
+		case 'policy':
+			$variables['#attached']['library'][] = 'bootstrap_barrio_biopama/policy-style';
+			break;
+		case 'indicator':
+			$variables['#attached']['library'][] = 'bootstrap_barrio_biopama/indicator-card';
+			break;
+		default:
+			break; 
+	}
+}
+/**
+ * Implements hook_theme_suggestions_taxonomy_term_alter().
+ */
+function bootstrap_barrio_biopama_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['elements']['#taxonomy_term'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  // Add view mode theme suggestions.
+  $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
+}
+function bootstrap_barrio_biopama_theme_suggestions_node_alter(array &$suggestions, array $variables, $hook) {
+ $node = $variables['elements']['#node'];
+ $type = $node->bundle();
+ $view_mode = $variables['elements']['#view_mode'];
+ $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+ $suggestions[] = 'node__'.$type;
+ $suggestions[] = 'node__'.$type.'__'.$view_mode;
+}

@@ -1,0 +1,92 @@
+{% set url = current_uri %}
+{% block head %}
+   <div id="header" class="header">
+        <nav{{ navbar_attributes }}>
+            {{ page.header }}
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+                {{ page.primary_menu }}
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form float-right">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	          </div>
+            {% endif %}
+        </nav>
+   </div>
+{% endblock %}
+
+<div id="focus_main_container">
+
+   <div id="focus_page_top" class="row row_nomargins">
+      <div id="focus_page_card" class="nomargins">
+      {% if 'iso2' in url %}
+        {{ drupal_view('breadcrumb_country_summary', 'block_1') }}
+      {% endif %}
+      {% if 'region' in url %}
+        {{ drupal_view('breadcrumb_region_summary', 'block_1') }}
+      {% endif %}
+      {% if 'wdpa' in url %}
+        {{ drupal_view('breadcrumb_country_summary', 'block_1') }}
+      {% endif %}
+      </div>
+      <div id="focus_page_map" class="nomargins">
+        <div id="map-container"></div>
+      </div>
+  </div>
+  <div id="focus_details_right">
+    <div id="accordion_right_side" class="">
+      <div id="accordion" class="node-accordion">
+        <h3><i class="fas fa-chevron-circle-down"></i>State</h3>
+          <div>
+			  {% if 'iso2' in url %}
+				<div class="country-scope-Content">{{ drupal_view('focus_country_data', 'state') }}</div>
+			  {% endif %}
+			  {% if 'region' in url %}
+				<div class="country-scope-Content">{{ drupal_view('focus_state_and_pressure_data', 'rp_page', 'cw_africa') }}</div> 
+			  {% endif %}
+			  {% if 'wdpa' in url %}
+				<div class="country-scope-Content">{{ drupal_view('focus_country_data', 'state') }}</div> 
+			  {% endif %}
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Pressure</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('focus_country_data', 'pressure') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Response</h3>
+          <div>
+            <div id="focus-tabs">
+              <ul class="indicator-card-tabs">
+              <li class="focus-tab focus-tab-global"><a href="#tabs-1">Global</a></li>
+              <li class="focus-tab focus-tab-regional"><a href="#tabs-2">Regional</a></li>
+              <li class="focus-tab focus-tab-country"><a href="#tabs-3">National</a></li>
+              <li class="focus-tab focus-tab-pa"><a href="#tabs-4">Local</a></li>
+              </ul>
+                <div id="tabs-1">
+                {{ drupal_view('focus_country_response', 'block_global') }}
+                </div>
+                <div id="tabs-2">
+                {{ drupal_view('focus_country_response', 'block_regional') }}
+                </div>
+                <div id="tabs-3">
+                {{ drupal_view('focus_country_response', 'block_national') }}
+                </div>
+                <div id="tabs-4">
+                {{ drupal_view('focus_country_response', 'block_local') }}
+                </div>
+            </div>
+          </div>
+        {% if 'iso2' in url %}
+        <h3><i class="fas fa-chevron-circle-down"></i>Protected Areas</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> 
+          </div>
+        {% endif %}
+        <br></br>
+      </div>
+     </div>  
+  </div>
+  
+ </div>

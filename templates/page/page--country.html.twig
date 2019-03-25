@@ -1,0 +1,107 @@
+{% set url = current_uri %}
+{% set countryiso = node.field_country_iso2.value %}
+{% block head %}
+{{ attach_library( 'bootstrap_barrio_biopama/focus-page' ) }}
+   <div id="header" class="header">
+        <nav{{ navbar_attributes }}>
+            {{ page.header }}
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+                {{ page.primary_menu }}
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form float-right">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	          </div>
+            {% endif %}
+        </nav>
+   </div>
+{% endblock %}
+<div id="loader-wrapper">
+  <div id="loader"></div>
+  <div class="loader-section section-left"></div>
+  <div class="loader-section section-right"></div>
+</div> 
+<div id="focus_main_container">
+   <div id="focus_page_top" class="row row_nomargins">
+      <div id="focus_page_map" class="nomargins">
+        <div id="map-container"></div>
+      </div>
+  </div>
+  <div id="focus_details_right">
+    <div class="info-card">{{ drupal_view('breadcrumb_country_summary', 'block_2') }}</div>
+    <div id="accordion_right_side" class="">
+      <div id="accordion" class="node-accordion">
+	    {% if 'verified_user' in user.getroles  %}
+		<h3><i class="fas fa-chevron-circle-down"></i>Priority Actions</h3>
+          <div>
+			<h4>Priority actions for the region</h4>
+            <div class="actions-content">{{ drupal_view('priority_actions_regional', 'block_2') }}</div> 
+			<h4>Priority actions for {{ node.label }}</h4>
+			<div class="actions-content">{{ drupal_view('priority_actions_country', 'block_1') }}</div> 
+			<h4>Priority actions for the protected areas in {{ node.label }}</h4>
+			<div class="actions-content">{{ drupal_view('priority_actions_pa', 'block_2') }}</div> 
+          </div>
+		{% endif %}
+        <h3><i class="fas fa-chevron-circle-down"></i>Protected Areas</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>State Indicators</h3>
+          <div>
+			{{ drupal_entity('node', 18214) }}
+			<div class="country-scope-Content">{{ drupal_view('focus_state_and_pressure_data', 'country_state') }}</div>
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Pressure Indicators</h3>
+          <div>
+		    {{ drupal_entity('node', 18213) }}
+            <div class="country-scope-Content">{{ drupal_view('focus_state_and_pressure_data', 'country_pressure') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Response Indicators</h3>
+          <div>
+		    {{ drupal_entity('node', 18215) }}
+            <div id="focus-tabs">
+              <ul class="indicator-card-tabs">
+              <li class="focus-tab focus-tab-global"><a href="#tabs-1">Global</a></li>
+              <li class="focus-tab focus-tab-regional"><a href="#tabs-2">Regional</a></li>
+              <li class="focus-tab focus-tab-country"><a href="#tabs-3">National</a></li>
+              <li class="focus-tab focus-tab-pa"><a href="#tabs-4">Local</a></li>
+              </ul>
+                <div id="tabs-1">
+                {{ drupal_view('focus_response_data', 'country_global') }}
+                </div>
+                <div id="tabs-2">
+                {{ drupal_view('focus_response_data', 'country_regional') }}
+                </div>
+                <div id="tabs-3">
+                {{ drupal_view('focus_response_data', 'country_national') }}
+                </div>
+                <div id="tabs-4">
+                {{ drupal_view('focus_response_data', 'country_local') }}
+                </div>
+            </div>
+          </div>
+		<h3><i class="fas fa-chevron-circle-down"></i>Country Profiles</h3>
+		  <div>
+			<div class="country-ql"><a href="http://www.cbd.int/countries/?country={{countryiso}}" target="_blank">Convention on Biological Diversity (CBD) Country Profile</a></div>
+			<div class="country-ql"><a href="http://www.cbd.int/protected/implementation/actionplans/country/?country={{countryiso}}" target="_blank">CBD Programme of Work on Protected Areas (PoWPA) Action Plan</a></div>
+			<div class="country-ql"><a href="http://dopa-explorer.jrc.ec.europa.eu/country/{{countryiso}}" target="_blank">Digital Observatory for Protected Areas (DOPA) Country Data</a></div>
+			<div class="country-ql"><a href="http://www.protectedplanet.net/country/{{countryiso}}" target="_blank">World Database on Protected Areas (WDPA) Country Data</a></div>
+			<div class="country-ql"><a href="http://www.gbif.org/country/{{countryiso}}" target="_blank">Global Biodiversity Information Facility (GBIF) Country Summary</a></div>
+			<div class="country-ql"><a href="http://dashboard.natureserve.org/country/{{countryiso}}" target="_blank">NatureServe Country Dashboard</a></div>
+			<div class="country-ql-heading">Other country links</div>
+			<div class="country-ql"><a href="https://data.worldbank.org/country/{{countryiso}}" target="_blank">World Bank Country Page</a></div>
+			<div class="country-ql"><a href="http://data.un.org/en/iso/{{countryiso}}.html" target="_blank">UN Data Country Profile</a></div>
+			<div class="country-ql"><a href="http://uneplive.unep.org/country/index/{{countryiso}}" target="_blank">UNEP Country Profile</a></div>
+          </div>
+		<h3><i class="fas fa-chevron-circle-down"></i>Documents (e.g. National Assessments, Strategies, Policies)</h3>
+		  <div>
+			{{ drupal_view('management_assessments_country', 'block_1', node.nid.value) }}
+          </div>
+        <br></br>
+      </div>
+     </div>  
+  </div>
+ </div>

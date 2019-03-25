@@ -1,0 +1,100 @@
+ {#
+/**
+* @file
+* view: The view in use.
+* fields: A list of fields, each one contains:
+* content: The output of the field.
+* raw: The raw data for the field, if it exists. This is NOT output safe.
+* class: The safe class ID to use.
+* handler: The Views field handler controlling this field.
+* inline: Whether or not the field should be inline.
+* wrapper_element: An HTML element for a wrapper.
+* wrapper_attributes: List of attributes for wrapper element.
+* separator: An optional separator that may appear before a field.
+* label: The field's label text.
+* label_element: An HTML element for a label wrapper.
+* label_attributes: List of attributes for label wrapper.
+* label_suffix: Colon after the label.
+* element_type: An HTML element for the field content.
+* element_attributes: List of attributes for HTML element for field content.
+* has_label_colon: A boolean indicating whether to display a colon after the label.
+* element_type: An HTML element for the field content.
+* element_attributes: List of attributes for HTML element for field content.
+* row: The raw result from the query, with all data it fetched.
+ */
+#}
+<div class="scope-summary-wrapper">
+	<div class="container-fluid region-container">
+		<div class="row">
+			<div class="col-sm-2"><div class="region-title">
+				<div class="scope-summary-image">
+					<img src="/sites/default/files/country_flags/{{fields.field_country_iso2.content|render|lower}}.png" width="90" height="45">
+				</div>
+			</div></div>
+			<div class="col-sm-10">
+				<div class="scope-summary-title">
+					{{ fields.title.content }}
+					<span class="scope-divider">
+					&nbsp;|&nbsp;
+					</span>
+					<span class="scope-summary-subtitle">
+					{{ fields.field_country_region.content }}
+					</span>
+				</div>	
+			</div>
+			<div class="col-sm-4">
+				<div class="country-info">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-12"><div class="card-source">{{ drupal_entity('node', 18209, 'source_attribution') }}</div><div id="pas-title">Protection Coverage</div></div>
+							<div class="col-sm-6"><div id="terrestrial-prot-title">Terrestrial</div><div class="info-link chart-icon tooltip-ter menu-tip"><i class="fas fa-info"></i></div></div>
+							<div class="col-sm-6"><div id="marine-prot-title">Marine</div><div class="info-link chart-icon tooltip-mar menu-tip"><i class="fas fa-info"></i></div></div>
+							<div class="col-sm-6"><div id="terrestrial-prot-chart" style="height: 150px;"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div></div>
+							<div class="col-sm-6"><div id="marine-prot-chart" style="height: 150px;"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="country-info">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-12"><div class="card-source">{{ drupal_entity('node', 18255, 'source_attribution') }}</div><div id="pas-title">Number of Protected Areas</div></div>
+							<div class="col-sm-6"><div id="pas-number-title">Coastal</div></div>
+							<div class="col-sm-6"><span id="costal-pas"></span></div>
+							<div class="col-sm-6"><div id="pas-number-title">Marine</div></div>
+							<div class="col-sm-6"><span id="marine-pas"></span></div>
+							<div class="col-sm-6"><div id="pas-number-title">Terrestrial</div></div>
+							<div class="col-sm-6"><span id="terrestrial-pas"></span></div>
+							<div class="col-sm-6"><div id="pas-number-title">Total</div></div>
+							<div class="col-sm-6"><span id="total-pas"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="country-info">
+					<div class="container-fluid">
+						<div class="row">
+						    <div class="col-sm-12"><div class="card-source">{{ drupal_entity('node', 18254, 'source_attribution') }}</div><div id="pas-title">World Bank Data</div></div>
+							<div class="col-sm-6"><div id="wb-area-title"></div></div>
+							<div class="col-sm-6"><span id="wb-area-number"></span>&nbsp;<span id="wb-area-year"></span></div>
+							<div class="col-sm-6"><div id="wb-total-pop-title"></div></div>
+							<div class="col-sm-6"><span id="wb-total-pop-number"></span>&nbsp;<span id="wb-total-pop-year"></span></div>
+							<div class="col-sm-6"><div id="wb-gdp-title"></div></div>
+							<div class="col-sm-6"><span id="wb-gdp-number"></span>&nbsp;<span id="wb-gdp-year"></span></div>
+							<div class="col-sm-6"><div id="wb-gdp-growth-title"></div></div>
+							<div class="col-sm-6"><span id="wb-gdp-growth-number"></span>&nbsp;<span id="wb-gdp-growth-year"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="hidden">
+	<div class="country-iso country-iso2">ISO2: <span class="country-iso2-value">{{ fields.field_country_iso2.content }}</span></div>
+	<div class="country-iso country-iso3">ISO3: <span class="country-iso3-value">{{ fields.field_country_iso3.content }}</span></div>
+	<div class="country-iso country-isonum">UN M49: <span class="country-num-value">{{ fields.field_country_iso3_num.content }}</span></div>
+</div>
+{{ fields.view_node.content }}

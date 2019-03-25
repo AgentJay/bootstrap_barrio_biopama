@@ -1,0 +1,41 @@
+ {#
+/**
+* @file
+* view: The view in use.
+* fields: A list of fields, each one contains:
+* content: The output of the field.
+* raw: The raw data for the field, if it exists. This is NOT output safe.
+* class: The safe class ID to use.
+* handler: The Views field handler controlling this field.
+* inline: Whether or not the field should be inline.
+* wrapper_element: An HTML element for a wrapper.
+* wrapper_attributes: List of attributes for wrapper element.
+* separator: An optional separator that may appear before a field.
+* label: The field's label text.
+* label_element: An HTML element for a label wrapper.
+* label_attributes: List of attributes for label wrapper.
+* label_suffix: Colon after the label.
+* element_type: An HTML element for the field content.
+* element_attributes: List of attributes for HTML element for field content.
+* has_label_colon: A boolean indicating whether to display a colon after the label.
+* element_type: An HTML element for the field content.
+* element_attributes: List of attributes for HTML element for field content.
+* row: The raw result from the query, with all data it fetched.
+ */
+#}
+
+<div class="container-fluid region-container">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="scope-summary-title">{{ fields.title.content }}</div>
+			<div class="country-iso"><span class="country-sub-label">Country: {{ fields.title_1.content }}</span></div>
+			<div class="country-iso"><span class="country-sub-label">WDPA ID:</span> <span class="wdpaid-value">{{ fields.field_pa_wdpa_id.content }}</span></div>
+			<div class="country-iso"><span class="country-sub-label">IUCN Category:</span> <span class="iucn-cat-value">{{ fields.field_pa_iucn_category.content }}</span></div>
+			<div class="country-iso"><span class="country-sub-label">Management Plan:<br>{{ drupal_view('pa_management_plan', 'block_1', fields.nid.content|render) }}</span></div>
+		</div>
+		<div class="col-sm-6">
+			<div class="pa-card-source">{{ drupal_entity('node', 18209, 'source_attribution') }}</div><div id="pa-radar"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div>
+		</div>
+	</div>
+</div>
+{{ fields.view_node.content }}

@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="chart-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="chart-title">{{ fields.title.content }}</div>
+				<div class="chart-icons">
+					<div class="info-link chart-icon"><i class="fas fa-info"></i></div>
+					<div class="graph-link chart-icon" style="display: none;"><i class="far fa-chart-bar"></i></div>
+					{% if fields.field_indi_map_layers_all.content|length > 3 %}
+						<div class="map-link chart-icon"><i class="far fa-map"></i></div>
+					{% endif %}
+					<div class="edit-link">{{ fields.edit_node.content }}</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="rest-error-container"></div>
+				<div class="country-chart-inner" id="country-sparkchart-{{fields.nid.content|render|trim}}"></div>
+			</div>
+		</div>
+	</div>
+	<div class="info-hidden chart-tab" style="display:none;">{{ fields.body.content }}</div>
+	<div class="chart-large chart-tab" style="display:none;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="rest-error-container"></div>
+					<div class="country-chart-large" id="country-fullchart-{{fields.nid.content|render|trim}}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hidden">
+		{{ fields.field_indi_data_global.content }}
+		{{ fields.field_indi_data_regional.content }}
+		{{ fields.field_indi_data_national.content }}
+		{{ fields.field_indi_data_local.content }}
+		{{ fields.field_countries.content }}
+		{{ fields.field_indicator_image.content }}
+		<div class="chart-layers">{{ fields.field_indi_map_layers_all.content }}</div>
+		<div class="nid">{{ fields.nid.content }}</div>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a single field in a view.
+ *
+ * Available variables:
+ * - view: The view that the field belongs to.
+ * - field: The field handler that can process the input.
+ * - row: The raw result of the database query that generated this field.
+ * - output: The processed output that will normally be used.
+ *
+ * When fetching output from the row this construct should be used:
+ * data = row[field.field_alias]
+ *
+ * The above will guarantee that you'll always get the correct data, regardless
+ * of any changes in the aliasing that might happen if the view is modified.
+ *
+ * @see template_preprocess_views_view_field()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set ranking = row[field.field_indicator_or_ranking] %}
+<div class="indicator-title-wrapper">
+	<div class="indicator-icon">
+		<svg width="30" height="30" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+			 <defs><style>.cls-1{fill:none;stroke:#679b95;stroke-miterlimit:10;stroke-width:0.71px;}.cls-2{fill:#8fbf4b;}</style></defs>
+			 <path d="m20.505 15.201h2.5757v14.067h-2.5757zm3.1529-11.076h2.5757v25.144h-2.5757zm-6.1989 7.8422h2.5757v17.301h-2.5757zm-16.235 1.3115h6.6585l2.1269 2.0571-2.1269 1.7876h-6.6585z" fill="#8fbf4b" stroke-width=".97984"/>
+			 <path d="m28.702 29.268h-11.244m-6.4661-28.198h5.4828v28.198h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0122h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0212h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0122h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0122h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0212h-5.4828m5.4828-2.0122h-2.6399m2.6399-2.0122h-5.4828m5.4828-2.0122h-2.6399m-9.0953 14.032v12.208m0-28.252v12.199" fill="none" stroke="#679b95" stroke-miterlimit="10" stroke-width=".69569px"/>
+		</svg>
+	</div>
+	{{ output -}}
+</div>
+{#
+/**
+<h4>{{ dd(row._entity.fields.field_indicator_or_ranking) }}</h4>
+ */
+#}
+

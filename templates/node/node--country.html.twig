@@ -1,0 +1,160 @@
+ {#
+/**
+ * @file
+ * Default theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set url = current_uri %}
+{% set countryiso = content.field_country_iso2.0['#context']['value'] %}
+{% block head %}
+   <div id="header" class="header">
+        <nav{{ navbar_attributes }}>
+            {{ page.header }}
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+                {{ page.primary_menu }}
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form float-right">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	          </div>
+            {% endif %}
+        </nav>
+   </div>
+{% endblock %}
+<div id="focus_main_container">
+   <div id="focus_page_top" class="row row_nomargins">
+      <div id="focus_page_card" class="nomargins">
+        {{ drupal_view('breadcrumb_country_summary', 'block_1') }}
+      </div>
+      <div id="focus_page_map" class="nomargins">
+        <div id="map-container"></div>
+      </div>
+  </div>
+  <div id="focus_details_right">
+    <div id="accordion_right_side" class="">
+      <div id="accordion" class="node-accordion">
+        <h3><i class="fas fa-chevron-circle-down"></i>State</h3>
+          <div>
+			<div class="country-scope-Content">{{ drupal_view('focus_country_data', 'state') }}</div>
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Pressure</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('focus_country_data', 'pressure') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Response</h3>
+          <div>
+            <div id="focus-tabs">
+              <ul class="indicator-card-tabs">
+              <li class="focus-tab focus-tab-global"><a href="#tabs-1">Global</a></li>
+              <li class="focus-tab focus-tab-regional"><a href="#tabs-2">Regional</a></li>
+              <li class="focus-tab focus-tab-country"><a href="#tabs-3">National</a></li>
+              <li class="focus-tab focus-tab-pa"><a href="#tabs-4">Local</a></li>
+              </ul>
+                <div id="tabs-1">
+                {{ drupal_view('focus_country_response', 'block_global') }}
+                </div>
+                <div id="tabs-2">
+                {{ drupal_view('focus_country_response', 'block_regional') }}
+                </div>
+                <div id="tabs-3">
+                {{ drupal_view('focus_country_response', 'block_national') }}
+                </div>
+                <div id="tabs-4">
+                {{ drupal_view('focus_country_response', 'block_local') }}
+                </div>
+            </div>
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Protected Areas</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> 
+          </div>
+		<h3><i class="fas fa-chevron-circle-down"></i>Key biodiversity links</h3>
+		  <div>
+			<div class="country-ql"><a href="http://www.cbd.int/countries/?country={{countryiso}}" target="_blank">Convention on Biological Diversity (CBD) Country Profile</a></div>
+			<div class="country-ql"><a href="http://www.cbd.int/protected/implementation/actionplans/country/?country={{countryiso}}" target="_blank">CBD Programme of Work on Protected Areas (PoWPA) Action Plan</a></div>
+			<div class="country-ql"><a href="http://dopa-explorer.jrc.ec.europa.eu/country/{{countryiso}}" target="_blank">Digital Observatory for Protected Areas (DOPA) Country Data</a></div>
+			<div class="country-ql"><a href="http://www.protectedplanet.net/country/{{countryiso}}" target="_blank">World Database on Protected Areas (WDPA) Country Data</a></div>
+			<div class="country-ql"><a href="http://www.gbif.org/country/{{countryiso}}" target="_blank">Global Biodiversity Information Facility (GBIF) Country Summary</a></div>
+			<div class="country-ql"><a href="http://dashboard.natureserve.org/country/{{countryiso}}" target="_blank">NatureServe Country Dashboard</a></div>
+			<div class="country-ql-heading">Other country links</div>
+			<div class="country-ql"><a href="https://data.worldbank.org/country/{{countryiso}}" target="_blank">World Bank Country Page</a></div>
+			<div class="country-ql"><a href="http://data.un.org/en/iso/{{countryiso}}.html" target="_blank">UN Data Country Profile</a></div>
+			<div class="country-ql"><a href="http://uneplive.unep.org/country/index/{{countryiso}}" target="_blank">UNEP Country Profile</a></div>
+          </div>
+        <br></br>
+      </div>
+     </div>  
+  </div>
+  
+ </div>

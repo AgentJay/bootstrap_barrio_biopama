@@ -1,0 +1,17 @@
+layout__bar_line_chart:
+  label: Bar Line Chart
+  category: Custom
+  template: "templates/layout--bar-line-chart"
+  default_region: content
+  regions:
+    content:
+      label: Content
+      
+layout__chart_series:
+  label: Chart Series
+  category: Custom
+  template: "templates/layout--chart-series"
+  default_region: content
+  regions:
+    content:
+      label: Content

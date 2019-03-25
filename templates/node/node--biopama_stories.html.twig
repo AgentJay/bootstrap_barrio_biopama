@@ -1,0 +1,339 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<style>
+
+{% if user.hasRole('administrator') %}
+  body{
+    padding-top: 78px!important;
+  }
+{% endif %}
+
+#block-mainnavigation{
+    position: relative;
+    z-index: 1;
+}
+
+#page-wrapper{
+  position: relative;
+  width: 100%;
+  height: auto;
+  top: 0;
+  min-height: -webkit-fill-available;
+}
+#main-wrapper, #main, #main > .row{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: -webkit-fill-available;
+}
+#main-wrapper section.section{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    left: 0;
+    top: 0;
+}
+.story-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border:0;
+  height:100%;
+}
+.story_menu_icon{
+  border-radius:100%;
+  z-index:1000;
+}
+
+.nav-minified{
+  width: fit-content!important;
+  opacity: 0.25;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 100px;
+}
+.nav-minified:hover{
+  opacity:1;
+}
+
+#bd-storymap-modal-sm{
+  position: fixed;
+z-index: 0;
+display: none;
+width: 100%;
+background-color: #000000b8;
+height: -webkit-fill-available;
+top: 0;
+padding-top: 5%;
+}
+#esri_modal_content{
+  max-width: 50%;
+    margin-left: 25%;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 40px 10px #72def74d;
+}
+
+.btn-link, .btn-link:focus{
+  outline: 0px solid transparent!important;
+}
+
+
+/* Override Talkingmaps CSS to hide functions not used in Drupal*/
+#preview, #button_save_changes{
+  display:none;
+}
+</style>
+
+{% if content.field_type_of_story.0["#title"] != 'TalkingMaps' %}
+  <iframe id="biopama_story_iframe" class="story-frame" src='/storymap/?appid={{ content.field_story_application_id.0 }}' style='width:100%;'></iframe>
+{%else%}
+  <iframe id="biopama_story_iframe" class="story-frame" src='/talkingmap/?id={{ content.field_story_application_id.0 }}' style='width:100%;'></iframe>
+{%endif%}
+
+<!-- Small modal -->
+<div id="bd-storymap-modal-sm">
+  <div>
+    <div id="esri_modal_content">
+      <div class="row">
+          <div class='col-sm-11'><h2>Storymaps from ESRI ArcGis Online can be edited on ESRI webpage or on BIOPAMA hosted template</h2></div>
+          <div class='col-sm-1'><button class='btn btn-light' data-toggle='tooltip' title='Close Dialog' onclick='display_esri_edit_modal()'>x</button></div>
+      </div>
+      <hr></hr>
+      <p>Hosted Storymaps from ESRI can be rendered under BIOPAMA website as hosted templates</p>
+      <p>This means that to create a new storymap you should first create one on the ESRI ArcGis Online webportal then retrieve the appid code and add a new storymap (ESRI) in BIOPAMA using the supported templates (todate only Journal).
+        After this process you will be able to edit the storymap from the here below two options.</p>
+      <hr></hr>
+      <a class="btn btn-dark" target="_blank" href="http://storymaps.arcgis.com/en/my-stories/">Edit on ArcGis Online</a> Login then edit your story from there (Journal template).
+      <hr></hr>
+      <a class="btn btn-success" target="_blank" href="https://testalpha.biopama.org/storymap/?appid={{ content.field_story_application_id.0 }}&edit=true">BIOPAMA Template</a> Edit on BIOPAMA hosted template.<br></br>
+      <hr></hr><code>Note: todate BIOPAMA is able to render only Journal templates. Please contact administrator if you need to integrate other templates.</code>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function display_esri_edit_modal(){
+  if( $('#bd-storymap-modal-sm').is(":visible") ){
+     $('#bd-storymap-modal-sm').slideUp();
+  }else{
+     $('#bd-storymap-modal-sm').slideDown();
+  }
+  //$('#bd-storymap-modal-sm').fadeToggle();
+}
+
+function editTalkingmaps(){
+  //todo check if already edit then go to preview and viceversa
+  document.getElementById("biopama_story_iframe").src = "https://testalpha.biopama.org/talkingmap/?id={{ content.field_story_application_id.0 }}&edit=true";
+  //hide talkingmaps buttons to use the Drupal ones
+  hideTalkingMapButtons();
+}
+
+function edit_story_modal(pageURL, modalTitle, w="80%", h="80%", autosave=false){
+  Drupal.ajax({
+    url: pageURL,
+    success: function(response) {
+    var $paDialogContents
+    for (var key in response) {
+    // skip loop if the property is from prototype
+    if (!response.hasOwnProperty(key)) continue;
+    var obj = response[key];
+    for (var prop in obj) {
+    // skip loop if the property is from prototype
+    if(!obj.hasOwnProperty(prop)) continue;
+    //console.log(prop + " = " + obj[prop]);
+    if(prop == "data"){
+    console.log(prop + " = " + obj[prop]);
+    $paDialogContents = jQuery('<div>' + response[key].data + '</div>').appendTo('body');
+    }
+    }
+    }
+    var paDialog = Drupal.dialog($paDialogContents, {title: modalTitle, dialogClass: "story-edit-dialog", width: w, height: h});
+    paDialog.showModal();
+    console.log(paDialog);
+    Drupal.attachBehaviors(jQuery(".story-edit-dialog"));
+
+    if(autosave){
+      //saveDB();
+      //console.log(jQuery('#tm_json').html());
+      //var json = $('#biopama_story_iframe').contents().find('#tm_json');
+
+      //get talkingmaps global variable data
+      var iframeID = document.getElementById("biopama_story_iframe");
+      //focus the IFRAME element
+      $(iframeID).focus();
+      //use JQuery to find the control in the IFRAME and set focus
+      $(iframeID).contents().find("#button_save_changes").click();
+
+      var tm_json = document.getElementById("biopama_story_iframe").contentWindow.GlobalTalkingStory;
+      console.log('HEEEEERE');
+      console.log(tm_json);
+
+      $.when(tm_json).done(function(){
+        jQuery('textarea[name="field_talkingmaps_json[0][value]"]').val(escape(JSON.stringify(tm_json,null,2)));
+      }).done(function(){
+        jQuery('input[data-drupal-selector="edit-submit"]')[0].click();
+      });
+    }else{
+
+    }
+   }
+  }).execute();
+}
+
+function loadFromDrupal(json,story_id){
+  //get talkingmaps global variable data
+  var iframeID = document.getElementById("biopama_story_iframe");
+  //focus the IFRAME element
+  $(iframeID).focus();
+
+  document.getElementById("biopama_story_iframe").contentWindow.GlobalContents = json[story_id].GlobalContents;
+  document.getElementById("biopama_story_iframe").contentWindow.GlobalOptions = json[story_id].GlobalOptions;
+  document.getElementById("biopama_story_iframe").contentWindow.GlobalMaps = json[story_id].GlobalMaps;
+
+}
+
+function hideTalkingMapButtons(){
+  //get talkingmaps global variable data
+  var iframeID = document.getElementById("biopama_story_iframe");
+  //focus the IFRAME element
+  $(iframeID).focus();
+
+  $(iframeID).contents().find("#button_save_changes").hide();
+  $(iframeID).contents().find("#preview").hide();
+
+  console.log('!!! buttons hidden !!!');
+
+}
+
+
+function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+// use like
+r(function(){
+    $=jQuery;
+    var edit_link = "{{url('<front>')}}node/{{ node.id }}/edit";
+    var unescaped_json = unescape('{{ content.field_talkingmaps_json.0 }}');
+    if (unescaped_json.length > 0){
+      var drupal_tm_json = JSON.parse(unescaped_json);
+      //var tm_json = JSON.parse(drupal_tm_json.replace(/&quot;/g, '"').replace(/""/g, ' '));
+      console.log(drupal_tm_json);
+      $.when(drupal_tm_json).done(function(){
+        loadFromDrupal(drupal_tm_json,Object.keys(drupal_tm_json)[0]);
+      });
+    }
+
+    //enable esri edit modal
+    $('#bd-storymap-modal-sm').click(function(){ display_esri_edit_modal() });
+
+    //var metalink = "<a href='{{url('<front>')}}node/{{ node.id }}/edit' class='use-ajax add-indicator fancy_login_show_popup' data-dialog-type='modal'><i class='fas fa-receipt'></i></a>";
+    var metalink = "<button id='metalink_button' class='btn btn-link'><i class='fas fa-receipt'></i></button>";
+    var editlink = "<button class='btn btn-link' onclick='editTalkingmaps()' data-toggle='tooltip' title='Edit this TalkingMap'><i class='fas fa-edit'></i></button>\
+    <button id='save_talkingmap' class='btn btn-link' data-toggle='tooltip' title='Save the Story'><i class='fas fa-save'></i></button>";
+    {% if content.field_type_of_story.0["#title"] != 'TalkingMaps' %}
+      editlink = "<button class='btn btn-link' onclick='display_esri_edit_modal()' data-toggle='tooltip' title='Edit this story'><i class='fas fa-edit'></i></button>";
+    {% endif %}
+
+
+    //TODO!!! parametrize all main div containers so for Drupal or other CMS the div to add the icons can be set in a configuration file.
+
+    $('nav.main ul, nav.main .toolbar-icons-right, nav.main .block-superfish').fadeOut('1500',function(){
+      $('nav.main').addClass('nav-minified');
+    });
+    $('nav.main .biopama-logo').parent().after("<div class='story_menu_icon btn btn-light' data-toggle='tooltip' title='Expand/Minimize Toolbar'><i class='fas fa-expand-arrows-alt'></i></div>\
+    <div class='btn btn-link' data-toggle='tooltip' title='Edit Story Metadata'>"+metalink+"</div>"+editlink);
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.story_menu_icon').on('click',function(){
+        $('nav.main ul, nav.main .toolbar-icons-right, nav.main .block-superfish').fadeToggle('slow');
+        $('nav.main').toggleClass('nav-minified',1500);
+    });
+
+    $('#metalink_button').on('click',function(){
+          edit_story_modal(edit_link, 'Edit BIOPAMA Story Metadata');
+    });
+
+    $('#save_talkingmap').on('click',function(){
+      var openmodal = edit_story_modal(edit_link, 'Saving Your Story','80%','80%',autosave=true);
+    });
+
+    Drupal.attachBehaviors(jQuery(".add-indicator"));
+
+
+});</script>

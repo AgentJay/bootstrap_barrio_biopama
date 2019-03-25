@@ -1,0 +1,97 @@
+{% set url = current_uri %}
+{% block head %}
+{{ attach_library( 'bootstrap_barrio_biopama/focus-page' ) }}
+{{ attach_library( 'bootstrap_barrio_biopama/panorama-solutions' ) }}
+   <div id="header" class="header">
+        <nav{{ navbar_attributes }}>
+            {{ page.header }}
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+                {{ page.primary_menu }}
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form float-right">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	          </div>
+            {% endif %}
+        </nav>
+   </div>
+{% endblock %}
+<div id="focus_main_container">
+   <div id="focus_page_top" class="row row_nomargins">
+      <div id="focus_page_map" class="nomargins">
+        <div id="map-container"></div>
+      </div>
+  </div>
+  <div id="focus_details_right">
+  <div class="info-card">{{ drupal_view('breadcrumb_region_summary', 'block_1') }}</div>
+    <div id="accordion_right_side" class="">
+      <div id="accordion" class="node-accordion">
+	  	{% if 'verified_user' in user.getroles  %}
+		<h3><i class="fas fa-chevron-circle-down"></i>Priority Actions</h3>
+          <div>
+			<h4>Priority actions for the region</h4>
+            <div class="actions-content">{{ drupal_view('priority_actions_regional', 'block_1') }}</div> 
+			<h4>Priority actions for the countries in the region</h4>
+			<div class="actions-content">{{ drupal_view('priority_actions_country', 'block_2') }}</div> 
+			<h4>Priority actions for the protected areas in the region</h4>
+			<div class="actions-content">{{ drupal_view('priority_actions_pa', 'block_1') }}</div> 
+          </div>
+		{% endif %}
+	  	<h3><i class="fas fa-chevron-circle-down"></i>Countries in this Region</h3>
+          <div>
+            <div class="country-scope-Content">{{ drupal_view('countries_by_region', 'block_1') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>State Indicators</h3>
+          <div>
+			{{ drupal_entity('node', 18214) }}
+			<div class="country-scope-Content">{{ drupal_view('focus_state_and_pressure_data', 'regional_state') }}</div>
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Pressure Indicators</h3>
+          <div>
+			{{ drupal_entity('node', 18213) }}
+            <div class="country-scope-Content">{{ drupal_view('focus_state_and_pressure_data', 'regional_pressure') }}</div> 
+          </div>
+        <h3><i class="fas fa-chevron-circle-down"></i>Response Indicators</h3>
+          <div>
+			{{ drupal_entity('node', 18215) }}
+            <div id="focus-tabs">
+              <ul class="indicator-card-tabs">
+              <li class="focus-tab focus-tab-global"><a href="#tabs-1">Global</a></li>
+              <li class="focus-tab focus-tab-regional"><a href="#tabs-2">Regional</a></li>
+              <li class="focus-tab focus-tab-country"><a href="#tabs-3">National</a></li>
+              <li class="focus-tab focus-tab-pa"><a href="#tabs-4">Local</a></li>
+              </ul>
+                <div id="tabs-1">
+                {{ drupal_view('focus_response_data', 'region_global') }}
+                </div>
+                <div id="tabs-2">
+                {{ drupal_view('focus_response_data', 'region_regional') }}
+                </div>
+                <div id="tabs-3">
+                {{ drupal_view('focus_response_data', 'region_national') }}
+                </div>
+                <div id="tabs-4">
+                {{ drupal_view('focus_response_data', 'region_local') }}
+                </div>
+            </div>
+          </div>
+		<h3 class="region-solutions region-solutions-hide"><i class="fas fa-chevron-circle-down"></i>Protected Area Solutions</h3>
+          <div class="solution-background">
+			<div class="alert alert-success" role="alert">
+			  These solutions are provided by the PANORAMA – Solutions for a Healthy Planet initiative and are published on the <a class="alert-link" href="https://panorama.solutions/en" target="_blank">PANORAMA web platform</a>.
+			</div>
+            <div class="region-solutions-results"></div> 
+          </div>
+		<h3><i class="fas fa-chevron-circle-down"></i>Documents (e.g. Regional Assessments, Strategies, Policies)</h3>
+		  <div>
+			{{ drupal_view('management_assessments_by_region', 'block_1') }}
+          </div>
+        <br></br>
+      </div>
+     </div>  
+  </div>
+  
+ </div>

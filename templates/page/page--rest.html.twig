@@ -1,0 +1,66 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card">
+			  <div class="card-header core-rest-header">Core Services (taken from global_rest.js)</div>
+			  <div class="card-body">
+				<div class="alert alert-info">
+					<strong>Info!</strong> These should work with ANY country/pa and as such the default for the test is pre-encoded
+				</div>
+				<button type="button" class="btn btn-success" id="check-core-rest">Check <strong>Core</strong> Services</button>
+				<div class="core-rest DOPAgetWdpaExtent"></div>
+				<div class="core-rest DOPAgetCountryExtent"></div>
+				<div class="core-rest DOPAcountriesGroupExtent"></div>
+				<div class="core-rest DOPAgetRadarPlot"></div>
+				<div class="core-rest DOPAgetCountryProtCon"></div>
+				<div class="core-rest DOPAgetPaNums"></div>
+				<div class="core-rest DOPAavgClimate"></div>
+				<div class="core-rest wb-rest-sp-pop-totl"></div>
+				<div class="core-rest wb-rest-ag-lnd-totl-k2"></div>
+				<div class="core-rest wb-rest-ny-gdp-pcap-pp-cd"></div>
+				<div class="core-rest wb-restny-gdp-mktp-kd-zg"></div>
+			  </div> 
+			  <div class="card-footer">
+			    <span id="core-rest-results">
+				Success:<span id="core-rest-success">null</span>
+				Error:<span id="core-rest-error">null</span>
+				Fail:<span id="core-rest-fail">null</span>
+				</span>
+				<span id="rest-total-wrapper">Total:<span id="core-rest-total">null</span></span>
+			  </div>
+			</div>
+		 </div>
+		 <div class="col-sm-6">
+			<div class="card">
+			  <div class="card-header user-rest-header">REST Services (from the User added Indicators)</div>
+			  <div class="card-body">
+				<div class="alert alert-info">
+					<strong>Info!</strong> These are added by the users and need to be tested by passing a default region, country or PA code. The codes are managed in bulk, but can be overridden. You must be <a href="#" class="use-ajax fancy_login_show_popup">logged in</a> to see the list.
+				</div>
+				<form class="form-inline" action="javascript:updateRESTTokens();">
+				  <label for="country-iso2" class="mr-sm-2">ISO2:</label>
+				  <input type="text" class="form-control mb-2 mr-sm-2" id="country-iso2" value="BW" maxlength="2" size="2">
+				  <label for="country-iso3" class="mr-sm-2">ISO3:</label>
+				  <input type="text" class="form-control mb-2 mr-sm-2" id="country-iso3" value="BWA" maxlength="3" size="3">
+				  <label for="country-num" class="mr-sm-2">UN M49:</label>
+				  <input type="text" class="form-control mb-2 mr-sm-2" id="country-num" value="072" maxlength="3" size="3">
+				  <label for="wdpa-id" class="mr-sm-2">WDPA ID:</label>
+				  <input type="text" class="form-control mb-2 mr-sm-2" id="wdpa-id" value="600" maxlength="10" size="10">
+				  <button type="submit" class="btn btn-primary mb-2">Update URLs</button>
+				</form>
+				<button type="button" class="btn btn-success" id="check-user-rest">Check <strong>User</strong> Services</button>
+				{{ drupal_view('rest_url_list', 'block_1') }}
+			  </div> 
+			  <div class="card-footer">
+				<span id="user-rest-results">
+				Success:<span id="user-rest-success">null</span>
+				Error:<span id="user-rest-error">null</span>
+				Fail:<span id="user-rest-fail">null</span>
+				</span>
+				<span id="rest-total-wrapper">Total:<span id="user-rest-total">null</span></span>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<button id="email-report" type="submit" class="btn btn-primary">E-Mail Report</button>
+</div>
