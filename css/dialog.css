@@ -1,0 +1,8 @@
+.country-summary-dialog {
+    height: 80% !important;
+    top: 10% !important;
+}
+
+body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front{
+  width:100%;
+}

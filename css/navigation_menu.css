@@ -1,0 +1,142 @@
+img.biopama-logo {
+    float: left;
+    padding: 5px 20px;
+	height: 40px;
+}
+
+.navbar-we-mega-menu {
+    background-color: #fff;
+	box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.15);
+	padding: 0rem;
+  padding-top: 10px!important;
+    padding-bottom: 10px!important;
+}
+.scope-summary-header {
+    display: flex;
+	padding: 0 10px;
+}
+
+.toolbar-icons-right{
+  float:right;
+  width:auto;
+  position:absolute;
+  display: flex;
+  right:250px;
+}
+
+/* .search-wrapper, .help-wrapper, */
+.toolbar-wrapper {
+    display: flex;
+    transition: width .5s ease;
+    max-height: 40px;
+    background: #679b95;
+    cursor: pointer;
+    border-radius: 20px;
+    position: relative;
+    align-self: center;
+    margin-right: 2px;
+}
+/* .search-wrapper {
+	right: 280px;
+}
+.help-wrapper {
+	right: 230px;
+}
+ */
+/* .search-wrapper:hover, .help-wrapper:hover,  */
+.toolbar-wrapper:hover{
+    background: #8FBF4B;
+}
+/* .search-icon-wrapper, .help-icon-wrapper,  */
+.toolbar-icon-wrapper a{
+  color:#fff;
+}
+
+.toolbar-icon-wrapper img{
+    padding: 2px;
+    margin-top: -3px;
+}
+
+.toolbar-icon-wrapper{
+    color: #fff;
+    align-self: center;
+    font-size: 20px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+.search-text-wrapper {
+    margin: 20px;
+}
+div#bread-search-results-wrapper {
+    width: 450px;
+    max-height: 500px;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+	z-index: -1;
+    background: #fff;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  
+  border-bottom: 2px solid #fff;
+}
+
+
+#CollapsingNavbar > div {
+    width:  100%;
+}
+
+.navbar>.container, .navbar>.container-fluid {
+    justify-content: flex-start;
+}
+.we-mega-menu-submenu li.we-mega-menu-li {
+    border-bottom: 0 none;
+    width: 100%;
+}
+.we-mega-menu-ul>.we-mega-menu-li>a {
+    background-color: #fff;
+	color: #679b95;
+}
+.we-mega-menu-ul>.we-mega-menu-li.active>a{
+    background-color: #eee;
+	color: #679b95;	
+}
+a#menu-toggle {
+    background: white;
+    float: left;
+}
+.navbar-toggle .icon-bar {
+    background: #ccc;
+}
+
+nav.block.block-menu.navigation.menu--account {
+    position: absolute;
+    right: 0;
+    padding-right: 20px;
+    margin-top: -5px;
+}
+
+.menu--account a.nav-link {
+    color: #679b95;
+}
+
+/* MOBILE */
+
+@media only screen and (max-width: 1400px) {
+  .toolbar-icons-right {
+    float: left;
+    width: auto;
+    position: absolute;
+    left: 0px;
+    top: 70px;
+    z-index:-1;
+    }
+
+}

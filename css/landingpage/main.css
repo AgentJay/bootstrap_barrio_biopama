@@ -1,0 +1,358 @@
+/*http://www.pbs.org/wnet/nature/files/2008/03/Cuba-Explore.jpg*/
+  body {
+  	font-family: "Maven Pro";
+  }
+  h1, h2, h3, h4, h5, h6 {
+  	font-family: "Maven Pro";
+  	font-weight: 800!important;
+    font-variant:small-caps!important;
+  }
+
+/*header {
+    z-index: 0;
+}
+
+nav.navbar-we-mega-menu {
+  position: fixed!important;
+      width: 98%;
+      z-index: 1;
+      left: 0;
+      margin-left: 1%!important;
+      margin-right: 1%!important;
+}*/
+
+  nav.fixed-top{
+    z-index:1;
+    margin: 10px;
+padding: 0;
+  }
+
+  nav.fixed-top .container{
+    margin-left: 5%;
+}
+
+  nav.fixed-top .navbar-brand{
+    padding:0px;
+    margin:0px;
+  }
+
+  nav.fixed-top .navbar-brand img{
+    height:96%;
+    padding-top:2%;
+    padding-bottom:2%;
+  }
+
+  .a_nostyle, .a_nostyle:hover{
+    text-decoration:none;
+    color:default;
+  }
+
+  .btn-xl {
+  	text-transform: uppercase;
+  	padding: 1.5rem 3rem;
+  	font-size: .9rem;
+  	font-weight: 700;
+  	letter-spacing: .1rem;
+  }
+  .bg-black {
+  	background-color: #000!important;
+  }
+.bg-dark{
+  /*background-color:rgba(52, 58, 64, 0.73)!important;*/
+  background-color: white!important;
+}
+.bg-light{
+  background-color: rgba(255,255,255, 0.85)!important;
+}
+
+
+  .rounded-pill {
+  	border-radius: 5rem;
+  }
+  .navbar-custom {
+  	padding-top: 1rem;
+  	padding-bottom: 1rem;
+  	background-color: rgba(0, 0, 0, .7);
+  }
+  .navbar-custom .navbar-brand {
+  	text-transform: uppercase;
+  	font-size: 1rem;
+  	letter-spacing: .1rem;
+  	font-weight: 700;
+  }
+  .navbar-custom .navbar-nav .nav-item .nav-link {
+  	text-transform: uppercase;
+  	font-size: .8rem;
+  	font-weight: 700;
+  	letter-spacing: .1rem;
+  }
+  header.masthead {
+  	position: relative;
+    z-index: 0;
+  	overflow: hidden;
+  	padding-top: calc(3rem + 55px)!important;
+  	padding-bottom: 20px!important;
+    min-height:350px;
+
+        width: 100%;
+        /* min-height: 350px!important; */
+        /* margin-bottom: 350px!important; */
+        margin-top: -90px;
+
+  }
+
+header a {
+  color: #8BC34A;
+  text-decoration:none;
+}
+
+header a:hover {
+  color: #4CAF50;
+  text-decoration:none;
+}
+
+.modal-header{
+  background-color:#679b95;
+  border-radius:0.2rem;
+  color:white;
+}
+
+
+#bkgd-linear, #bkgd-img, #bkgd-filter{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+#bkgd-filter{
+  z-index:1;
+  background-color:black;
+  opacity:0.5;
+}
+
+.main-section-container .container .row{
+  padding-top:20px;
+}
+
+.main-section-container .container > hr {
+      margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(168, 208, 227, 0.38);
+}
+
+.masthead {
+  background-image: url("/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_00.jpg");
+  background-repeat: no-repeat;
+  	background-position: center center;
+  	background-attachment: scroll;
+  	background-size: cover;
+}
+
+  .masthead-linear{
+    z-index:0;
+   	background: linear-gradient(0deg, #217b62 0, #8BC34A 100%);
+  	background-repeat: no-repeat;
+  	background-position: center center;
+  	background-attachment: scroll;
+  	background-size: cover;
+  }
+
+  .masthead-img{
+    z-index:1;
+    /*background-image: url('../imgs/bkgd_01.jpg'); */
+  	background-repeat: no-repeat;
+  	background-position: center 75%;
+  	background-attachment: scroll;
+  	background-size: cover;
+  }
+
+  header.masthead .masthead-content {
+  	z-index: 1;
+  	position: relative;
+  }
+  header.masthead .masthead-content .masthead-heading {
+  	font-size: 4rem
+  }
+  header.masthead .masthead-content .masthead-subheading {
+  	font-size: 1rem;
+  }
+  header.masthead .bg-circle {
+  	z-index: 0;
+  	position: absolute;
+  	border-radius: 100%;
+  	background: linear-gradient(0deg, #8BC34A 0, #76bbc3 100%);
+  }
+  header.masthead .bg-circle-1 {
+  	height: 90rem;
+  	width: 90rem;
+  	bottom: -55rem;
+  	left: -55rem;
+      opacity:0.4;
+  }
+  header.masthead .bg-circle-2 {
+  	height: 50rem;
+  	width: 50rem;
+  	top: -25rem;
+  	right: -25rem;
+      opacity:0.4;
+  }
+  header.masthead .bg-circle-3 {
+  	height: 20rem;
+  	width: 20rem;
+  	bottom: -10rem;
+  	right: 5%;
+      opacity:0.4;
+  }
+  header.masthead .bg-circle-4 {
+  	height: 30rem;
+  	width: 30rem;
+  	top: -5rem;
+  	right: 35%;
+      opacity:0.4;
+  }
+
+.main-section-container{
+      /*background: url('https://rest-services.jrc.ec.europa.eu/images/mtx.jpg');*/
+  /*height: -webkit-fill-available;*/
+    background-size: contain;
+    /*background-blend-mode: overlay;*/
+    /*background-color: ghostwhite;*/
+    background-color: #fdfdff;
+    background-size: auto;
+}
+
+.card-deck{
+    width:100%;
+}
+
+.card-deck .card{
+  background-color: transparent!important;
+  border:none;
+}
+
+.card-deck .card-footer {
+  border-radius:100px;
+}
+
+.card-deck .card-text{
+  display:none;
+}
+
+.card-zoomed{
+  zoom: 1.1;
+    -moz-transform: scale(1.1);
+    box-shadow:0px 0px 5px 5px rgba(112, 182, 209, 0.24);
+}
+
+@media (max-width: 1024px) {
+    body, p, h1, h2, h3, h4, h5, h6{
+      font-size:2rem;
+  }
+  a.navbar-brand{
+    width:50%
+  }
+  .main-section-container h5{
+    color:green;
+  }
+  .card-columns{
+    column-count:1;
+  }
+}
+
+  @media (min-width:992px) {
+  	header.masthead {
+  		padding-top: calc(10rem + 55px);
+  		padding-bottom: 10rem;
+  	}
+  	header.masthead .masthead-content .masthead-heading {
+  		font-size: 4rem
+  	}
+  	header.masthead .masthead-content .masthead-subheading {
+  		font-size: 1rem;
+  	}
+  }
+  .bg-primary {
+  	background-color: #ee0979!important
+  }
+  .btn-primary {
+  	background-color: #ee0979;
+  	border-color: #ee0979;
+  }
+  .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+  	background-color: #bd0760!important;
+  	border-color: #bd0760!important;
+  }
+  .btn-primary:focus {
+  	box-shadow: 0 0 0 .2rem rgba(238, 9, 121, .5);
+  }
+  .btn-secondary {
+  	background-color: #ff6a00;
+  	border-color: #ff6a00;
+  }
+  .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+  	background-color: #c50!important;
+  	border-color: #c50!important
+  }
+  .btn-secondary:focus {
+  	box-shadow: 0 0 0 .2rem rgba(255, 106, 0, .5);
+  }
+
+#myBtn_scrollTop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #8BC340;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 100%;
+}
+
+#myBtn_scrollTop:hover {
+  background-color: #555;
+}
+
+#svgcss{
+  position:relative;
+}
+#svgcss:after{
+  content:'<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 70 70" style="enable-background:new 0 0 70 70;" xml:space="preserve"><style type="text/css">.bioc-1{fill:#8FBF4B;} .bioc-2{fill:#679B95;} </style>\
+<g id="biopama-color-1" class="bioc-1">\
+	<polygon points="58.6,37.4 15.9,37.4 0.8,70 69.2,70 	"></polygon>\
+</g>\
+<g id="biopama-color-2" class="bioc-2">\
+	<path d="M35,0C24.8,0,16.6,8.2,16.6,18.4S35,50.2,35,50.2s18.4-21.6,18.4-31.8S45.2,0,35,0z\
+		 M35,27.5c-5.6,0-10.1-4.5-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1c5.6,0,10.1,4.5,10.1,10.1C45.1,22.9,40.6,27.5,35,27.5z"></path>\
+</g>\
+</svg>';
+  position:absolute;
+  width:70px;
+  height:70px;
+}
+
+.card-img-top{
+  max-width:100px;
+}
+
+
+@media (min-width: 576px) and (max-width: 1020px)
+{
+  .card-deck {
+    width:100%;
+  }
+  .card-deck .card {
+    display: block;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    flex:none;
+    width: 100%;
+}
+}

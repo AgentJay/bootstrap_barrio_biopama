@@ -1,0 +1,75 @@
+.solution-header-picture {
+    max-height: 150px;
+    overflow: hidden;
+}
+
+a.solution-link {
+	font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-decoration: none;
+    color: #616161;
+}
+
+.solution-inner{
+	-webkit-box-shadow: 0px 0px 30px -15px rgba(119,119,119,0.15), 0px 10px 30px -10px rgba(117,117,117,0.3);
+    box-shadow: 0px 0px 30px -15px rgba(119,119,119,0.15), 0px 10px 30px -10px rgba(117,117,117,0.3);
+	background: #fff;
+}
+
+.solution-container {
+	font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 20px;
+	color: #616161;
+	text-align: center;
+}
+
+.solution-background{
+	background: #F5F5F5 !important;
+}
+
+.solution-title {
+	font-size: 18px;
+    line-height: 25px;
+    padding: 6px;
+}
+
+.solution-submit {
+	font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    border-bottom: 1px solid #E0E0E0;
+    border-top: 1px solid #E0E0E0;
+    padding: 15px;
+    margin: 15px;
+}
+span.solution-provider-name {
+	font-weight: bold;
+}
+.solution_location {
+    padding-bottom: 10px;
+}
+
+.region-solutions-hide{
+	display: none !important;
+}
+
+.panorama-marker-popup .solution-inner {
+	max-width: 230px;
+	text-align: center;
+}
+
+.panorama-popup .mapboxgl-popup-content{
+	padding: 0px;
+}
+
+.panorama-popup .solution-title {
+	font-size: 14px;
+	line-height: 21px;
+}
+
+.panorama-popup .solution-submit {
+	padding: 0px;
+	margin: 10px;
+}
+
+.panorama-popup .solution_location {
+    padding-bottom: 10px;
+    padding-bottom: 5px;
+}

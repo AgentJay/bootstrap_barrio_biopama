@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a one-column layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'chart-series',
+  ]
+%}
+{% spaceless %}
+{% if content %}
+  <div{{ attributes.addClass(classes) }}>
+{{'{"name":"'}}{{content.field_series_label.0}}{{'", "type":"'}}{{content.field_chart_bl_type.0}}{{'", "bp_count":"'}}{{content.field_series_label.0}}{{'", "data":"'}}{{content.field_chart_rest_field.0}}{{'"}'}}
+  </div>
+{% endif %}
+{% endspaceless %}

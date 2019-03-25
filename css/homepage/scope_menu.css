@@ -1,0 +1,529 @@
+#block-mapmenuscope div.menu-goals div.view-content,
+#block-mapmenuscope div.view-indicators-by-target-goal div.view-content,
+#block-mapmenuscope div.menu-policy div.view-content {
+    flex-direction: column;
+	margin: 0px;
+	padding: 0px;
+	flex-wrap: nowrap;
+}
+
+div.view-display-id-indicator_state .ui-accordion-content,
+div.view-display-id-indicator_pressure .ui-accordion-content,
+div.view-display-id-indicator_list .ui-accordion-content {
+    padding: 5px 5px;
+    margin: 5px 5px;
+}
+div.view-display-id-indicator_state footer.view-footer,
+div.view-display-id-indicator_pressure footer.view-footer,
+div.view-display-id-indicator_list footer.view-footer{
+    text-align: center;
+    padding: 20px;
+    color: #7aa7a3;
+    background-color: #f3f3f3;
+    width: 100%;
+}
+
+/* div.view-display-id-indicator_state .view-content .indicator-row.views-row:last-child  {
+    margin-bottom: 58px;
+} */
+li.menu-tab-list i {
+    margin-top: 3px;
+}
+
+.indicator-row .indicator-icon:before{
+    float: right;
+    margin-bottom: -15px;
+    color: #679b95;
+    font-family: FontAwesome;
+	font-size: 20px;
+}
+div.indicator-title-wrapper:hover .indicator-icon > svg path {
+	fill: #fff !important;
+}
+.indicator-ranking.indicator-row .indicator-icon:before{
+    content: "\f292";
+}
+.indicator-row .indicator-icon:before{
+    content: "\f017";
+}
+
+.view-content > .row-goal {
+    overflow-y: auto !important;
+	display:  flex;
+    flex-direction:  column;
+}
+.activeSelection {
+	opacity: 0.5;
+	pointer-events: none;
+	border: 1px #ccc solid;
+}
+#block-mapmenuscope div.col-auto{
+	flex: 1;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+span.field-content {
+    width: 100%;
+}
+
+#block-mapmenuscope div.menu-policy-effect div.col-auto{
+	height: calc(100% - 80px);
+}
+div#menu-scope-tabs {
+    height: calc(100% - 30px);
+}
+div.menu-tab {
+    background: #fff;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+div#list-tab header,
+div#pressure-tab header,
+div#state-tab header {
+    padding: 10px 10px 0 10px;
+}
+div#list-tab form,
+div#pressure-tab form,
+div#state-tab form {
+    padding: 0px 10px;
+}
+
+div#list-tab div.view-content,
+div#pressure-tab div.view-content,
+div#state-tab div.view-content {
+    padding: 0px 20px !important;
+}
+#list-tab .views-field-edit-node{
+	float: right;
+}
+#list-tab .view-content.row {
+    border-top: 1px solid #eee;
+}
+.menu-scope-list,
+.indicator-card-tabs{
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	margin: 0px;
+    padding: 0px;
+	background-color: #90c14f!important;
+	color: #fff;
+}
+
+#block-mapmenuscope div.view-display-id-indicator_list input.form-text{
+	margin-right: 0px; 
+}
+#block-mapmenuscope div.view-display-id-indicator_state input.form-text,
+#block-mapmenuscope div.view-display-id-indicator_pressure input.form-text{
+	margin-right: -5px; 
+}
+.view-indicators-by-target-goal .form-row .form-actions{
+	display: none;
+}
+.menu-scope-list li,
+.indicator-card-tabs li{
+	display: flex;
+	flex-basis: 33%;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 16px;
+}
+li.menu-tab-list {
+	flex-basis: 10% !important;
+}
+.menu-scope-list li:hover,
+.indicator-card-tabs li:hover{
+font-weight: bold;
+}
+li.active-menu-tab {
+    border-bottom: 2px solid #679b95;
+}
+.menu-block-effect li.active-menu-tab {
+    flex-basis: 100%;
+}
+.view-content .row-goal.views-row:last-child,
+.view-content .row-policy.views-row:last-child  {
+  margin-bottom: 58px;
+}
+form#views-exposed-form-menu-level-1-policies--block-regional,
+form#views-exposed-form-menu-level-1-policies--block-global,
+form#views-exposed-form-menu-level-1-policies--block-national,
+form#views-exposed-form-menu-level-1-policies--block-local {
+    display: none;
+}
+
+.row-goal.views-row {
+    width: 100%;
+}
+#block-mapmenuscope.menu-block-effect .scope-icon-title span.ui-accordion-header-icon {
+    position: absolute;
+    right: 10px;
+}
+#block-mapmenuscope .scope-icon-title span.ui-accordion-header-icon {
+    position: absolute;
+    right: 30px;
+}
+
+#block-mapmenuscope div.scope-icon-title:hover svg .bioc1,
+#block-mapmenuscope div.scope-icon-title:hover svg .bioc2,
+#block-mapmenuscope div.scope-icon-title:hover svg #biopama-blue path,
+#block-mapmenuscope div.scope-icon-title:hover svg #biopama-green path,
+#block-mapmenuscope .active-scope svg .bioc1, #block-mapmenuscope .active-scope svg .bioc2,
+#block-mapmenuscope .active-scope svg #biopama-blue path, #block-mapmenuscope .active-scope svg #biopama-green path{
+	fill: #fff; 
+}
+#block-mapmenuscope .scope-image {
+    line-height: 0px;
+    color: transparent;
+	width: 70px;
+	overflow: hidden;
+}
+#block-mapmenuscope .scope-image svg {
+    width: 70px;
+    height: 70px;
+}
+#block-mapmenuscope div.menu-goals div.view-content {
+    overflow-x: visible;
+	overflow-y: visible;
+}
+.menu-scope {
+    background: white;
+	position: relative;
+}
+
+div#map-menu > div.scope-icon-title {
+	justify-content: center;
+	flex-basis: 33.3%;
+	color: #679c97;
+}
+
+div.views-row div.policy-header,
+div.views-row div.goal-header,
+div.scope-icon-title {
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, margin-top 0ms;
+}
+
+div.menu-goals div.views-row div.goal-header {
+    font-size: 11px;
+    line-height: 1.45;
+    padding: 10px 0px;
+    color: #7aa7a3;
+    margin: 10px 10px 0px 10px;
+	padding-left: 5px;
+    border-radius: 0px;
+}
+div.menu-goals div.row-goal.views-row {
+    overflow: visible;
+}
+.goal-header {
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    padding-top: 5px;
+    color: #929292;
+}
+.indicator-title-wrapper {
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, margin-top 0ms;
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+	margin-bottom: 5px;
+}
+.indicator-title-wrapper:hover {
+    background: #90c14f;
+    color: #fff;
+    cursor: pointer;
+}
+
+.indicator-title-wrapper span.field.field--name-title {
+    align-self: center;
+	width: 100%;
+}
+div#map-menu div.scope-content {
+	flex-direction: column;
+	display: none;
+	box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.15), inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
+	z-index:-10;
+	position: fixed;
+	left: calc(67px + 8em);
+	top: 24%;
+	height: 62%;
+	max-height: 750px;
+	max-width: 27em;
+	background:  white;
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, margin-top 0ms;
+}
+div.menu-policy {
+	background: white;
+	box-shadow: inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    /* height: -webkit-fill-available; */
+}
+
+div.scope-content.menu-policy-effect .policy-hover{
+	 position: absolute; 
+	 display: flex;
+	 pointer-events: none;
+	 font-weight: bold;
+}
+/* div.menu-policy-effect .policy-fix{
+	margin-top: 90px;
+} */ 
+.no-content {
+    font-weight: bold;
+    color: #bbb;
+    width: 80%;
+	margin-left: auto;
+	text-align: center;
+	margin-right: auto;
+}
+.view-content .views-row .views-row.Pending-Approval, .row-policy.Pending-Approval{
+    background: #ffd0d0;
+    opacity: 0.9;
+}
+div.menu-policy div.row-policy div.policy-content {
+	box-shadow: 20px 0px 60px -20px rgba(17, 133, 171, 0.25), inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
+	width: 20em;
+	position: fixed;
+    height: 56%;
+	max-height: 650px;
+	z-index: -20;
+    top: 27%;
+    left: calc(67px + 90px + 8em);
+	background:  white;
+	display: none;
+}
+div.menu-goals div.row-goal div.ui-accordion-content {
+    box-shadow: 1px 0px 33px 0px rgba(17, 133, 171, 0.15);
+	overflow: hidden;
+	border: none;
+    padding: 0px 10px;
+    margin: 0px 10px;
+}
+.indicator-icon {
+    width: 50px;
+	margin-right: 10px;
+}
+.menu-header{
+	box-shadow: inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
+    text-align: center;
+    padding: 20px;
+    color: #7aa7a3;
+    background-color: #f3f3f3;
+	align-self:  flex-start;
+	width:  100%;
+}
+
+div#map-menu > div.scope-content.menu-policy-effect {
+    width: 90px;
+}
+div.menu-policy > .view-footer,
+div.menu-goals > .view-footer {
+	box-shadow: inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding: 20px;
+    color: #7aa7a3;
+    background-color: #f3f3f3;
+    width: 100%;
+}
+.goal-content .view-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f3f3f3;
+    width: 100%;
+	margin-bottom: 10px;
+}
+.view-footer a {
+	color: #7aa7a3;
+}
+.view-footer a > i:before {
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, margin-top 0ms;;
+	display: inline-block;
+}
+.view-footer a:hover > i:before {
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+.row-policy.Draft{
+	opacity: 0.5;
+}
+.policy-wrapper {
+    display: inline-flex;
+    align-items: center;
+	width: 100%;
+}
+div.views-row div.policy-header {
+	border-radius: 0px;
+    color: #7aa7a3;
+    font-size: 14px;
+	padding: 0px;
+    margin: 0px;
+}
+
+div.views-row div.policy-header:hover,
+div.views-row div.goal-header.views-accordion-header:hover,
+div#map-menu div.scope-icon-title:hover,
+.active-policy, .active-scope, .active-goal, .policy-hover,
+.active-scope  .scope-title{
+    background: #90c14f !important;
+	color: white !important;
+	cursor: pointer;
+}
+
+
+div.views-row div.scope-header:hover .scope-title{
+	color: white !important;
+}
+.scope-icon-title {
+    display: flex;
+	text-align: -webkit-center;
+    flex-direction: row;
+    color: white;
+	align-items: center;
+	width: 100%;
+}
+.active-scope-icon-title {
+	text-align: -webkit-center;
+    flex-direction: column !important;
+    color: white;
+}
+.scope-title {
+    padding: 0px 20px;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 2.4px;
+	text-align: left;
+	width: 100px;
+    left: 10px;
+    position: absolute;
+}
+div.menu-block-effect .scope-title{
+	position: relative;
+	text-align: center;
+    left: 0;
+}
+.policy-title {
+    min-width: 16em;
+    padding: 20px;
+	display: block;
+}
+.views-field.views-field-edit-node {
+    position: relative;
+    bottom: 28px;
+    left: 0px;
+    text-align: left;
+    height: 0px;
+}
+
+div.scope-content.menu-policy-effect .policy-title {
+	display: none;
+}
+
+.policy-wrapper.policy-hover .policy-title{
+	display: flex !important;
+	background: #90c14f;
+	justify-content:  center;
+	align-items:  center;
+	height: 90px;
+}
+
+.view-empty {
+    padding: 30px;
+}
+
+.views-field.views-field-field-policy-image {
+    display:  inline-flex;
+}
+
+img.image-style-menu-icon {
+	margin: 20px 20px;
+    border-radius: 25px;
+	max-width: unset;
+}
+img.image-style-menu-icon {
+    pointer-events: none;
+}
+i.fa.fa-chevron-right {
+    right: 50px;
+    position: absolute;
+}
+.active-scope-icon-title i.fa.fa-chevron-right {
+	position: unset;
+	right: unset;
+}
+.active-scope i.fa.fa-chevron-right {
+	transform: rotate(45deg);
+}
+
+div#block-mapmenuscope {
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, margin-top 0ms;
+    width: 20em;
+    position: fixed;
+    z-index: 50;
+    max-height: 800px;
+    top: 22%;
+	left: 67px;
+    height: 60%;
+    box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.15);
+}
+div#map-menu {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background: white;
+}
+div#block-mapmenuscope.menu-block-effect {
+    width: 8em;
+}
+div#block-mapmenuscope > .content {
+    height: 90%;
+}
+
+h2.menu-title {
+    padding: 20px 10px;
+    background: white;
+    margin: 0px;
+    text-align: center;
+    font-size: 18px;
+    font-stretch: normal;
+    letter-spacing: 1.2px;
+    color: #679c97;
+    font-variant: all-small-caps;
+    font-weight: 600;
+}
+.ui-dialog{
+	z-index: 999 !important;
+}
+.ui-dialog-off-canvas #drupal-off-canvas {
+    padding-bottom: 140px !important; 
+}
+.layout-region-node-main {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.menu-goals {
+	width: 20em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Martino Boni CSS edits 02Oct 2018 */
+.ui-accordion .ui-accordion-header{ 
+ outline:unset!important;  
+     border: none;
+    background-color: #90c14f57;
+    /* color: white; */
+    font-variant: all-small-caps;
+    font-size: 1em;
+}
+

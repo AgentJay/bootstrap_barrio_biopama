@@ -1,0 +1,86 @@
+/**/
+
+/*The tooltip wrapper*/
+div.tooltip.biopama-tip{
+	/*position:relative;*/
+}
+
+div.tooltip.biopama-tip-bottom{
+  top:15px!important;
+}
+
+/*The tooltip arrow*/
+div.arrow.biopama-arrow:before{
+	border-right-color: #90c14f;
+}
+
+/*The tooltip arrow for TOP placement*/
+div.arrow.biopama-top-arrow:before{
+	border-right-color: none;
+  border-top-color: #90c14f; 
+}
+
+div.arrow.biopama-bottom-arrow:before{
+	border-right-color: none;
+  border-bottom-color: #90c14f!important;
+}
+
+/*The tooltip inner content*/
+div.tooltip-inner.biopama-tip-inner{
+    background: #fff;
+    color: #90c14f;
+    padding: 5px 10px;
+    border: 2px solid;
+    font-weight: bold;
+}
+.tooltip { pointer-events: none; }
+.menu-tip{
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+	color: #90c14f !important;
+	font-size: 10px;
+	background: #fff !important;
+    padding: 4px;
+	border: 2px solid;
+    height: 22px;
+    width: 22px;
+    display: -webkit-inline-box; 
+    line-height: 0px;
+    border-radius: 30px;
+}
+.menu-tip:hover{
+	height: 40px;
+    width: 40px;
+	padding: 8px;
+	font-size: 20px;
+	background: #90c14f !important;
+    color: #fff !important;
+}
+/* Hover Padding Fix */
+#block-mapmenuscope a.view-policy.menu-tip:hover,
+.tooltip-ter.menu-tip:hover,
+.tooltip-mar.menu-tip:hover {
+    padding: 8px 14px !important;
+}
+
+#block-mapmenuscope a.view-policy.menu-tip {
+    position: relative;
+	float: left;
+    bottom: 28px;
+    left: 5px;
+	padding: 4px 7px !important;
+}
+
+
+#block-mapmenuscope .edit-target.menu-tip {
+    position: absolute;
+    right: 5px;
+	top: 2px;
+}
+
+.tooltip-ter.menu-tip,
+.tooltip-mar.menu-tip {
+    position: absolute;
+    right: 25px;
+	top: 2px;
+	padding: 3px 7px;
+}

@@ -1,0 +1,262 @@
+.info-card {
+    height: 320px;
+    font-family: "Maven Pro"!important;
+    background-color: white;
+    border-radius: 3px;
+    margin-left: 0%;
+    box-shadow: 0 0 20px 4px rgba(17,133,171,0.13);
+    margin-right: 0;/*2.5%;*/
+    overflow: hidden;
+    z-index: 5;
+    position: relative;
+}
+.small-error {
+    background-color: #ffc0cb54;
+    padding: 5px;
+}
+/* this is needed to have same behabiour while logged in or not for the right positioning of the image */
+#block-mainnavigation{
+ position:relative; 
+}
+
+/* .bread-note-country-arrow{margin-left: 480px;}
+.bread-note-country-note{margin-left: 370px;}
+.bread-note-region-arrow{margin-left: 280px;}
+.bread-note-region-note{margin-left: 170px;}
+.bread-note-pa-arrow{margin-left: 680px;}
+.bread-note-pa-note{margin-left: 570px;}
+.bread-note-pa-note{margin-left: 570px;} */
+
+div#pas-title {
+    font-variant: all-small-caps;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #e3ebd3;
+    margin-top: -15px;
+    color: #77a6a1;
+    font-weight: 900;
+}
+
+.region-title {
+/*     background: #ffffffe6; */
+    margin: 10px 0px;
+    padding: 10px 20px;
+    font-size: 30px;
+    DISPLAY: flex;
+  color: white!important;
+    text-shadow: 0px 0px 5px #a25b28, -1px -1px 0 #679b95, 1px -1px 0 #679b95, -1px 1px 0 #679b95, 1px 1px 0 #679b95;
+}
+
+.region-title a{
+  text-decoration:none;
+  color:white!important;
+}
+
+
+.region-image-container {
+    min-height: 400px;
+}
+
+.scope-summary-image {
+    display: block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+.scope-summary-image img {
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 10px #00000024;
+}
+
+.scope-summary-title {
+    padding: 25px 10px;
+    color: #679b95;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+span.scope-divider {
+    color: #ccc;
+}
+
+.scope-summary-subtitle, .scope-summary-subtitle a {
+    font-size: large;
+    text-decoration: none;
+}
+
+.region-summary-image-container {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    max-height:400px;
+}
+
+.region-summary-image {
+    width: 100%;
+    position: absolute;
+    height:400px;
+/*    height: 292px;*/
+    overflow: hidden;
+    background-position: 50% 50%;
+    background-size: 100%;
+}
+
+.region-summary-image img {
+    width: 100%;
+}
+.region-info {
+    /*background: #ffffffe6;*/
+	/*height: 210px;*/
+  position:absolute;
+  right:0;
+  top:100px;
+  background-color:#0000006b;
+  background-color:rgba(0, 0, 0, 0.4196078431372549);
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+  padding:10px;
+}
+
+.region-info a{
+  color:#5cb85c;
+  font-weight:900;
+  font-variant:small-caps;
+  text-decoration:none;
+  /*background-color:whitesmoke;*/
+  padding:5px;
+  border-radius:10px;
+  width:100%;
+  font-size:1em;
+}
+
+.region-info a:hover{
+  font-weight:bolder;
+  font-size:1.2em;
+  color:#a7d1e5;
+  text-shadow: 0px 0px 5px black;
+}
+
+.country-info {
+    background: #ffffffe6;
+	  height: 210px;
+}
+
+.view-regions-list .view-content.row {
+    display: flex;
+    flex-direction: column;
+}
+.view-regions-list .views-row {
+    padding: 5px 10px;
+}
+.view-pa-management-plan .row{
+	margin-left: 0px;
+}
+div#terrestrial-prot-title, div#marine-prot-title {
+    text-align: center;
+    font-variant: all-small-caps;	
+}
+
+#bread-content-wrapper{
+    box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.4);
+    background: #fff;
+    border-bottom: 2px solid #a7d1e5;
+    border-top: 1px solid #a7d1e5;
+}
+.bread-content{
+	position: absolute;
+}
+
+#bread-note-wrapper{
+  position: absolute;
+    margin-top: 75px;
+    text-align: center;
+    display: block;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid #8fc04f;
+    color: green;
+    z-index: -1;
+    top: 0;
+}
+
+#bread-note-wrapper hr{
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.bread-note--arrow{margin-top: -10px;}
+
+
+.card-source {
+    position: absolute;
+    margin-left: -44px;
+    margin-top: -18px;
+}
+.pa-card-source {
+    position: absolute;
+	left: -30px;
+    top: 10px;
+}
+
+.bread-page-link{
+	position: absolute;
+	bottom: 25px;
+	left: 45px;
+  border-radius:0px!important;
+}
+
+.bread-page-link-right{
+	position: absolute;
+	bottom: 10px;
+	right: 25px;
+  border-radius:0px!important;  
+}
+
+#focus_main_container .bread-page-link-right{
+  display:none;
+}
+
+.view-breadcrumb-protected-area-summary .views-row,
+.view-breadcrumb-protected-area-summary .row{
+	width: 100%;
+	/* min-height: 160px; */
+}
+
+div#pa-radar {
+    height: 300px;
+	max-width: 500px;
+}
+
+.view-pa-management-plan .view-empty,
+span.country-sub-label .views-element-container {
+    padding: 0px;
+}
+
+.region-info  h4{
+  color:white;
+}
+
+div.region-summary-image{ /*img.image-style-banner{*/
+   -webkit-animation: img_slide_top 25s linear 0s infinite; /* Safari 4.0 - 8.0 */
+  animation: img_slide_top 25s linear 0s infinite;  
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes img_slide_top {
+  0%   {background-color:silver; left:0px; margin-top:0px;}
+/*  25%  {background-color:yellow; left:00px; top:0px;}*/
+  50%  {background-color:silver; left:00px; margin-top:-00px;transform:scale(1.2);}
+/*  75%  {background-color:green; left:0px; top:-20px;}*/
+  100% {background-color:silver; left:0px; margin-top:0px;}
+}
+
+/* Standard syntax */
+@keyframes img_slide_top {
+  0%   {background-color:silver; left:0px; margin-top:0px;}
+/*  25%  {background-color:yellow; left:00px; top:0px;}*/
+  50%  {background-color:silver; left:00px; margin-top:-00px;transform:scale(1.2);}
+/*  75%  {background-color:green; left:0px; top:-20px;} */
+  100% {background-color:silver; left:0px; margin-top:0px;}
+}

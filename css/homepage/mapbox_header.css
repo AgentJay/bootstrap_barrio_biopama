@@ -1,0 +1,98 @@
+.col-sm-12.moscone-main-container {
+    position: fixed;
+    width: 50%;
+    height: 70px;
+    left: 50%;
+    margin-top: 20px;
+    margin-left: -25%;
+    z-index: 2;
+    background: white;
+	border-radius: 35px;
+    padding: 10px;
+}
+div#mini-panel-mapbox_header {
+    height: 60px;
+}
+.panel-3col-33 .panel-col {
+    height: 60px !important;
+}
+div.user-picture > a > img {
+    height: 50px;
+	width: 50px;
+    border-radius: 25px;
+    -webkit-transition: border-radius 500ms ease;
+    -moz-transition: border-radius 500ms ease;
+    -o-transition: border-radius 500ms ease;
+    transition: border-radius 0.5s ease;
+}
+.user-login {
+    width: 50px;
+    height: 50px;
+	overflow: hidden;
+    font-size: 30px;
+    background: #a7d1e5;
+    color: #3d658a;
+    text-align: center;
+    border-radius: 25px;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+i.fa.fa-sign-in {
+    float: left;
+    padding: 10px;
+}
+.panel-pane.user-name {
+    float: left;
+    position: relative;
+    margin-top: -50px;
+    margin-left: 64px;
+    width: 200px;
+    height: 50px;
+    overflow-y: hidden;
+}
+div.panel-pane.pane-custom.pane-4.user-name > div{
+    overflow-y: hidden;
+}
+.panel-pane.user-name > h4.pane-title {
+    margin-bottom: 0px;
+}
+#mini-panel-mapbox_header > div.panel-panel.panel-col-first > div.inside{
+	height: 50px;
+	width: 50px;
+	margin-left: 10px;
+	overflow: hidden;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+}
+/*  .tb-megamenu-user-menu {
+    margin-left: 10px;
+	margin-top: 5px;
+}  */
+img.mb-header-logo{
+    position: absolute;
+    margin-top: -6px;
+    height: 64px;
+}
+
+.search-icon.mb-search-icon {
+    float: right;
+    background-size: 25px;
+	background-position: 13px;
+    background-color: #a7d1e5;
+    border-radius: 25px;
+    min-width: 50px;
+    height: 50px;
+}
+div.search-icon {
+    margin-right: 0px !important;
+}
+.form-item.form-type-textfield.form-item-filter.form-group.has-feedback {
+    margin-bottom: 0px !important;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+

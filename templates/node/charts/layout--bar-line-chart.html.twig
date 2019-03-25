@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a one-column layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content %}
+	<div class='chart-bar-line'>
+		<div class='chart-xaxis'>
+		  {{ '{"name":"'}}{{content.field_x_axis_label.0}}{{'", "nameLocation": "middle", "nameGap": 40, "type":"'}}{{content.field_x_axis_type.0}}{{'", "data":"'}}{{content.field_x_axis_rest_field.0}}{{'"}'}}
+		</div>
+		<div class='chart-yaxis'>
+		  {{'{"name":"'}}{{content.field_y_axis_label.0}}{{'", "nameLocation": "middle", "nameGap": 40, "type":"'}}{{content.field_y_axis_type.0}}{{'", "data":"'}}{{content.field_y_axis_rest_field.0}}{{'"}'}}
+		</div>
+		<div class='chart-series-wrapper'>
+		  {{content.field_chart_bl_series_data}}
+		</div>
+		{{content.field_chart_bl_sort}}
+	</div>
+{% endif %}

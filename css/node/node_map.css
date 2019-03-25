@@ -1,0 +1,13 @@
+#map-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.container.map-container {
+    max-width: 100%;
+}
+
+#focus_details_right .bread-page-link {
+    display: none;
+}

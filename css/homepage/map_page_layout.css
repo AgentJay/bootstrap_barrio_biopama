@@ -1,0 +1,44 @@
+header#header {
+    position: relative;
+    z-index: 1;
+    margin: 20px 50px;
+}
+
+div#main-wrapper {
+    position:  fixed;
+    top: 200px;
+	background: white;
+    margin-left: 5%;
+}
+
+nav#navbar-main {
+    padding: 0px;
+    margin: 0px;
+}
+
+div#block-addcontent {
+    position: fixed;
+    right: 5em;
+    bottom: 8em;
+}
+
+div#block-addcontent h2{
+    display: none;
+}
+
+.add-content-wrapper {
+	display: none;
+    /* display: flex; */
+    font-size: 26px;
+    background: white;
+    padding: 10px;
+    border-radius: 50px;
+}
+.add-content-wrapper a {
+	display: flex;
+}
+
+.add-content-icon {
+    padding: 0px 10px;
+	color: deeppink;
+}

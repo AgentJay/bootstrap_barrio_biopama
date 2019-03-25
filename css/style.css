@@ -1,0 +1,700 @@
+/* Priority Actions */
+.form-item-field-ac-protected-area-0-target-id,
+.form-item-field-ac-region-0-target-id,
+.form-item-field-ac-country-0-target-id {
+    display: none;
+}
+th.views-field-field-ac-category {
+    width: 15%;
+}
+th.views-field-field-ac-protected-area,
+th.views-field-field-ac-country,
+th.views-field-field-ac-region{
+    width: 15%;
+}
+th.views-field-field-ac-priorities{
+	width: 30%;
+}
+th.views-field-field-ac-reference-doc{
+	width: 10%;
+}
+th.views-field-field-ac-other-resources{
+	width: 25%;
+}
+th.views-field-nid{
+	width: 5%;
+}
+
+a.btn.btn-secondary.btn-sm {
+    margin: 0px 5px;
+}
+.actions-content {
+    margin-bottom: 30px;
+}
+
+.actions-content table{
+    margin: 0px;
+}
+
+h4 {
+	color: #41ad53;
+}
+/* Contact Form */
+.ui-dialog-buttonset button.form-submit:nth-child(2){
+	display: none;
+}
+
+/* Global a outline style */
+a {
+  text-decoration: none;
+}
+
+/* GLOBAL TABLE CSS */
+table{
+  
+}
+.form-item-field-assessment-country-0-target-id,
+.field--name-field-assessment-protected-area,
+.field--name-field-doc-region,
+.field--name-field-assessment-region{
+	display: none;
+}
+th.field-label h4.label {
+	color: #fff !important;
+}
+
+table th{
+  background-color:#41ad53!important;
+  color:white;
+  font-weight: 800!important;
+    font-variant: all-small-caps;
+    font-size: medium;
+  border:0px!important;
+}
+
+table tr{
+  border:0px!important;
+  border-bottom: 1px solid #0000000d!important;
+      background: #fdfdfd;
+} 
+
+table td{
+  border:0px!important;
+}
+
+table td a{
+  color: #3b8b48!important;
+  text-decoration:none!important;
+  font-size:1.0em;
+}
+
+table td a:hover{
+  color:#009688!important;
+  font-weight:bolder!important;
+  text-decoration:none!important;
+  font-size:1.1em;
+}
+
+ul#superfish-account {
+    position: absolute;
+    top: 8px;
+/*     background: white; */
+    right: 0;
+    border-radius:5px;
+    border:1px solid #8FBF4B;
+    margin-right:10px;
+}
+
+ul#superfish-account li{
+  background:none;
+}
+
+ul#superfish-account li a{
+  color:#8FBF4B;
+  text-decoration:unset;
+  font-weight:400;
+  font-variant:small-caps;
+}
+
+.source-wrapper {
+    max-width: 300px;
+    border: 2px solid #ccc !important;
+    border-radius: 30px;
+    padding: 3px;
+	overflow: hidden;
+	background: #fff;
+	opacity: 0.7;
+  min-width:40px;
+  min-height:40px;
+  position:relative;
+}
+.source-wrapper .container-fluid {
+    margin: 0px;
+    padding: 0px;
+}
+.field--name-field-source .field__items, .chart-source {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.source-name {
+    font-size: larger;
+    font-weight: 900;
+}
+.field--name-field-source-logo {
+	margin: 0px !important;
+	cursor: pointer;
+    border-radius: 50%;
+}
+div.field--type-entity-reference > div {
+    width: 100%;
+}
+.field--name-field-source-logo img {
+	margin: 0px !important;
+	border-radius: 50%;
+}
+.node--unpublished {
+    background: lightpink;
+}
+
+#drupal-off-canvas .col-md-6.layout-region-node-secondary {
+    display: none;
+}
+
+#drupal-off-canvas .col-md-6.layout-region.layout-region-node-main {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+#drupal-off-canvas .col.layout-region-node-footer {
+    margin-bottom: 100px;
+}
+
+/**
+ * @file
+ * Subtheme specific CSS.
+ */
+ 
+ form.node-form, .ui-widget-content {
+    background: #fff !important;
+    overflow-x: hidden;
+}
+
+/**
+ * Tabs
+ */
+.ui-tabs-nav {
+	display: flex;
+    background: #f3f3f3;
+}
+li.ui-tabs-active {
+    background-color: #8fc04f !important;
+    border-bottom: 2px solid #679b95 !important;
+	color: #fff !important;
+	
+}
+li.ui-tabs-tab.ui-tabs-active a {
+	font-weight: normal;
+    color: #fff;
+}
+
+li.ui-tabs-tab, .ui-tabs, .ui-tabs-nav{
+    border-radius: 0px;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+li.ui-tabs-tab{
+	background-color: #f3f3f3;
+	color: #333;
+}
+
+li.ui-tabs-tab a{
+	color: #333;
+}
+
+/**
+ * General
+ */
+.field--name-field-countries .field__items {
+    max-height: 100px;
+    overflow: auto;
+}
+ body, :root, #drupal-off-canvas *, #drupal-off-canvas *:not(div),.ui-dialog.ui-dialog-off-canvas .ui-dialog-title {
+  font-family:"Maven Pro"!important;
+}
+details.js-form-wrapper {
+    width: 100% !important;
+}
+fieldset.indicator-scope-wrapper .fieldset-wrapper {
+    display: flex;
+}
+fieldset.indicator-scope-wrapper .fieldset-wrapper > div {
+    flex-basis: 25%;
+}
+
+#state-accordion .ui-accordion-content,
+#response-accordion .ui-accordion-content,
+#pressure-accordion .ui-accordion-content{
+	min-height: 500px;
+} 
+  /**
+ * icon colors
+ */
+ div.alert.alert-dismissible{
+	 opacity: 1 !important;
+ }
+ .navbar-we-mega-menu {
+    padding: 5px !important;
+	margin: 0px !important;
+}
+ul.sf-menu.menu, ul.sf-menu.menu ul, ul.sf-menu.menu li {
+    background: #fff;
+}
+ #drupal-off-canvas a {
+    color: #90c14f;
+}
+
+ g#biopama-blue polygon {
+    stroke: #679b95;
+	fill: #fff; /*the backgound color*/
+}
+ g#biopama-blue path {
+    fill: #679b95;
+}
+ 
+g#biopama-green polygon {
+    stroke: #8fbf4b;
+	fill: #fff; /*the backgound color*/
+}
+g#biopama-green path {
+    fill: #8fbf4b;
+}
+g#biopama-green path.cls-2 {
+    clip-path: none;
+}
+
+ /**
+ * off canvas overrides
+ */
+ #drupal-off-canvas *, #drupal-off-canvas *:not(div) {
+    background: transparent;
+/*     font-family: "Lucida Grande", 'Lucida Sans Unicode', 'liberation sans', sans-serif; */
+    color: #679b95;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+}
+
+ #drupal-off-canvas .form-text, #drupal-off-canvas .form-tel, #drupal-off-canvas .form-email, #drupal-off-canvas .form-url, #drupal-off-canvas .form-search, #drupal-off-canvas .form-number, #drupal-off-canvas .form-color, #drupal-off-canvas .form-file, #drupal-off-canvas .form-textarea, #drupal-off-canvas .form-date, #drupal-off-canvas .form-time {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
+    border-color: #669a94;
+	border-radius: 10px;
+    color: #669a94;
+}
+
+#drupal-off-canvas .form-text:focus, #drupal-off-canvas .form-tel:focus, #drupal-off-canvas .form-email:focus, #drupal-off-canvas .form-url:focus, #drupal-off-canvas .form-search:focus, #drupal-off-canvas .form-number:focus, #drupal-off-canvas .form-color:focus, #drupal-off-canvas .form-file:focus, #drupal-off-canvas .form-textarea:focus, #drupal-off-canvas .form-date:focus, #drupal-off-canvas .form-time:focus {
+    border-color: #90c14f;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.125), 0 0 8px #90c14f;
+}
+
+#drupal-off-canvas input:invalid, #drupal-off-canvas button:invalid, #drupal-off-canvas select:invalid, #drupal-off-canvas textarea:invalid, #drupal-off-canvas input:focus, #drupal-off-canvas button:focus, #drupal-off-canvas select:focus, #drupal-off-canvas textarea:focus, #drupal-off-canvas input[type="file"]:focus, #drupal-off-canvas input[type="file"]:active, #drupal-off-canvas input[type="radio"]:focus, #drupal-off-canvas input[type="radio"]:active, #drupal-off-canvas input[type="checkbox"]:focus, #drupal-off-canvas input[type="checkbox"]:active {
+	border-color: #90c14f;
+	color: #90c14f;
+}
+
+#drupal-off-canvas .form-select, #drupal-off-canvas .form-text, #drupal-off-canvas .form-tel, #drupal-off-canvas .form-email, #drupal-off-canvas .form-url, #drupal-off-canvas .form-search, #drupal-off-canvas .form-number, #drupal-off-canvas .form-color, #drupal-off-canvas .form-file, #drupal-off-canvas .form-textarea, #drupal-off-canvas .form-date, #drupal-off-canvas .form-time {
+    padding: 5px 20px !important;
+    margin: 5px 0 0 0 !important;
+    border-radius: 3px !important;
+    color: #669a94;
+	background-color: #fff !important;
+}
+.horizontal-tabs {
+	border: 0px !important;
+    border-bottom: 1px solid #ccc !important;
+}
+#drupal-off-canvas button, #drupal-off-canvas .button {
+    margin: 0 !important; 
+}
+
+div.filter-wrapper {
+    display: none;
+}
+
+.ui-dialog.ui-dialog-off-canvas {
+    background: #fff;
+}
+
+div.field--name-moderation-state {
+    border: 0px solid #ccc;
+    padding: 10px 20px;
+}
+#drupal-off-canvas details, #drupal-off-canvas summary, #drupal-off-canvas .details-wrapper {
+    margin: 0px !important;
+    padding: 0 10px !important;
+}
+li.horizontal-tab-button > a > strong {
+    color: #fff !important;
+    background: transparent !important;
+	padding: 10px !important;
+}
+li.horizontal-tab-button {
+    margin: 2px 5px !important;
+    padding: 7px 2px !important;
+    background: #90c14f !important;
+}
+li.horizontal-tab-button.selected {
+	box-shadow: 0px 2px 20px 5.2px #41ad537d;
+    transform: scale(1.1);
+}
+div.horizontal-tabs-panes > details > summary {
+    display: none !important;
+}
+#drupal-off-canvas input[type="submit"].button {
+    height: 30px !important;
+    margin-bottom: 0px !important; 
+    border-radius: 10px !important;
+}
+#drupal-off-canvas input.button.remove-button {
+    height: 20px !important;
+    width: 40% !important;
+    position: absolute;
+    margin-top: 16px !important;
+    font-size: 10px;
+}
+
+.ui-dialog.ui-dialog-off-canvas .ui-dialog-title:before {
+  display: none !important;
+  width: 0px !important;
+}
+
+.ui-dialog.ui-dialog-off-canvas .ui-dialog-title {
+    padding-left: 5px;
+    max-width: unset;
+    white-space: unset;
+}
+.ui-dialog.ui-dialog-off-canvas .ui-dialog-titlebar {
+	padding: 1.5em;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    color: #5c7738;
+}
+
+.ui-dialog.ui-dialog-off-canvas {
+    box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.15) !important;
+	border: 0px solid #c5c5c5 !important;
+}
+
+#drupal-off-canvas details[open] > summary {
+    background-color: #90c14f !important;
+    color: #fff !important;
+}
+
+#drupal-off-canvas .field__label {
+    font-weight: bold !important;
+    margin-top: 20px !important;
+}
+#drupal-off-canvas .node__content.clearfix {
+    width:  100%;
+    display:  flex;
+    flex-direction:  column;
+}
+.cke {
+    border-radius: 10px !important;
+    border-color: #669a94 !important;
+}
+.cke_bottom {
+    display: none;
+}
+
+.entities-list .item-container {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+	height: 30px;
+}
+div.field--type-entity-reference {
+    padding: 0px;
+}
+input.remove-button {
+    background: #ff8e8e !important;
+}
+
+.close {
+    font-size: 21px !important; 
+}
+
+button.breadClose {
+    border: none;
+    font-size: 10px !important;
+    margin-left: 5px;
+    border-radius: 50%;
+}
+.country-summary-dialog {
+    height: 80% !important;
+    top: 10% !important;
+}
+
+.country-summary-dialog .ui-dialog-content {
+	min-height: 95% !important;
+	background: #fff;
+}
+
+div.entities-list {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+}
+#drupal-off-canvas table {
+    min-width: unset !important;
+    margin: unset !important;
+}
+
+
+/* Indicator CSS */
+#drupal-off-canvas ul.horizontal-tabs-list{
+  padding-left: 25px!important;
+  background-color: #90c14f!important;
+  margin-left: -5px;
+    margin-right: -5px;
+    width: -webkit-fill-available;
+    width:-moz-available;
+}
+
+body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialog-off-canvas.ui-dialog-position-side.ui-resizable{
+  left:60%!important;
+  width:40%!important;
+  height: 100% !important;
+  border-left: 1px solid #679b9587!important
+}
+
+#drupal-off-canvas ul li.horizontal-tab-button{
+/*     padding: 3px!important; */
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+    border-radius: 3px;
+    min-height: 30px;
+    text-align: center;
+}
+
+#drupal-off-canvas ul li.horizontal-tab-button a:link {
+    text-decoration: none;
+}
+
+
+#drupal-off-canvas input[type="submit"].button {
+      margin: 5px!important;
+      border-radius: 5px!important;
+    background-color: #41ad53!important;
+    width: 95%;
+}
+
+#drupal-off-canvas input[value="Save"].button {
+  width:auto;
+  padding: 10px 5px 10px 5px!important;
+  border-radius:50px!important;
+  font-size:1.5em;
+  padding: 0px 20px 3px 20px!important;
+  box-shadow: 0px 2px 10px 2px rgba(17, 133, 171, 0.34);
+}
+
+#drupal-off-canvas .horizontal-tabs-panes input[type="submit"].button{
+      background-color: #d7d7d7!important;
+    border-radius: 33px!important;
+    padding: 0px 10px 3px 10px!important;
+    width: auto;
+    color: #426e89;
+}
+
+#drupal-off-canvas details, #drupal-off-canvas summary, #drupal-off-canvas .details-wrapper{
+  outline:none;
+}
+
+#drupal-off-canvas summary:hover, #drupal-off-canvas summary:focus{
+    background-color: #a7d1e500!important;
+    /* padding: 10px!important; */
+    /* border-radius: 10px; */
+    color: #444444!important;
+    border-bottom: 1px solid silver;
+    /* border-top: 1px solid silver; */
+    font-weight: 100;
+}
+
+#drupal-off-canvas details[open] > summary {
+  background-color: #a7d1e500!important;
+    /* padding: 10px!important; */
+    /* border-radius: 10px; */
+    color: #444444!important;
+    border-bottom: 1px solid silver;
+    /* border-top: 1px solid silver; */
+    font-weight: 100;
+  
+}
+
+#drupal-off-canvas select.form-select{
+  border-radius: 5px 5px 3px 3px !important;
+  border: 1px solid silver!important;
+  background-color:#fafafa!important;
+}
+
+.form-required::after {
+  background:unset!important;
+  content:'!';
+  font-size:large;
+  color: #a25628;
+    text-shadow: 0px 2px 5px #d85252eb;
+    position: relative;
+    top: 0px;
+    margin-top: -20px;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    -webkit-animation-iteration-count: 2; /* Safari 4.0 - 8.0 */
+    animation-iteration-count: 2;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/* Create Policy */
+#drupal-off-canvas .image-preview{
+  padding-right:20px!important;
+}
+
+#drupal-off-canvas .image-style-thumbnail{
+  margin-right:5px!important;
+  border-radius: 5px;  
+}
+#drupal-off-canvas tr:hover td {
+    background: unset;
+}
+
+#drupal-off-canvas hr{
+  border: 1px solid silver;
+}
+
+#drupal-off-canvas td, #drupal-off-canvas th{
+      border-bottom: 1px solid silver!important;
+}
+
+#drupal-off-canvas th:first-child, #drupal-off-canvas td:first-child {
+    width: 50px;
+}
+
+#drupal-off-canvas .remove-button{
+  position:relative!important;
+  right:10px!important;
+}
+
+/* SPLASH PAGE and HELP PAGE */
+.splash-dialog {
+    top: 10% !important;
+    max-height: 80% !important;
+    overflow: hidden;
+}
+.splash-button-footer {
+    color: #ccc;
+    font-size: 11px;
+}
+.splash-dialog .ui-dialog .ui-dialog-content{
+  height: -webkit-fill-available;
+  height: -moz-available;
+}
+
+.splash-dialog article {
+    max-height: 100%;
+    overflow-y: auto;
+}
+.splash-button {
+    border-radius: 0px;
+    margin: 3px;
+    padding: 15px;
+    outline:none;
+}
+
+.splash-button-wrapper {
+  text-align:center;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+   border-radius: 5px;
+    background-color: transparent;
+    background-image: url(/themes/custom/bootstrap_barrio_biopama/img/cancel-icon.png);
+    background-size: contain;
+}
+
+.splash-dialog h2,.splash-dialog h3,.splash-dialog h4{
+  color:#679b95;
+  font-weight:900;
+}
+
+.splash-dialog a{
+  text-decoration:none;
+  outline:none;
+}
+
+/* MOBILE */
+
+@media  only screen and (max-width: 991px){
+  .navbar-we-mega-menu.navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border-radius: 0;
+      border: 0 none;
+      margin-top: 0;
+      height: 60px;
+      left: 0px;
+      background: white;
+      overflow: inherit;
+  }
+  body.toggled .btn-close {
+    display:none!important;
+  }
+  body.toggled {
+    right: 0px;
+    overflow-y: scroll!important;
+  }
+  body div.overlay{
+    display:none;
+  }
+  nav.main.navbar {
+      right: 0;
+    display: block!important;
+  }
+  .navbar-toggle {
+    display: none!important;
+  }
+  .region-we-mega-menu {
+    background:transparent;
+  }
+  .region-we-mega-menu a.menu-toggle{
+    display:none;
+  }
+  #CollapsingNavbar{
+    display:block!important;
+  }
+  .block.block-superfish.block-superfishaccount{
+    display:none;
+  }
+}

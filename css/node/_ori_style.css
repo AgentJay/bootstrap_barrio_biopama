@@ -1,0 +1,121 @@
+.bread-page-link {
+    display: none;
+}
+
+.scope-summary-wrapper {
+    margin: auto;
+    width: 50%;
+}
+
+/* MB edits - Country - Region - WDPA page CSS */
+
+body{
+      background: url(https://rest-services.jrc.ec.europa.eu/images/mtx.jpg);
+    background-color: #fbfbfb;
+    background-blend-mode: multiply;
+
+}
+
+#header.header{
+    position: fixed;
+    z-index: 1;
+    margin: 20px 50px;
+    width: -webkit-fill-available;
+}
+
+.scope-summary-image img {
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 10px #00000024;
+}
+
+.scope-summary-middle .col , .scope-summary-title {
+  background-color:unset!important;
+}
+
+#focus_page_top{
+/* border-bottom: 4px solid white; */
+  box-shadow: 0px 10px 20px 10px #00000014;
+    z-index: 0;
+    position: relative;
+/*   padding-top: 90px; */
+  height:320px;
+}
+
+.row_nomargins{
+  margin-left:0px;
+  margin-right:0px;
+}
+
+.nomargins{
+  margin:0px;
+}
+
+#focus_page_card{
+  width:auto;
+  padding-left:20px;
+  padding-top:100px;
+/*   border-top: 4px solid white; */
+}
+
+#focus_page_card .scope-summary-title{
+/*     font-size: 1.5rem; */
+    color: #679c97;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+#focus_page_map{
+  min-width:400px;
+  width:30%;
+  overflow:hidden;
+/*   border-top: 4px solid white; */
+}
+
+#focus_page_map #map-container{
+    height: -webkit-fill-available!important;
+    top: 0;
+}
+
+#accordion h3{
+      font-family: "Maven Pro"!important;
+    font-size: xx-large;
+/*     background-color: #607d8b; */
+    background-color:white;
+/*     color: white; */
+  color: #77a6a1;
+    font-weight: 900;
+    border-radius: 3px;
+    margin-left: -10px;
+/*     box-shadow: 0px 0px 10px 5px #0000001c; */
+  box-shadow: 0 0 20px 10px rgba(17,133,171,0.13);    
+  margin-right: -10px;
+    margin-top:20px;
+  padding: 1em 0.5em 1em 0.4em;
+  background: linear-gradient(to right, #90c14f 0%,#90c14f 5%,white 5%,white 100%);
+}
+
+#accordion h3 i{
+  padding-right:20px;
+  color:white;
+}
+
+#focus_bottom_section{
+        height: -webkit-fill-available;
+  padding-top: 10px;
+}
+
+#map_left_side{
+  width:0%;
+}
+#accordion_right_side{
+  width:100%;
+}
+
+
+#focus_bottom_section .ui-accordion .ui-accordion-content {
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+      margin-bottom: 20px;
+    box-shadow: 0px 0px 10px 5px #607d8b0f;
+}
