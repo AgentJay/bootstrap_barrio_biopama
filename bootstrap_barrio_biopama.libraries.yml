@@ -8,15 +8,15 @@ global-styling:
       css/style.css: {}
       css/navigation_menu.css: {}
       css/scroll_bar.css: {}
-      https://fonts.googleapis.com/css?family=Maven%20Pro: {type: external, weight:2000}
+      //fonts.googleapis.com/css?family=Maven%20Pro: {type: external, weight: 2000}
 
 mapbox:
   css:
     theme:
-      https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css: {type: external, weight:2000}
+      //api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css: {type: external, weight: 2000}
   header: true
   js:
-    https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js: { type: external, minified: true, preprocess: false}
+    //api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js: { type: external, minified: true, preprocess: false}
     /libraries/mapbox/wellknown.js: {minified: false}
     
 biopama-global-vars:
