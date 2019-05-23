@@ -216,12 +216,22 @@ var homepageMapZoomOptions = {
 };
 
 function zoomToRegion(region){
-  if(region === 'CW_Africa'){
+  if(region === 'Central Africa'){
 	  //-20.917969,-21.779905,34.277344,28.149503
-    thisMap.fitBounds([[-20.917969,-21.779905], [34.277344,28.149503]], homepageMapZoomOptions);
-  } else if (region === 'ES_Africa'){
+	  //<bounding><westbc>1.8683898449</westbc><eastbc>36.1896789074</eastbc><northbc>24.8886363352</northbc><southbc>-16.0012446593</southbc></bounding>
+    thisMap.fitBounds([[1.8683898449,24.8886363352], [36.1896789074,-16.0012446593]], homepageMapZoomOptions);
+  } else if (region === 'Eastern Africa'){
 	  //5.976563,-35.960223,53.789062,18.729502
-    thisMap.fitBounds([[5.976563,-35.960223], [53.789062,18.729502]], homepageMapZoomOptions);
+	  //<bounding><westbc>20.3034484386</westbc><eastbc>54.6247375011</eastbc><northbc>26.6692628716</northbc><southbc>-14.0916051203</southbc></bounding>
+    thisMap.fitBounds([[20.3034484386,26.6692628716], [54.6247375011,-14.0916051203]], homepageMapZoomOptions);
+  } else if (region === 'Western Africa'){
+	  //5.976563,-35.960223,53.789062,18.729502
+	//  -30.52,0.35,18.08,32.1
+    thisMap.fitBounds([[-28.1462585926,31.1678846111], [20.4572570324,-0.7446243056]], homepageMapZoomOptions);
+  } else if (region === 'Southern Africa'){
+	  //<bounding><westbc>6.5265929699</westbc><eastbc>61.0187804699</eastbc><northbc>-5.3073515284</northbc><southbc>-47.2924889494</southbc></bounding>
+	  //123.750000,-24.846565,216.914063,18.312811
+    thisMap.fitBounds([[6.5265929699,-5.3073515284], [61.0187804699,-47.2924889494]], homepageMapZoomOptions);
   } else if (region === 'Pacific'){
 	  //123.750000,-24.846565,216.914063,18.312811
     thisMap.fitBounds([[123.75,-24.846565], [216.914063,18.312811]], homepageMapZoomOptions);

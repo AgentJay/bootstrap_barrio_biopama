@@ -25,13 +25,15 @@ var currentTab;
 var paintProp;		//this is for the Data layer to have the paint property toggleable
 var currentCardScope;
 
-
+var mapNonACPCountryLayer = "non_acp_countries";
 var mapCountryLayer = "ACP_Countries";
 var mapCountryPointLayer = "ACP_Countries_points";
-var mapPaLayer = "WDPA2018OctPoly";
-var mapPaPointLayer = "WDPA2018OctPointALL";
+var mapPaLayer = "WDPA2019MayPoly";
+var mapPaPointLayer = "WDPA2019MayPointALL";
 var mapRegionLayer = "ACP_Groups";
+var mapSubRegionLayer = "ACP_SubGroups";
 var mapRegionPointLayer = "ACP_Groups_points";
+var mapSubRegionPointLayer = "ACP_SubGroups_points";
 var mapEEZLayer = "ACP_EEZ";
 var mapGAULLayer = "ACP_GAUL";
 
@@ -54,6 +56,9 @@ var selData = {
 		targetNum: null,
 		qualifier: null,
 	},
+	data: {
+		countries: '',
+	},
 	map: {
 		mapLayerField: '',
 		mappedField: '',
@@ -64,7 +69,9 @@ var selData = {
 	chart: {
 		invertColors: '',
 		chartType: '',
+		dataSource: '',
 		RESTurl: '',
+		RESTdataContext: '',
 		RESTfilter: '',
 		RESTFields: '',
 		RESTFieldLabels: '',

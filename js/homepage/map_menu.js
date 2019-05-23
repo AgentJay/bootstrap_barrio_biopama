@@ -65,6 +65,7 @@ jQuery(document).ready(function($) {
 				$(this).next().css( "display", 'flex' );
 				//We run the fix (in global_var_functs.js) just in case the issue is present
 				menuDivFix();
+				Drupal.attachBehaviors($("#menu-scope-tabs").get(0));
 				$( "a.view-policy" ).tooltip({
 					trigger:"hover",
 					placement: "right",

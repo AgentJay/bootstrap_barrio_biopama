@@ -341,7 +341,7 @@ jQuery(document).ready(function($) {
 				}
 				$('#block-indicatorcard').empty();
 				$countryDialogContents.appendTo('#block-indicatorcard');
-				Drupal.attachBehaviors($("#block-indicatorcard"));
+				Drupal.attachBehaviors($("#block-indicatorcard").get(0));
 				//var countryDialog = Drupal.dialog($countryDialogContents, {title: 'Country summary for ' + selSettings.countryName, dialogClass: "country-summary-dialog", width: "80%", height: "80%"});
 				//countryDialog.showModal();
 			  }
@@ -352,6 +352,7 @@ jQuery(document).ready(function($) {
 });
 
 function getRestResults(){
+	var dataCountry = 1;
 	//delete any errors that might be up, if they persist, they will be re-added
 	jQuery( ".rest-error" ).empty();
 	//if the chosen indicator has countries attached to it we highlight them, and mask the ones not included.
@@ -362,39 +363,58 @@ function getRestResults(){
 		thisMap.setLayoutProperty("CountriesGoodMask", 'visibility', 'visible');
 		thisMap.setLayoutProperty("CountriesBadMask", 'visibility', 'visible');
 	}
-	//we get the indicator name as a class
-	var indicator = selData.info.name;
-	//we pass the class to our generate url function to keep the finished product 
-	var indicatorURL = generateRestURL();
-	console.log(indicatorURL)
-	jQuery.ajax({
-		url: indicatorURL,
-		dataType: 'json',
-		success: function(d) {
-      if (d.hasOwnProperty("records")){ //from a JRC REST Service
-        selData.chart.RESTResults = d.records;
-        if (d.metadata.recordCount == 0) {
-          //we create a card, but tell it that the response was empty (error 2)
-          getChart(2);
-        } else {
-          //create the map
-          //mapTheIndicator(activeMapIndicator);
-          //the 0 means there was no error
-          getChart(0);
-        }
-      }
-      if (d.hasOwnProperty("dimensions")){ //from an UN Stats SDG REST Service
-        selData.chart.RESTResults = d.dimensions;
-        getChart(0);
-      }
-		},
-		error: function() {
-			console.log("ERROR")
-			//we create a card, but tell it that there was a general error (error 1)
-			//todo - expand error codes to tell user what went wrong.
-			getChart(1);
+	if (selData.data.countries.length > 0){
+		if (selData.data.countries.indexOf(selSettings.ISO3) > -1){
+			// a country or countries have been set and the current country is in the set
+			dataCountry = 1;
+		} else {
+			//a country or countries have been set and the currently selected country is not one of them
+			dataCountry = 0;
 		}
-	});
+	}
+	if (dataCountry == 1){
+		//we get the indicator name as a class
+		var indicator = selData.info.name;
+		//we pass the class to our generate url function to keep the finished product 
+		var indicatorURL = generateRestURL();
+		console.log(indicatorURL)
+		//console.log(selData.chart.RESTdataContext) 
+		jQuery.ajax({
+			url: indicatorURL,
+			dataType: 'json',
+			success: function(d) {
+				//console.log(d);
+		  if (d.hasOwnProperty("records")){ //from a JRC REST Service
+			selData.chart.RESTResults = d.records;
+			if (d.metadata.recordCount == 0) {
+			  //we create a card, but tell it that the response was empty (error 2)
+			  getChart(2);
+			} else {
+			  //create the map
+			  //mapTheIndicator(activeMapIndicator);
+			  //the 0 means there was no error
+			  getChart(0);
+			}
+		  }
+		  else if (d.hasOwnProperty(selData.chart.RESTdataContext)){
+			selData.chart.RESTResults = d[selData.chart.RESTdataContext];
+			getChart(0);
+		  } else {
+			selData.chart.RESTResults = d;
+			getChart(0);
+		  }
+			},
+			error: function() {
+				console.log("ERROR")
+				//we create a card, but tell it that there was a general error (error 1)
+				//todo - expand error codes to tell user what went wrong.
+				getChart(1);
+			}
+		});
+	} else {
+		//we run the get chart function, only to show the user that a different country must be selected
+		getChart(3);
+	}
 }
 
 function generateRestURL(){

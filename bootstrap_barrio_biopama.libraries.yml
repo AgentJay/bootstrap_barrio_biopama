@@ -13,29 +13,29 @@ global-styling:
 mapbox:
   css:
     theme:
-      https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css: {type: external, weight:2000}
+      https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css: {type: external, weight:2000}
   header: true
   js:
-    https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js: { type: external, minified: true, preprocess: false}
+    https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js: { type: external, minified: true, preprocess: false}
     /libraries/mapbox/wellknown.js: {minified: false}
-    
+
 biopama-global-vars:
   js:
     js/homepage/global_vars_functs.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
-    
+
 colorbrewer:
   js:
     /libraries/colorbrewer/colorbrewer_schemes.js: {minified: false, preprocess: false}
-    
+
 nouislider:
   css:
     theme:
       /libraries/nouislider/nouislider.min.css: {}
   js:
     /libraries/nouislider/nouislider.min.js: {minified: true, preprocess: false}
-      
+
 echarts:
   css:
     theme:
@@ -113,11 +113,11 @@ focus-page:
     - bootstrap_barrio_biopama/nouislider
     - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/breadcrumb-cards
-    
+
 global-rest:
   js:
     js/global_rest.js: {minified: false, preprocess: false}
-    
+
 breadcrumb-cards:
   css:
     theme:
@@ -135,7 +135,7 @@ biopama-address-manager:
     - core/jquery
     - bootstrap_barrio_biopama/jquery-address
     - bootstrap_barrio_biopama/biopama-global-vars
-    
+
 country-address-manager:
   js:
     js/node/address_manager.js: {minified: false, preprocess: false}
@@ -143,8 +143,8 @@ country-address-manager:
     - core/jquery
     - bootstrap_barrio_biopama/jquery-address
     - bootstrap_barrio_biopama/biopama-global-vars
-    
-rris-map:   
+
+rris-map:
   css:
     theme:
       css/homepage/scope_menu.css: {}
@@ -156,13 +156,13 @@ rris-map:
     - bootstrap_barrio_biopama/custom-mapbox
     - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/indicator-country-chart
-    
+
 id-editor:
   js:
     js/homepage/id_editor.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
-    
+
 indicator-card:
   css:
     theme:
@@ -172,19 +172,19 @@ indicator-card:
   dependencies:
     - core/jquery
     - core/jquery.ui.effects.core
-    
+
 biopama-map-tooltips:
   css:
     theme:
       css/tooltips.css: {}
   js:
     js/tooltips_map.js: {minified: false, preprocess: false}
-    
+
 policy-style:
   css:
     theme:
       css/policy_style.css: {}
-    
+
 biopama-breadcrumbs:
   css:
     theme:
@@ -198,53 +198,53 @@ biopama-breadcrumbs:
     - core/jquery.ui.effects.slide
     - core/drupal.dialog.ajax
     - bootstrap_barrio_biopama/mapbox
-    
+
 anon-link-redirect:
   js:
     js/anon_link_redirect.js: {minified: false, preprocess: false}
-    
-nice-scroll:   
+
+nice-scroll:
   js:
     /libraries/nicescroll/jquery.nicescroll.min.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
-    
-ajax-loader:   
+
+ajax-loader:
   css:
     theme:
       /libraries/ajaxloader/ajaxLoader.css: {}
   js:
     /libraries/ajaxloader/ajaxLoader.js: {minified: false, preprocess: false}
-    
+
 jquery-address:
   js:
     /libraries/jquery-address-master/src/jquery.address.min.js: {minified: true, preprocess: false}
   dependencies:
     - core/jquery
-    
+
 node-geohash:
   js:
     /libraries/nodegeohash/node-geohash.js:  {minified: true, preprocess: false}
-    
+
 views-entity-override:
   css:
     theme:
       css/views_entity_override.css: {}
   js:
     js/views_entity_override.js: {}
-  
+
 biopama-dialog:
   css:
     theme:
       css/dialog.css: {}
-      
+
 indicator-country-chart:
   css:
     theme:
       css/node_country/country_node.css: {}
   js:
     js/node_country/country_chart.js: {minified: false, preprocess: false}
-    
+
 j-storage:
   js:
     /libraries/jstorage/jstorage.min.js: {minified: true, preprocess: false}
@@ -259,7 +259,7 @@ bootstrap-tour:
     /libraries/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js: {minified: true, preprocess: false}
   dependencies:
     - core/jquery
-    
+
 homepage-tour:
   js:
     js/homepage/homepage-tour.js: {minified: true, preprocess: false}
@@ -268,14 +268,14 @@ homepage-tour:
     - bootstrap_barrio_biopama/bootstrap-tour
     - bootstrap_barrio_biopama/bootstrap-toggle
     - bootstrap_barrio_biopama/j-storage
-    
+
 bootstrap-toggle:
   css:
     theme:
       /libraries/bootstrap-toggle/css/bootstrap-toggle.min.css: {}
   js:
     /libraries/bootstrap-toggle/js/bootstrap-toggle.min.js: {minified: true, preprocess: false}
-    
+
 rest-checker:
   css:
     theme:
@@ -285,7 +285,7 @@ rest-checker:
   dependencies:
     - core/jquery
     - bootstrap_barrio_biopama/global-rest
-    
+
 panorama-solutions:
   css:
     theme:
@@ -294,7 +294,7 @@ panorama-solutions:
     js/panorama/panorama_solutions.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
-    
+
 landing-page:
   css:
     theme:
@@ -303,5 +303,16 @@ landing-page:
       css/landingpage/timeline.css: {}
   js:
     js/landingpage/main.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/jquery
+
+pame:
+  css:
+    theme:
+      css/pame/main.css: {}
+      css/pame/footer.css: {}
+      css/pame/timeline.css: {}
+  js:
+    js/pame/main.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery

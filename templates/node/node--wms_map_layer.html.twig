@@ -74,5 +74,10 @@
 #}
 
 {% if content %}
+<div class="map-layer">
 {{'{ "id": "'}}{{content.field_wms_layer_name.0}}{{'", "type": "raster", "source": { "type": "raster", "tiles": [ "'}}{{content.field_wms_base_url.0}}{{'bbox={bbox-epsg-3857}&service=WMS&request=GetMap&layers='}}{{content.field_wms_layer_name.0}}{{'&format=image%2Fpng&transparent=true&version=1.1.1&height=256&width=256&srs=EPSG%3A3857" ], "tileSize": 256 }, "paint": {} }'}}
+</div>
+<div class="map-legend">
+{{content.field_layer_wms_legend.0}}
+</div>
 {% endif %}

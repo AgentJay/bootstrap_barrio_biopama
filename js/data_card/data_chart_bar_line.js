@@ -13,7 +13,7 @@ function makeBarLineChart(){
 			axisPointer : {            
 				type : 'shadow',        // 'line' | 'shadow'
 			},
-			confine: false,
+			position: [50, 10],
 			enterable: true,
 			formatter: function (params) {
 				var tooltip = makeTTwMap(params, chartSettings.data)
@@ -40,9 +40,10 @@ function makeBarLineChart(){
 	});
 
 	function makeTTwMap(params, data){
-		var toolTip = "";
+		//console.log(params[0].axisValue)
+		var toolTip = params[0].axisValue;
 		params.forEach(function(element) {
-			toolTip += element.axisValueLabel + "<br>" + element.seriesName + ": " + element.data + "<br>"
+			toolTip += "<br>" + element.seriesName + ": " + element.data;
 		});
 		var mapFeature = data[0].mapFeature[params[0].dataIndex];
 		if (mapFeature){
