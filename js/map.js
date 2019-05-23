@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYmxpc2h0ZW4iLCJhIjoiMEZrNzFqRSJ9.0QBRA2HxTb8YHErUFRMPZg';
 	var map = new mapboxgl.Map({
 		container: mapContainer,
-		style: 'mapbox://styles/blishten/cjlvzdp7g2ni62rnig4vurzq3', //Andrews default new RIS v2 style based on North Star
+		style: 'mapbox://styles/jamesdavy/cjvxs1w880nuf1cl9vuancbgb', //Andrews default new RIS v2 style based on North Star
 		attributionControl: true,
 		renderWorldCopies: true,
 		center: [0, -6.66],
@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
 			this._map = map;
 			this._container = document.createElement('div');
 			this._container.className = 'mapboxgl-ctrl';
-			this._container.innerHTML = "<div id='map-legend' style='display: none; background: #fff; padding: 5px;'></div>";
+			this._container.innerHTML = "<div id='map-legend' background: #fff; padding: 5px;'></div>";
 			return this._container;
 		}
 		onRemove() {
@@ -171,17 +171,17 @@ jQuery(document).ready(function($) {
 
 		map.addSource("BIOPAMA_Poly", {
 			"type": 'vector',
-			"tiles": ["https://tiles.biopama.org/BIOPAMA_poly/{z}/{x}/{y}.pbf"],
+			"tiles": ["https://tiles.biopama.org/BIOPAMA_poly_2/{z}/{x}/{y}.pbf"],
 			"minZoom": 0,
-			"maxZoom": 12
+			"maxZoom": 12,
 		});
 		map.addSource("BIOPAMA_Point", {
 			"type": 'vector',
-			"tiles": ["https://tiles.biopama.org/BIOPAMA_point/{z}/{x}/{y}.pbf"],
+			"tiles": ["https://tiles.biopama.org/BIOPAMA_point_2/{z}/{x}/{y}.pbf"],
 			"minZoom": 0,
-			"maxZoom": 12
+			"maxZoom": 12,
 		});
-		/*
+		/* 
 		We have 3 Major Layer types:
 		Region
 		Country
@@ -201,7 +201,7 @@ jQuery(document).ready(function($) {
 			"type": "line",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapGAULLayer,
-			"maxzoom": 4,
+			"maxzoom": 6,
             "paint": {"line-color": "#333",
 				"line-width": 1,}
 		}, 'state-label-lg');
@@ -211,48 +211,60 @@ jQuery(document).ready(function($) {
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapEEZLayer,
-			"maxzoom": 4,
+			"maxzoom": 6,
             "paint": {"fill-color": "hsl(224, 39%, 73%)", "fill-opacity": 0.3}
 		}, 'state-label-lg');
 		
+		//Mask for non-acp countries
+/* 		map.addLayer({
+			"id": "nonacpMask",
+			"type": "fill",
+			"source": "BIOPAMA_Poly",
+			"source-layer": mapNonACPCountryLayer,
+            "paint": {
+                "fill-color": "#f4f8fb",
+                "fill-opacity": 0.35
+            }
+		}, 'state-label-lg');
+		 */
 		//REGION Layers
-		map.addLayer({
+/* 		map.addLayer({
 			"id": "regionsMask",
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
-			"source-layer": mapRegionLayer,
+			"source-layer": mapSubRegionLayer,
             "paint": {
                 "fill-color": "#fff",
                 "fill-opacity": 0.01
             }
-		}, 'state-label-lg');
+		}, 'state-label-lg'); */
 		map.addLayer({
 			"id": "regionsFill",
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
-			"source-layer": mapRegionLayer,
+			"source-layer": mapSubRegionLayer,
             "paint": {
-                "fill-color": {
-                    "base": 1,
-                    "type": "categorical",
-                    "property": "Group",
-                    "stops": [
-                        ["ES_Africa", "rgb(251,180,174)"],
-                        ["CW_Africa", "rgb(179,205,227)"],
-                        ["Caribbean", "rgb(204,235,197)"],
-						["Pacific", "rgb(222,203,228)"]
-                    ]
-                },
-                "fill-opacity": 0.6
+				"fill-color": "rgb(204,235,197)",
+				"fill-opacity": 0.01,
+            }
+		}, 'state-label-lg');
+		map.addLayer({
+			"id": "regionsBorder",
+			"type": "line",
+			"source": "BIOPAMA_Poly",
+			"source-layer": mapSubRegionLayer,
+            "paint": {
+				"line-color": "rgb(204,235,197)",
+				"line-width": 2,
             }
 		}, 'state-label-lg');
 		map.addLayer({
 			"id": "regionHover",
 			"type": "line",
 			"source": "BIOPAMA_Poly",
-			"source-layer": mapRegionLayer,
+			"source-layer": mapSubRegionLayer,
 			"layout": {
-				"visibility": "none"
+				"visibility": "none",
 			},
 			"paint": {
 				"line-color": "#8fc04f",
@@ -260,17 +272,36 @@ jQuery(document).ready(function($) {
 			}
 		}, 'state-label-lg');
 		map.addLayer({
+			"id": "regionLabels",
+			"type": "symbol",
+			"source": "BIOPAMA_Point",
+			"source-layer": mapSubRegionPointLayer,
+			"maxzoom": 3,
+            "layout": {
+                "text-field": "{Group}",
+                "text-size": 16,
+                "text-padding": 3,
+				"text-allow-overlap": true
+            },
+            "paint": {
+                "text-color": "hsla(213, 49%, 13%, 0.95)",
+                "text-halo-color": "hsla(0, 0%, 100%, .9)",
+                "text-halo-width": 2,
+                "text-halo-blur": 2
+            }
+		}, 'country-label-sm');
+		map.addLayer({
 			"id": "regionSelected",
 			"type": "line",
 			"source": "BIOPAMA_Poly",
-			"source-layer": mapRegionLayer,
+			"source-layer": mapSubRegionLayer,
 			"layout": {
-				"visibility": "none"
+				"visibility": "none",
 			},
             "paint": {
                 "line-color": "rgba(103, 155, 149, 0.9)",
-                "line-dasharray": [3, 2],
-				"line-width": 4,
+                "line-dasharray": [3, 1],
+				"line-width": 3,
             }
 		}, 'state-label-lg');
 /* 		map.addLayer({
@@ -295,7 +326,7 @@ jQuery(document).ready(function($) {
 			"filter": ["==", "$type", "Polygon"],
 			"paint": {
 				'fill-color': '#fff',
-				"fill-opacity": 0.01
+				"fill-opacity": 0.01,
 			}
 		}, 'state-label-lg');
 		map.addLayer({
@@ -310,7 +341,7 @@ jQuery(document).ready(function($) {
 			"paint": {
 				'fill-color': '#fff',
 				'fill-outline-color': '#fff',
-				"fill-opacity": 0.6
+				"fill-opacity": 0.6,
 			}
 		}, 'state-label-lg');
 		map.addLayer({
@@ -319,7 +350,7 @@ jQuery(document).ready(function($) {
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapCountryLayer,
 			"layout": {
-				"visibility": "none"
+				"visibility": "none",
 			},
 			"paint": {
 				"line-color": "#8fc04f",
@@ -338,20 +369,6 @@ jQuery(document).ready(function($) {
 				"line-color": "#679b95",
 				"line-width": 3
 			}
-		}, 'state-label-lg');
-		map.addLayer({
-			"id": "countryPoint",
-			"type": "circle",
-			"source": "BIOPAMA_Point",
-			"source-layer": mapCountryPointLayer,
-			"layout": {
-				"visibility": "none"
-			},
-            "paint": {
-				"circle-radius": 5,
-				"circle-color": "#000",
-				"circle-opacity": 0.8
-            }
 		}, 'state-label-lg');
 		map.addLayer({
 			"id": "wdpaAcpMask",
@@ -434,7 +451,6 @@ jQuery(document).ready(function($) {
 			"type": "circle",
 			"source": "BIOPAMA_Point",
 			"source-layer": mapPaPointLayer,
-			"filter": ["in", "Point", 1],
 			"minzoom": 3,
             "paint": {
 				"circle-radius": 5,
@@ -474,10 +490,9 @@ jQuery(document).ready(function($) {
 		map.addLayer({
 			"id": "wdpaAcpPolyLabels",
 			"type": "symbol",
-			"source": "BIOPAMA_Point",
-			"source-layer": mapPaPointLayer,
-			"minzoom": 4,
-			"filter": ["in", "Point", 0],
+			"source": "BIOPAMA_Poly",
+			"source-layer": mapPaLayer,
+			"minzoom": 5,
             "layout": {
                 "text-field": "{NAME}",
                 "text-size": 12,
@@ -495,8 +510,7 @@ jQuery(document).ready(function($) {
 			"type": "symbol",
 			"source": "BIOPAMA_Point",
 			"source-layer": mapPaPointLayer,
-			"minzoom": 4,
-            "filter": ["in", "Point", 1],
+			"minzoom": 5,
             "layout": {
                 "text-field": "{NAME}",
                 "text-size": 12,

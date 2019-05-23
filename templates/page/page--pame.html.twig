@@ -1,7 +1,7 @@
 {% set url = current_uri %}
 {% block head %}
 
-   {{ attach_library( 'bootstrap_barrio_biopama/landing-page' ) }}
+   {{ attach_library( 'bootstrap_barrio_biopama/pame' ) }}
 
    <!-- <div id="header" class="header">
         <nav{{ navbar_attributes }}>
@@ -61,12 +61,12 @@
 
         <div class="col-3 header-text">
           <div class="container landing_headers">
-              {{ drupal_view('landingpage_headers', 'block_1') }}
+              {{ drupal_view('pame_dashboard', 'block_1') }}
           </div>
         </div>
         <div class="col-9 header-table-cards">
             <div class="header-table-wrap">
-                {{ drupal_view('landingpage_headers', 'block_6') }}
+                {{ drupal_view('pame_dashboard', 'block_6') }}
             </div>
         </div>
 
@@ -78,7 +78,7 @@
 
  <div class="row align-items-center title-element-fullwidth">
    <div class="col-lg-12">
-     <h4>RRIS BIOPAMA Learn & Explore</h4>
+     <h4>PAME BIOPAMA Learn & Explore</h4>
    </div>
  </div>
 
@@ -88,15 +88,15 @@
         <div class="row align-items-center">
           <div class="col-lg-12">
 
-{{ drupal_view('landingpage_headers', 'block_2') }}
-
-{{ drupal_view('landingpage_headers', 'block_3') }}
-
-{{ drupal_view('landingpage_headers', 'block_4') }}
-
-{{ drupal_view('landingpage_headers', 'block_5') }}
+          {{ drupal_view('pame_dashboard', 'block_2') }}
 
 
+          {{ drupal_view('pame_dashboard', 'block_3') }}
+
+          {{ drupal_view('pame_dashboard', 'block_4') }}
+
+          {{ drupal_view('pame_dashboard', 'block_5') }}
+          
           </div>
         </div>
 
@@ -118,7 +118,7 @@
           <div class="col-lg-12">
             <div class="card-columns" id="highlights_cards">
 
-              {{ drupal_view('landingpage_headers', 'block_6') }}
+              {{ drupal_view('pame_dashboard', 'block_6') }}
 
             </div>
          </div>

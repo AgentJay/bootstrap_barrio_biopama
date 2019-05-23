@@ -7,186 +7,16 @@
   	font-family: "Maven Pro";
   	font-weight: 800!important;
     font-variant:small-caps!important;
-    margin-top: 0;
   }
 
- #navbarResponsive .nav-link{
-  color:#679c97;
-  display: inline-block;
-
-    line-height: 7vh;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: ease all 0.4s;
-    font-weight: normal;
-    height: 60px;
-    padding-bottom: 30px;
-    padding-top: 0;
-    margin-top: 0;
-}
-
-#navbarResponsive .nav-link:hover{
- border-bottom: 5px solid #cae6a5;
-}
-
-.row{
-  margin-left:0px!important;
-  margin-right:0px!important;
-}
-
-#footer-biopama .row{
-  padding-left:20px;
-}
-
-#footer-biopama .text_f .copyright_text {
-    color: #679c97;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-#footer-biopama .text_f .details {
-    color: #679c97;
-    margin-top: 10px;
-    font-size: 0.8rem;
-}
-
-footer .text_f {
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.logos_partners li {
-    margin: 10px;
-    display: inline;
-    min-width: 25%;
-}
-
-#preload-images{
-  display:none;
-}
-
-.header-text{
-  /*background-color:#90c14f24;*/
-  background-color:#90c14fd1;
-  height: fit-content;
-}
-
-.header-table-cards{
-  min-height: -webkit-fill-available;
-  text-align:center;
-}
-
-.header-table-cards .card{
-border: 0px!important;
-    border-radius: 0!important;
-    padding: 10px!important;
-    /* background-color: #f1f1f3!important; */
-    width: 150px;
-    height: 150px;
-    margin: 20px;
-    /*border-radius: 2px!important;*/
-    border-radius: 20px 5px 20px 5px!important;
-    background-color: #fdfdff;
-    /* border: 5px solid #90c14f4d!important; */
-    box-shadow: 3px 5px 0px 1px #00000047;
-}
-
-.header-table-cards h6.masthead-subheading{
-  width: 150px;
-  margin: 20px;
-}
-
-.header-table-cards .card:hover{
-  transform:scale(1.1);
-}
-
-.header-table-cards .card-body{
-   padding:5px!important;
-}
-
-.card-link{
-  position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* margin: 0; */
-      /* padding: 0; */
-      background-color: #ffffff96;
-      left: 0;
-      height: 3rem;
-      padding: 10px;
-      /* border-radius: 100%; */
-      /* right: 10px; */
-      text-align: right;
-      border-radius: 0px 0px 20px 5px;
-}
-
-.card-link:hover{
-  background-color: #fffffff2;
-}
-
-.card-link i{
-  border-radius: 100%;
-  padding: 2px;
-  color: #41ad53;
-  position: absolute;
-    right: 0;
-    bottom: 0;
-}
-
-.card-link i:hover{
-  background-color:white;
-  border-radius: 100%;
-  padding: 2px;
-  color: #41ad53;
-}
-
-.card-link .card-title{
-  font-weight: bolder;
-    font-family: "Maven Pro";
-    width: 85%;
-}
-
-  .header-table-wrap {
-    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
-    display: -webkit-flex;     /* NEW - Chrome */
-    display: inline-block;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-    text-align:auto;
-   }
-
-.icons-rows .card-body{
-     color:#77a6a1;
-}
-
-.icons-rows .icons-left-col, .icons-rows .icons-right-col {
-     font-weight: 700;
-     color:#90c14f;
-}
-
-.icons-rows h2{
-  text-transform: uppercase;
-  font-size:2rem;
-}
-
-h6.masthead-subheading.mb-0{
-  /*background-color: #00000057;
-height: 1.2rem;
-border-radius: 100px;
-width: 80%;
-margin-left: 10%;*/
-    text-shadow: 0px 0px 10px #000000;
-}
-
 .landing_headers{
-  width: 90%;
-    padding-bottom: 20px;
+  width:50%;
+
 }
 
 .landing_headers p{
-  font-size:1rem;
+  font-size:large;
       text-align: justify;
-      font-family:"Maven Pro";
 }
 
 .hidden_background{
@@ -237,8 +67,7 @@ font-size: large;
 }
 
 .text-right-col .border-info{
-  /*box-shadow: 1px 5px 1px 1px #0000001a;*/
-    box-shadow: 0 0 20px 10px rgba(17,133,171,0.13);
+  box-shadow: 1px 5px 1px 1px #0000001a;
 }
 
 .text-left-col{
@@ -249,8 +78,7 @@ font-size: large;
 }
 
 .text-left-col .border-info{
-  /*box-shadow: -1px 5px 1px 1px #0000001a;*/
-  box-shadow: 0 0 20px 10px rgba(17,133,171,0.13);
+  box-shadow: -1px 5px 1px 1px #0000001a;
 }
 
 
@@ -259,7 +87,7 @@ font-size: large;
 }
 
 .title-element-fullwidth{
-      background-color: #cde2ec;
+      background-color: #038f8b;
       padding-top:50px;
       padding-bottom:50px;
       margin-top: 30px;
@@ -371,13 +199,12 @@ nav.navbar-we-mega-menu {
   }
 
 header a {
-  /*color: #8BC34A;*/
-  color:#488463;
+  color: #8BC34A;
   text-decoration:none;
 }
 
 header a:hover {
-  color: #084f0b;
+  color: #4CAF50;
   text-decoration:none;
 }
 
@@ -396,12 +223,9 @@ header a:hover {
 }
 
 #bkgd-filter{
-  /*z-index:1;
+  z-index:1;
   background-color:black;
-  opacity:0.5;*/
-  z-index: 1;
-  background-color: white;
-  opacity: 0.1;
+  opacity:0.5;
 }
 
 .main-section-container .container .row{
@@ -416,7 +240,7 @@ header a:hover {
 }
 
 .masthead {
-  background-image: url("/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_000.jpg");
+  background-image: url("/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_00.jpg");
   background-repeat: no-repeat;
   	background-position: center center;
   	background-attachment: scroll;
@@ -425,7 +249,7 @@ header a:hover {
 
   .masthead-linear{
     z-index:0;
-   	/*background: linear-gradient(0deg, #217b62 0, #8BC34A 100%);*/
+   	background: linear-gradient(0deg, #217b62 0, #8BC34A 100%);
   	background-repeat: no-repeat;
   	background-position: center center;
   	background-attachment: scroll;
@@ -496,12 +320,12 @@ header a:hover {
     background-size: auto;
 }
 
-.main-section-container .card{
+.card{
     border: 0px!important;
     border-radius: 0!important;
     padding: 10px!important;
+    /*background-color: #f1f1f3!important;*/
 }
-
 
 .card-deck{
     width:100%;
@@ -618,7 +442,7 @@ header a:hover {
 }
 
 .card-img-top{
-  max-width:185px;
+  max-width:275px;
 }
 
 
@@ -635,24 +459,4 @@ header a:hover {
     flex:none;
     width: 100%;
 }
-}
-
-#footer-biopama{
-  background-color:white;
-  padding:10px;
-
-  background-image: url(/themes/custom/bootstrap_barrio_biopama/img/landingpage/white_wave.svg);
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-color: #cde2ec;
-    background-size: 30%;
-    bottom: 0;
-    left: 0;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 20px 0;
-    position: relative;
-    z-index: 99;
-    box-shadow: inset 0 7px 19px 0px rgba(35,35,35,0.12);
-
 }

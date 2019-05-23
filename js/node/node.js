@@ -6,6 +6,8 @@ var CountrySettings = {
 	selIndicatorMappedField: [],
 	selIndicatorChartType: [],
 	selIndicatorRESTurl: [],
+	selIndicatorRESTdataContext: [],
+	//dataCountries: [],
 	mapLayerField: [],
 	mappedField: [],
 	mapPoints: [],
@@ -31,7 +33,7 @@ var CountrySettings = {
 				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
 			});
 			$('#drupal-off-canvas').find('form.node-management-assessment-justificat-form .alert-success, form.node-priority-action-edit-form .alert-success').each( function() {
-				$( ".view-management-assessments-by-region, .view-management-assessments-country, .view-management-assessments-pa" ).delay( 800 ).trigger('RefreshView');
+				$( ".view-documents-by-scope, .view-management-plans-by-pa" ).delay( 800 ).trigger('RefreshView');
 				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
 			});
 		}
@@ -81,7 +83,9 @@ jQuery(document).ready(function($) {
 		} else {
 			$("div.map-link.active-chart-button").removeClass("active-chart-button");
 			$(this).addClass("active-chart-button");
-			addChartLayers();
+			//Find the layers that have been attached to this data by searching up through the tree
+			var chartLayers = $(this).closest( ".chart-wrapper" ).find(".chart-layers");
+			addChartLayers(chartLayers);
 		}
 	});
 
@@ -120,6 +124,18 @@ jQuery(document).ready(function($) {
 					//temp - as not all charts are complete we check if a series AND URL exists to do the chart
 					var indicatorRESTurl = $(this).find(".field--name-field-data-rest-url").text();
 					CountrySettings.selIndicatorRESTurl.push(indicatorRESTurl);
+					
+					var indicatorRESTurlContext = $(this).find(".field--name-field-rest-field-context").text();
+					CountrySettings.selIndicatorRESTdataContext.push(indicatorRESTurlContext);
+					
+/* 					if ($(this).find(".field--name-field-data-country").length){
+						var dataCountriesArray = [];
+						$(this).find( ".field--name-field-data-country" ).children().each(function () {
+							dataCountriesArray.push($(this).text().trim())
+						});
+						CountrySettings.dataCountries.push(dataCountriesArray);
+					} */
+					
 					var mapLayerField = $(this).find( ".field--name-field-data-map-attribute-link.field__item" ).text();
 					if ( mapLayerField.length ) CountrySettings.mapLayerField.push(mapLayerField);
 					var mappedField = $(this).find( ".field--name-field-data-rest-map-field-link.field__item" ).text();
@@ -195,17 +211,19 @@ jQuery(document).ready(function($) {
 				break;
 		}
 	}
-	function addChartLayers(){
+	function addChartLayers(chartLayers){
 		var tabLayerKey;
 		chartLayersToRemove();
-		if ($( ".chart-layers" ).length){
+		if ($(chartLayers).length){
 			tabLayerKey = '-b10p4m4';
 			//I change the map layer loading to be different
 			var mapLayersArray = [];
 			var mapLayer;
-			$( ".chart-layers" ).children().each(function () {
+			$(chartLayers).children().each(function () {
+				mapLayer = $(chartLayers).find(".map-layer").text();
+				mapLegend = $(chartLayers).find(".map-legend").text();
 				try {
-					mapLayer = JSON.parse($(this).text().trim().replace("'", "\""))
+					mapLayer = JSON.parse(mapLayer.replace("'", "\""))
 					mapLayer.id = mapLayer.id + tabLayerKey;
 					//console.log(mapLayer)
 					//we need to know if the current source has already been added, and if so make sure it's referenced rather then added again.

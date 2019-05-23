@@ -5,10 +5,14 @@ div.tooltip.biopama-tip{
 	/*position:relative;*/
 }
 
-div.tooltip.biopama-tip-bottom{
+/* div.tooltip.biopama-tip-bottom{
   top:15px!important;
+} */
+div.goal-header > span.field-content > div.tooltip.biopama-tip {
+    position: absolute !important;
+    right: 0 !important;
+    left: 0 !important;
 }
-
 /*The tooltip arrow*/
 div.arrow.biopama-arrow:before{
 	border-right-color: #90c14f;

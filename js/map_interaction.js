@@ -85,17 +85,8 @@ function updateRegion(region = selSettings.regionID, countryUpdate = true) {
 	}
 	selSettings.regionID = region;
 
-	switch(selSettings.regionID) {
-	case "ES_Africa":
-		selSettings.regionName = "Eastern and Southern Africa";
-		break;
-	case "CW_Africa":
-		selSettings.regionName = "Western and Central Africa";
-		break;
-	default:
-		selSettings.regionName = selSettings.regionID;
-		break;
-	}
+	selSettings.regionName = selSettings.regionID;
+
 	thisMap.setFilter('countryFill', ['==', 'Group', region]);
 	thisMap.setFilter('regionsFill', ['!=', 'Group', region]);
 	//thisMap.setPaintProperty("regionsFill", "fill-opacity", ["match", ["get", "Group"], [region], 0, 0.6]);

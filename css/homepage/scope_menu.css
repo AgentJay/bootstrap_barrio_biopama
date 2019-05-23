@@ -128,7 +128,7 @@ div#state-tab div.view-content {
 	flex-basis: 33%;
 	justify-content: center;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 18px;
 }
 li.menu-tab-list {
 	flex-basis: 10% !important;
@@ -248,7 +248,7 @@ div#map-menu div.scope-content {
 	position: fixed;
 	left: calc(67px + 8em);
 	top: 24%;
-	height: 62%;
+	height: 65%;
 	max-height: 750px;
 	max-width: 27em;
 	background:  white;
@@ -288,7 +288,7 @@ div.menu-policy div.row-policy div.policy-content {
 	box-shadow: 20px 0px 60px -20px rgba(17, 133, 171, 0.25), inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
 	width: 20em;
 	position: fixed;
-    height: 56%;
+    height: 60%;
 	max-height: 650px;
 	z-index: -20;
     top: 27%;
@@ -416,13 +416,12 @@ div.menu-block-effect .scope-title{
 	display: block;
 }
 .views-field.views-field-edit-node {
-    position: relative;
-    bottom: 28px;
-    left: 0px;
-    text-align: left;
-    height: 0px;
+    margin-top: -20px;
 }
-
+div.tooltip.right > .arrow {
+    top: 40%;
+    left: -1px;
+}
 div.scope-content.menu-policy-effect .policy-title {
 	display: none;
 }
@@ -471,7 +470,7 @@ div#block-mapmenuscope {
     max-height: 800px;
     top: 22%;
 	left: 67px;
-    height: 60%;
+    height: 69%;
     box-shadow: 0px 2px 59.8px 5.2px rgba(17, 133, 171, 0.15);
 }
 div#map-menu {
@@ -498,6 +497,7 @@ h2.menu-title {
     color: #679c97;
     font-variant: all-small-caps;
     font-weight: 600;
+	display: none;
 }
 .ui-dialog{
 	z-index: 999 !important;

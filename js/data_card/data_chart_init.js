@@ -68,6 +68,8 @@ function chartError(error){
 		} else {
 			jQuery( ".rest-error" ).html("<div class='alert alert-info'>You must select a <b>" + scopeNeeded + "</b> in the map.</div>");
 		}	
+	} else if (error == 3) {
+		jQuery( ".rest-error" ).html("<div class='alert alert-warning'>There is no data for this country. Try selecting: <b>"+selData.data.countries+"</b></div>");
 	} else {
 		jQuery( ".rest-error" ).html("<div class='alert alert-warning'>There was an error.</div>");
 	}
@@ -105,6 +107,15 @@ function sortByKey(array, key, order='asc') {
 function checkChartData(chartType = "barLine"){
 	//we take the REST results and put it into a new variable, this ensures the original results are stored unmodified.
 	var indicatorResults = selData.chart.RESTResults;
+	//we need to see if the data was from a REST service or a WMS service as the WMS service needs to be formatted differently
+	if (selData.chart.dataSource == "External Map Data"){
+		var wmsData = [];
+		indicatorResults.forEach(function(object){
+			wmsData.push(object['properties']);
+		});
+		//console.log(wmsData);
+		indicatorResults = wmsData
+	}
 	
 	//if this is a country linked visualisation, lets clean the results to ensure only ACP countries are showing in the chart.
 	if (selData.chart.mapLayerField  == 'un_m49') {
@@ -142,8 +153,13 @@ function checkChartData(chartType = "barLine"){
 	if ((xAxis.data == "timePeriodStart") || (xAxis.data == "Year")){
 		sortByKey(indicatorResults, xAxis.data, 'asc');
 	}
+	function precision(a) {
+	  var e = 1;
+	  while (Math.round(a * e) / e !== a) e *= 10;
+	  return Math.log(e) / Math.LN10;
+	}
 	
-	//here we replace the x axis data placeholder with the array of values from the rest service. We only do this if they have assigned a vlaue to that axis.
+	//here we replace the x axis data placeholder with the array of values from the rest service. We only do this if they have assigned a value to that axis.
 	if (typeof xAxis['data'] !== 'undefined'){
 		var xAxisData = [], testDate, fullDate;
 		indicatorResults.forEach(function(object){
@@ -206,8 +222,13 @@ function checkChartData(chartType = "barLine"){
 	chartSeries.forEach(function(object, index){
 		var chartData = [];
 		indicatorResults.forEach(function(object2){
-			chartData.push(object2[chartSeries[index]]);
-			//console.log(object2[chartSeries[index]])
+			var precisionCheck = precision(object2[chartSeries[index]]);
+			var tempDataVal = object2[chartSeries[index]];
+			if (precisionCheck >= 2){
+				tempDataVal = tempDataVal.toFixed(2);
+			}
+			var dataVal = parseFloat(tempDataVal, 10);
+			chartData.push(dataVal);
 		});
 		chartSeries[index]=chartData;
 	});
@@ -246,7 +267,8 @@ function checkForChartType(chartTab){
 	} 
 //	if (jQuery( "div.field--name-field-indi-data-"+chartTab+" div.node--type-chart-doughnut" ).length){
 	else {
-		makeDoughnutChart();
+		//makeDoughnutChart();
+		jQuery( ".rest-error" ).html("<div class='alert alert-info'>No Chart was Configured yet.</div>");
 	}
 }
 
@@ -575,7 +597,7 @@ function updateIndicatorChart(){
 	return; */
 }
 function removelayergroup(){
-	jQuery("#map-bad-legend, #map-legend").hide();
+	//jQuery("#map-bad-legend, #map-legend").hide();
 	var currentLayers = thisMap.style._layers;
 	for (var key in currentLayers) { 
 		if (currentLayers[key].id.indexOf('1nd1l4y3r') != -1) {
@@ -686,6 +708,7 @@ function removeCustomLayers(level = '-b10p4m4'){
 				customLayerSources.push(currentLayers[key].source)
 			} */
 			thisMap.removeLayer(currentLayers[key].id);
+			jQuery("."+key).remove();
 		} 
 	}
 	var currentSources = thisMap.style.sourceCaches;

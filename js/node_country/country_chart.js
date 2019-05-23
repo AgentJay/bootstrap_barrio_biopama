@@ -43,9 +43,11 @@ function getCountryRestResults(activeIndicator) {
 		url: indicatorURL,
 		dataType: 'json',
 		success: function(d) {
-			CountrySettings.selIndicatorRes[activeIndicator] = d;
+			//console.log(d)
+			//CountrySettings.selIndicatorRes[activeIndicator] = d;
 			if (d.hasOwnProperty("records")) { //from a JRC REST Service
-				selSettings.selIndicatorRes = d.records;
+				//console.log("has records")
+				CountrySettings.selIndicatorRes[activeIndicator] = d.records;
 				if (d.metadata.recordCount == 0) {
 					//we create a card, but tell it that the response was empty (error 2)
 					getCountryChart(activeIndicator, indicator, 2);
@@ -54,11 +56,18 @@ function getCountryRestResults(activeIndicator) {
 					//create the map
 					//mapTheIndicator(activeMapIndicator);
 					//the 0 means there was no error
+					//console.log(CountrySettings.selIndicatorRes[activeIndicator])
 					getCountryChart(activeIndicator, indicator, 0);
 				}
 			}
 			if (d.hasOwnProperty("dimensions")) { //from an UN Stats SDG REST Service
-				selSettings.selIndicatorRes = d.dimensions;
+				CountrySettings.selIndicatorRes[activeIndicator] = d.dimensions;
+				getCountryChart(activeIndicator, indicator, 0);
+			} else if (d.hasOwnProperty(CountrySettings.selIndicatorRESTdataContext[activeIndicator])){
+				CountrySettings.selIndicatorRes[activeIndicator] = d[CountrySettings.selIndicatorRESTdataContext[activeIndicator]];
+				getCountryChart(activeIndicator, indicator, 0);
+			} else {
+				CountrySettings.selIndicatorRes[activeIndicator] = d;
 				getCountryChart(activeIndicator, indicator, 0);
 			}
 		},
@@ -124,7 +133,7 @@ function chartCountryError(key, error) {
 	}
 }
 
-function sortByKey(array, key, order='asc') {
+function sortByKeyCountryData(array, key, order='asc') {
     return array.sort(function(a, b, order) {
 		if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 		  // property doesn't exist on either object
@@ -151,13 +160,24 @@ function sortByKey(array, key, order='asc') {
 
 function checkCountryChartData(indicator) {
 	//we take the REST results and put it into a new variable, this ensures the original results are stored unmodified.
+	var indicatorResults = CountrySettings.selIndicatorRes[indicator];
 	if (CountrySettings.selIndicatorRes[indicator].hasOwnProperty("dimensions")) {
-		var indicatorResults = CountrySettings.selIndicatorRes[indicator].dimensions;
+		indicatorResults = CountrySettings.selIndicatorRes[indicator].dimensions;
 		//console.log("good");
 	}
-	else {
-		var indicatorResults = CountrySettings.selIndicatorRes[indicator].records;
+	else if (CountrySettings.selIndicatorRes[indicator].hasOwnProperty("records")) {
+		indicatorResults = CountrySettings.selIndicatorRes[indicator].records;
 	}
+	if (CountrySettings.selIndicatorRESTdataContext[indicator] == "features"){
+		var wmsData = [];
+		indicatorResults.forEach(function(object){
+			wmsData.push(object['properties']);
+		});
+		//console.log(wmsData);
+		indicatorResults = wmsData
+	}
+	
+	//console.log(indicatorResults)
 	//if this is a country linked visualisation, lets clean the results to ensure only ACP countries are showing in the chart.
 	if (CountrySettings.selIndicatorMapLayerField  == 'un_m49') {
 		indicatorResults = indicatorResults.filter(ACPNUMFilter);
@@ -183,20 +203,20 @@ function checkCountryChartData(indicator) {
 	//var indicatorResults = (CountrySettings.selIndicatorRes[indicator].hasOwnProperty("data")) ? CountrySettings.selIndicatorRes[indicator].data : CountrySettings.selIndicatorRes[indicator].records.slice(0);
 	var xAxis = jQuery.extend(true, {}, CountrySettings.selIndicatorXaxis[indicator]);
 	//sort the xaxis data by year
-	//sortByKey(indicatorResults, xAxis['data']);
-	//sortByKey(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data);
+	//sortByKeyCountryData(indicatorResults, xAxis['data']);
+	//sortByKeyCountryData(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data);
 	if(CountrySettings.sort[indicator] == "Ascending"){
-		sortByKey(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data, 'asc');
+		sortByKeyCountryData(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data, 'asc');
 	} 
 	if(CountrySettings.sort[indicator] == "Descending"){
-		sortByKey(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data, 'desc');
+		sortByKeyCountryData(indicatorResults, CountrySettings.selIndicatorChartSeries[indicator][0].data, 'desc');
 	}
 	
 
 	//here we replace the x axis data placeholder with the array of values from the rest service. We only do this if they have assigned a vlaue to that axis.
 	if (typeof xAxis['data'] !== 'undefined') {
-		var xAxisData = [],
-			testDate, fullDate;
+		var xAxisData = [], testDate, fullDate;
+		//console.log(indicatorResults)
 		indicatorResults.forEach(function(object) {
 			//get the date - it could be a simple year, e.g. 2012 or more complex, e.g. 2016/04/16
 			// 	testDate = object[xAxis['data']];
@@ -222,11 +242,19 @@ function checkCountryChartData(indicator) {
 	}
 
 	var mappedField = [];
-	var wdpaIDs = [];
+	indicatorResults.forEach(function(object){
+		if(CountrySettings.mapLayerField[indicator]  == 'WDPAID'){
+			mappedField.push(parseInt(object[CountrySettings.mappedField[indicator]]));
+		} else {
+			mappedField.push(object[CountrySettings.mappedField[indicator]]);
+		}
+		
+	});
+/* 	var wdpaIDs = [];
 	indicatorResults.forEach(function(object) {
 		wdpaIDs.push(object['wdpa_id']);
 		mappedField.push(object[CountrySettings.selIndicatorMappedField[indicator]]);
-	});
+	}); */
 
 	//first we get the list of all data series defined in the indicator content type
 	//we push these to the chartSeries array

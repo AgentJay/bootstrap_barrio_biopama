@@ -11,6 +11,9 @@ jQuery(document).ready(function($) {
 			targetNum: null,
 			qualifier: null,
 		},
+		data: {
+			countries: '',
+		},
 		map: {
 			mapLayerField: '',
 			mappedField: '',
@@ -21,7 +24,9 @@ jQuery(document).ready(function($) {
 		chart: {
 			invertColors: '',
 			chartType: '',
+			dataSource: '',
 			RESTurl: '',
+			RESTdataContext: '',
 			RESTfilter: '',
 			RESTFields: '',
 			RESTFieldLabels: '',
@@ -64,11 +69,12 @@ jQuery(document).ready(function($) {
 	}
 	addCardLayers()
 	function changeTheDataAndLayers(firstTime = false){
+		var typeOfData = jQuery( "div.field--name-field-indi-get-data-from .field__item").text();
 		if (firstTime == true){
 			//This IF is needed because if the Card Has a Global value open by default it will not resolve correctly.
 			var scopeCheckVal = scopeCheck();
 			if (scopeCheckVal == 0){
-				if ((jQuery( "div.field--name-field-indi-get-data-from .field__item").text() == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-global .field__item").text() == "On")){
+				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-global .field__item").text() == "On")){
 					//this if for Geonode data
 					getGeonodeData("global", "global");
 				} else {
@@ -92,7 +98,7 @@ jQuery(document).ready(function($) {
 				});
 				//if (selSettings.regionID !== null) removeRegion();
 				//if (selSettings.ISO2 !== null) removeCountry();
-				if ((jQuery( "div.field--name-field-indi-get-data-from .field__item").text() == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-global .field__item").text() == "On")){
+				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-global .field__item").text() == "On")){
 					getGeonodeData("global", "global");
 				} else {
 					setupScopeData('global');
@@ -100,7 +106,7 @@ jQuery(document).ready(function($) {
 				break;
 			case 'Regional':
 				zoomToRegion(selSettings.regionID);
-				if ((jQuery( "div.field--name-field-indi-get-data-from .field__item").text() == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-regional .field__item").text() == "On")){
+				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-regional .field__item").text() == "On")){
 					getGeonodeData("regional", "REGION");
 				} else {
 					setupScopeData('regional');
@@ -108,7 +114,7 @@ jQuery(document).ready(function($) {
 				break;
 			case 'Country':
 				zoomToCountry(selSettings.ISO2);
-				if ((jQuery( "div.field--name-field-indi-get-data-from .field__item").text() == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-country .field__item").text() == "On")){
+				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-country .field__item").text() == "On")){
 					getGeonodeData('national', "ISO3");
 				} else {
 					setupScopeData('national');
@@ -116,7 +122,7 @@ jQuery(document).ready(function($) {
 				break;
 			case 'Protected Area':
 				zoomToPA(selSettings.WDPAID)
-				if ((jQuery( "div.field--name-field-indi-get-data-from .field__item").text() == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-pa .field__item").text() == "On")){
+				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-pa .field__item").text() == "On")){
 					getGeonodeData("local", "WDPAID");
 				} else {
 					setupScopeData('local');
@@ -178,6 +184,13 @@ jQuery(document).ready(function($) {
 				});
 				selData.info.countries = indicatorCountriesArray;
 			}
+			
+			if ($( ".field--name-field-indi-get-data-from" ).length){
+				selData.chart.dataSource = $(indicatorWrapper).find( ".field--name-field-indi-get-data-from.field__item" ).text();
+			} else {
+				selData.chart.dataSource = "";
+				cardError = cardError + "No data Source was Provided<br>"
+			}
 
 			//for each of these we work our way up from the active url. then find the field we need. This is due to the way drupal views generates the table
 			if ($( ".field--name-field-data-rest-url" ).length){
@@ -189,6 +202,19 @@ jQuery(document).ready(function($) {
 			} else {
 				selData.selDataRESTurl = "";
 				cardError = cardError + "No REST URL has been defined<br>"
+			}
+			if ($( ".field--name-field-data-country" ).length){
+				var dataCountriesArray = [];
+				$(indicatorWrapper).find( ".field--name-field-data-country" ).children().each(function () {
+					dataCountriesArray.push($(this).text().trim())
+				});
+				selData.data.countries = dataCountriesArray;
+			}
+			if ($( ".field--name-field-rest-field-context" ).length){
+				selData.chart.RESTdataContext = $(indicatorWrapper).find( ".field--name-field-rest-field-context.field__item" ).text();
+			} else {
+				selData.chart.RESTdataContext = "";
+				cardError = cardError + "No REST Context was Provided<br>"
 			}
 			if ($( ".field--name-field-data-map-attribute-link" ).length){
 				selData.chart.mapLayerField = $(indicatorWrapper).find( ".field--name-field-data-map-attribute-link.field__item" ).text();
@@ -366,10 +392,12 @@ function addCardLayers(){
 		//I change the map layer loading to be different
 		var mapLayersArray = [];
 		var mapLayer;
+		var mapLegend;
 		jQuery( ".field--name-field-indi-map-layers-all .field__items" ).children().each(function () {
-			//mapLayer = jQuery(this).text().trim()
+			mapLayer = jQuery(this).find(".map-layer").text();
+			mapLegend = jQuery(this).find(".map-legend").text();
 			try {
-				mapLayer = JSON.parse(jQuery(this).text().trim().replace("'", "\""))
+				mapLayer = JSON.parse(mapLayer.replace("'", "\""))
 				mapLayer.id = mapLayer.id + tabLayerKey;
 				//console.log(mapLayer)
 				//we need to know if the current source has already been added, and if so make sure it's referenced rather then added again.
@@ -380,6 +408,7 @@ function addCardLayers(){
 					} 
 				}
 				thisMap.addLayer(mapLayer, 'gaulACP'); 
+				jQuery("#map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>").show();
 			} catch (e) {
 				console.log("You have a messed up layer for the card")
 				mapLayer = '{}'; 
@@ -414,10 +443,12 @@ function addTabLayers(tab){
 			//I change the map layer loading to be different
 			var mapLayersArray = [];
 			var mapLayer;
+			var mapLegend;
 			jQuery( "div.field--name-field-indi-data-"+tab+" .field--name-field-data-map-layers.field__items" ).children().each(function () {
-				//mapLayer = jQuery(this).text().trim()
+				mapLayer = jQuery(this).find(".map-layer").text();
+				mapLegend = jQuery(this).find(".map-legend").text();
 				try {
-					mapLayer = JSON.parse(jQuery(this).text().trim().replace("'", "\""))
+					mapLayer = JSON.parse(mapLayer.replace("'", "\""))
 					mapLayer.id = mapLayer.id + tabLayerKey;
 					//console.log(mapLayer)
 					//we need to know if the current source has already been added, and if so make sure it's referenced rather then added again.
@@ -428,6 +459,7 @@ function addTabLayers(tab){
 						} 
 					}
 					thisMap.addLayer(mapLayer, 'gaulACP'); 
+					jQuery("#map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>").show();
 				} catch (e) {
 					console.log("You have a messed up layer in the "+tab+" tab")
 					mapLayer = '{}'; 
@@ -453,7 +485,7 @@ function closeIndicatorCard(){
 	thisMap.setLayoutProperty("countryFill", 'visibility', 'visible');
 	var indicatorName = jQuery("div.indicator-row.activeSelection").find('.field--name-title').text();
 	var indicatorClass = indicatorName.replace(/\s/g, "-");
-	if (jQuery(".bread-trail-indicator:visible").length)jQuery(".bread-trail-indicator").toggle( "slide" );
+	if (jQuery(".bread-trail-indicator:visible").length)jQuery(".bread-trail-indicator").one().toggle( "slide" );
 	thisMap.setPaintProperty("wdpaAcpFillHighlighted", "fill-opacity", 0.6);
 	thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
 	thisMap.setPaintProperty("countryFill", "fill-opacity", 0.6);
