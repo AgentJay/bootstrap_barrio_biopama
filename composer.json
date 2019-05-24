@@ -1,0 +1,15 @@
+{
+  "name": "biopama/bootstrap_barrio_biopama",
+  "version": "1.0.0",
+  "type": "drupal-custom-theme",
+  "description": "Custom theme",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ]
+}
