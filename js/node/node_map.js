@@ -21,6 +21,7 @@ function mapPostLoadOptions() {
 		thisMap.setFilter('countryFill', null);
 		thisMap.setPaintProperty("countryFill", "fill-opacity", 0.01);
 		regionChanged = 1;
+		console.log(selSettings)
 		zoomToRegion(selSettings.regionID);
 		jQuery( ".region-solutions-hide" ).removeClass("region-solutions-hide");
 	}

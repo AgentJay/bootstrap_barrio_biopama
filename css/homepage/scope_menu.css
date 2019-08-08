@@ -3,8 +3,18 @@
 #block-mapmenuscope div.menu-policy div.view-content {
     flex-direction: column;
 	margin: 0px;
-	padding: 0px;
+	padding: 15px 0px;
 	flex-wrap: nowrap;
+	flex-grow: 1;
+	overflow: auto;
+}
+
+#block-mapmenuscope div#state-tab div.menu-indicators,
+#block-mapmenuscope div#pressure-tab div.menu-indicators,
+#block-mapmenuscope div#list-tab div.menu-indicators {
+	display: flex;
+    flex-direction: column;
+	height: 100%;
 }
 
 div.view-display-id-indicator_state .ui-accordion-content,
@@ -97,6 +107,8 @@ div#state-tab div.view-content {
 }
 #list-tab .views-field-edit-node{
 	float: right;
+    position: relative;
+    z-index: 5000;
 }
 #list-tab .view-content.row {
     border-top: 1px solid #eee;
@@ -185,8 +197,7 @@ form#views-exposed-form-menu-level-1-policies--block-local {
     height: 70px;
 }
 #block-mapmenuscope div.menu-goals div.view-content {
-    overflow-x: visible;
-	overflow-y: visible;
+    overflow-x: auto;
 }
 .menu-scope {
     background: white;
@@ -505,9 +516,15 @@ h2.menu-title {
 .ui-dialog-off-canvas #drupal-off-canvas {
     padding-bottom: 140px !important; 
 }
-.layout-region-node-main {
+.ui-dialog-off-canvas .layout-region-node-main,
+.ui-dialog .ui-dialog-content .layout-region-node-main{
     flex: 0 0 100%;
     max-width: 100%;
+	width: 100%;
+}
+.ui-dialog-off-canvas .layout-region-node-secondary,
+.ui-dialog .ui-dialog-content .layout-region-node-secondary{
+    float: none;
 }
 
 .menu-goals {

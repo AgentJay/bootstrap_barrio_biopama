@@ -88,3 +88,7 @@ div.tooltip-inner.biopama-tip-inner{
 	top: 2px;
 	padding: 3px 7px;
 }
+
+.biopama-tip-wide{
+	min-width: 170px;
+}

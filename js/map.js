@@ -4,14 +4,16 @@ jQuery(document).ready(function($) {
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYmxpc2h0ZW4iLCJhIjoiMEZrNzFqRSJ9.0QBRA2HxTb8YHErUFRMPZg';
 	var map = new mapboxgl.Map({
 		container: mapContainer,
-		style: 'mapbox://styles/jamesdavy/cjvxs1w880nuf1cl9vuancbgb', //Andrews default new RIS v2 style based on North Star
+		style: 'mapbox://styles/jamesdavy/cjw25laqe0y311dqulwkvnfoc', //Andrews default new RIS v2 style based on North Star
 		attributionControl: true,
 		renderWorldCopies: true,
 		center: [0, -6.66],
         zoom: 1.5,
+		minZoom: 1.4,
+		maxZoom: 12,
 		attributionControl: false,
 	}).addControl(new mapboxgl.AttributionControl({
-        customAttribution: "UNEP-WCMC and IUCN (2018), <br>\n Protected Planet: The World Database on Protected Areas (WDPA),<br>\n October 2018, Cambridge, UK: UNEP-WCMC and IUCN.",
+        customAttribution: "UNEP-WCMC and IUCN (2019), <br>\n Protected Planet: The World Database on Protected Areas (WDPA),<br>\n May 2019, Cambridge, UK: UNEP-WCMC and IUCN.",
 		compact: true
     }));
 	thisMap = map;
@@ -101,7 +103,11 @@ jQuery(document).ready(function($) {
 			this._map = map;
 			this._container = document.createElement('div');
 			this._container.className = 'mapboxgl-ctrl';
-			this._container.innerHTML = "<div id='map-legend' background: #fff; padding: 5px;'></div>";
+			this._container.innerHTML = "<div id='map-legend' style='background: #fff; padding: 5px;'><div id='wms-map-legend' ></div><div id='custom-map-legend' ></div><div style='display: none;' id='custom-map-legend-nan'>"+
+			"<div class='legend-unit' style='display: flex; padding: 5px;'>"+
+			"<div class='legend-color' style='background: repeating-linear-gradient(315deg,#DC143C,#DC143C 4px,#ccc 4px,#ccc 8px); width:20px; height:20px;'></div>"+
+			"<div class='legend-text'>&nbsp;NaN = No Data</div></div>"+
+			"</div></div>";
 			return this._container;
 		}
 		onRemove() {
@@ -202,7 +208,7 @@ jQuery(document).ready(function($) {
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapGAULLayer,
 			"maxzoom": 6,
-            "paint": {"line-color": "#333",
+            "paint": {"line-color": "#aaa",
 				"line-width": 1,}
 		}, 'state-label-lg');
 		//EEZ for ACP countries
@@ -214,48 +220,55 @@ jQuery(document).ready(function($) {
 			"maxzoom": 6,
             "paint": {"fill-color": "hsl(224, 39%, 73%)", "fill-opacity": 0.3}
 		}, 'state-label-lg');
-		
-		//Mask for non-acp countries
-/* 		map.addLayer({
-			"id": "nonacpMask",
+		map.addLayer({
+			"id": "regionMask",
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
-			"source-layer": mapNonACPCountryLayer,
-            "paint": {
-                "fill-color": "#f4f8fb",
-                "fill-opacity": 0.35
-            }
+			"source-layer": mapSubRegionLayer,
+			"paint": {
+				'fill-color': '#fff',
+				"fill-opacity": 0.01,
+			}
 		}, 'state-label-lg');
-		 */
-		//REGION Layers
-/* 		map.addLayer({
+		map.addLayer({
 			"id": "regionsMask",
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapSubRegionLayer,
-            "paint": {
-                "fill-color": "#fff",
-                "fill-opacity": 0.01
-            }
-		}, 'state-label-lg'); */
-		map.addLayer({
-			"id": "regionsFill",
+			"paint": {
+				'fill-color': '#fff',
+				'fill-outline-color': '#fff',
+				"fill-opacity": 0.01,
+			}
+		}, 'state-label-lg');
+/* 		map.addLayer({
+			"id": "regions",
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapSubRegionLayer,
+            "maxzoom": 4,
+            "layout": {},
             "paint": {
-				"fill-color": "rgb(204,235,197)",
-				"fill-opacity": 0.01,
+                "fill-color": "#fff",
+                "fill-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    0,
+                    1,
+                    4,
+                    0
+                ]
             }
-		}, 'state-label-lg');
+		}, 'state-label-lg'); */
 		map.addLayer({
 			"id": "regionsBorder",
 			"type": "line",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapSubRegionLayer,
             "paint": {
-				"line-color": "rgb(204,235,197)",
-				"line-width": 2,
+                "line-color": "#75b329",
+                "line-width": ["interpolate", ["linear"], ["zoom"], 0, 4, 5, 1]
             }
 		}, 'state-label-lg');
 		map.addLayer({
@@ -267,8 +280,8 @@ jQuery(document).ready(function($) {
 				"visibility": "none",
 			},
 			"paint": {
-				"line-color": "#8fc04f",
-				"line-width": 3,
+				"line-color": regionColor,
+				"line-width": 4,
 			}
 		}, 'state-label-lg');
 		map.addLayer({
@@ -276,18 +289,20 @@ jQuery(document).ready(function($) {
 			"type": "symbol",
 			"source": "BIOPAMA_Point",
 			"source-layer": mapSubRegionPointLayer,
-			"maxzoom": 3,
+			"maxzoom": 4,
             "layout": {
-                "text-field": "{Group}",
-                "text-size": 16,
-                "text-padding": 3,
-				"text-allow-overlap": true
+                "text-field": ["to-string", ["get", "Group"]],
+                "text-font": [
+                    "Arial Unicode MS Regular"
+                ],
+                "text-size": 22,
+                "text-ignore-placement": true
             },
             "paint": {
-                "text-color": "hsla(213, 49%, 13%, 0.95)",
-                "text-halo-color": "hsla(0, 0%, 100%, .9)",
-                "text-halo-width": 2,
-                "text-halo-blur": 2
+                "text-color": "#a25b28",
+                "text-halo-width": 3,
+                "text-halo-color": "#fff",
+                "text-halo-blur": 4
             }
 		}, 'country-label-sm');
 		map.addLayer({
@@ -299,7 +314,7 @@ jQuery(document).ready(function($) {
 				"visibility": "none",
 			},
             "paint": {
-                "line-color": "rgba(103, 155, 149, 0.9)",
+                "line-color": regionColor,
                 "line-dasharray": [3, 1],
 				"line-width": 3,
             }
@@ -323,7 +338,6 @@ jQuery(document).ready(function($) {
 			"type": "fill",
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapCountryLayer,
-			"filter": ["==", "$type", "Polygon"],
 			"paint": {
 				'fill-color': '#fff',
 				"fill-opacity": 0.01,
@@ -337,7 +351,6 @@ jQuery(document).ready(function($) {
 			},
 			"source": "BIOPAMA_Poly",
 			"source-layer": mapCountryLayer,
-			"filter": ["==", "$type", "Polygon"],
 			"paint": {
 				'fill-color': '#fff',
 				'fill-outline-color': '#fff',
@@ -353,8 +366,8 @@ jQuery(document).ready(function($) {
 				"visibility": "none",
 			},
 			"paint": {
-				"line-color": "#8fc04f",
-				"line-width": 3,
+				"line-color": countryColor,
+				"line-width": 2,
 			}
 		}, 'state-label-lg');
 		map.addLayer({
@@ -366,7 +379,7 @@ jQuery(document).ready(function($) {
 				"visibility": "none"
 			},
 			"paint": {
-				"line-color": "#679b95",
+				"line-color": countryColor,
 				"line-width": 3
 			}
 		}, 'state-label-lg');
@@ -388,17 +401,24 @@ jQuery(document).ready(function($) {
 			"source-layer": mapPaLayer,
 			"minzoom": 3,
             "paint": {
-                "fill-color": {
-                    "base": 1,
-                    "type": "categorical",
-                    "property": "MARINE",
-                    "stops": [
-                        ["0", "rgb(143, 191, 75)"],
-                        ["1", "rgb(103, 155, 149)"],
-                        ["2", "rgb(103, 155, 149)"]
-                    ]
-                },
-                "fill-opacity": 0.2
+                "fill-color": [
+                    "match",
+                    ["get", "MARINE"],
+                    ["1"],
+                    "hsla(173, 21%, 51%, 0.2)",
+                    "hsla(87, 47%, 53%, 0.2)"
+                ],
+                "fill-opacity": [
+                    "interpolate",
+                    ["exponential", 1],
+                    ["zoom"],
+                    3,
+                    0.3,
+                    5,
+                    0.5,
+                    6,
+                    1
+                ]
             }
 		}, 'state-label-lg');
 		map.addLayer({
@@ -410,8 +430,8 @@ jQuery(document).ready(function($) {
 				"visibility": "none"
 			},
 			'paint': {
-				'fill-color': 'rgb(255, 152, 0)',
-				'fill-outline-color': 'rgb(255, 15, 0)',
+				'fill-color': paColor,
+				'fill-outline-color': paColor,
 				"fill-opacity": 0.6
 			}
 		}, 'state-label-lg');
@@ -451,20 +471,16 @@ jQuery(document).ready(function($) {
 			"type": "circle",
 			"source": "BIOPAMA_Point",
 			"source-layer": mapPaPointLayer,
-			"minzoom": 3,
+			"filter": ["match", ["get", "Point"], [1], true, false],
+			"minzoom": 5,
             "paint": {
-				"circle-radius": 5,
-				"circle-color": {
-                    "base": 1,
-                    "type": "categorical",
-                    "property": "MARINE",
-                    "stops": [
-                        ["0", "rgba(143, 191, 75, 0.2)"],
-                        ["1", "rgba(103, 155, 149, 0.2)"],
-                        ["2", "rgba(103, 155, 149, 0.2)"]
-                    ]
-                },
-				"circle-opacity": 0.8
+                "circle-color": [
+                    "match",
+                    ["get", "MARINE"],
+                    ["1"],
+                    "hsla(173, 21%, 51%, 0.2)",
+                    "hsla(87, 47%, 53%, 0.2)"
+                ]
             }
 		}, 'state-label-lg');
 /* 		map.addLayer({
@@ -490,19 +506,22 @@ jQuery(document).ready(function($) {
 		map.addLayer({
 			"id": "wdpaAcpPolyLabels",
 			"type": "symbol",
-			"source": "BIOPAMA_Poly",
-			"source-layer": mapPaLayer,
+			"source": "BIOPAMA_Point",
+			"source-layer": mapPaLabelsLayer,
 			"minzoom": 5,
             "layout": {
-                "text-field": "{NAME}",
+                "text-field": ["to-string", ["get", "NAME"]],
                 "text-size": 12,
-                "text-padding": 3,
+                "text-font": [
+                    "Arial Unicode MS Regular",
+                    "Arial Unicode MS Regular"
+                ]
             },
             "paint": {
-                "text-color": "hsla(213, 49%, 13%, 0.95)",
-                "text-halo-color": "hsla(0, 0%, 100%, .9)",
                 "text-halo-width": 2,
-                "text-halo-blur": 2
+                "text-halo-blur": 2,
+                "text-halo-color": "hsl(0, 0%, 100%)",
+                "text-opacity": 1
             }
 		}, 'country-label-sm');
 		map.addLayer({
@@ -524,8 +543,6 @@ jQuery(document).ready(function($) {
                 "text-halo-blur": 2
             }
 		}, 'country-label-sm');
-		
-		
 		
 		//add the selected Country Layer
 		

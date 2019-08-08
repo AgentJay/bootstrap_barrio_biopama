@@ -32,39 +32,15 @@ jQuery(document).ready(function($) {
 				$( ".search-text" ).focus();
 			}
 		});
-		
 		$('.bread-trail-region').on('click', function(e) {
 			if (!$(e.target).hasClass('fa-times')){
 				$(this).find(".bread-menu-icon").addClass("active-bread");
-				$('#bread-content-wrapper').css('left', "300px");
-				$('#bread-content-wrapper').empty().show();
 				if(selSettings.regionID !== null){
 					var regionURL = '/region/'+selSettings.regionID +'/summary';
 					regionURL = regionURL.toLowerCase();
-					Drupal.ajax({ 
-					  url: regionURL,
-					  success: function(response) {		
-						var $regionContents
-						for (var key in response) {
-							// skip loop if the property is from prototype
-							if (!response.hasOwnProperty(key)) continue;
-							var obj = response[key];
-							for (var prop in obj) {
-								// skip loop if the property is from prototype
-								if(!obj.hasOwnProperty(prop)) continue;
-								//console.log(prop + " = " + obj[prop]);
-								if(prop == "data"){
-									//console.log(prop + " = " + obj[prop]);
-									$('.bread-region-menu-content').show();
-									$regionContents = $('<div>' + response[key].data + '</div>').appendTo('body');
-								}
-							}
-						}
-						$regionContents.appendTo('#bread-content-wrapper').show();
-						poulateRegionCard();
-					  }
-					}).execute();
-					$('#bread-content-wrapper').show();
+					new Promise(function(resolve, reject) {
+					  buildBreadcrumbCard(regionURL);
+					}).then(poulateRegionCard());
 				} else {
 					$('<div>No Region Selected.</div>').appendTo('#bread-content-wrapper');
 				}				
@@ -73,50 +49,12 @@ jQuery(document).ready(function($) {
 		$('.bread-trail-country').on('click', function(e) {
 			if (!$(e.target).hasClass('fa-times')){
 				$(this).find(".bread-menu-icon").addClass("active-bread");
-				$('#bread-content-wrapper').css('left', "500px");
-				$('#bread-content-wrapper').empty().show();
 				if(selSettings.ISO2 !== null){
 					var countryURL = '/breadcrumb-country-summary/'+selSettings.ISO2;
 					countryURL = countryURL.toLowerCase();
-					Drupal.ajax({ 
-					  url: countryURL,
-					  success: function(response) {		
-						var $regionContents
-						for (var key in response) {
-							// skip loop if the property is from prototype
-							if (!response.hasOwnProperty(key)) continue;
-							var obj = response[key];
-							for (var prop in obj) {
-								// skip loop if the property is from prototype
-								if(!obj.hasOwnProperty(prop)) continue;
-								//console.log(prop + " = " + obj[prop]);
-								if(prop == "data"){
-									//console.log(prop + " = " + obj[prop]);
-									$regionContents = $('<div>' + response[key].data + '</div>').appendTo('body');
-								}
-							}
-						}
-						$regionContents.appendTo('#bread-content-wrapper');
-						$( "div.tooltip-ter" ).tooltip({
-							trigger:"hover",
-							html: true,
-							placement: "right",
-							title:"CBD Target 11. Progress towards goal of protecting 17% of Terrestrial Areas.<br><div style='text-align: left;'><span style='color:#679b95;'>Blue</span> = Area protected towards the target<br><span style='color:#000;'>Black</span> = Area remaining<br><span style='color:#8fc04f;'>Green</span> = Area protected in addition to the target goal</div>",
-							delay: 200,
-							template: tipTemplate
-						});
-						$( "div.tooltip-mar" ).tooltip({
-							trigger:"hover",
-							html: true,
-							placement: "right",
-							title:"CBD Target 11. Progress towards goal of protecting 10% of Marine Areas.<br><div style='text-align: left;'><span style='color:#679b95;'>Blue</span> = Area protected towards the target<br><span style='color:#000;'>Black</span> = Area remaining<br><span style='color:#8fc04f;'>Green</span> = Area protected in addition to the target goal</div>",
-							delay: 200,
-							template: tipTemplate
-						});
-						poulateCountryCard();
-					  }
-					}).execute();
-					
+					new Promise(function(resolve, reject) {
+					  buildBreadcrumbCard(countryURL);
+					}).then(poulateCountryCard());
 				} else {
 					$('<div>No Country Selected.</div>').appendTo('#bread-content-wrapper');
 				}
@@ -125,33 +63,14 @@ jQuery(document).ready(function($) {
 		$('.bread-trail-pa').on('click', function(e) {
 			if (!$(e.target).hasClass('fa-times')){
 				$(this).find(".bread-menu-icon").addClass("active-bread");
-				$('#bread-content-wrapper').css('left', "700px");
-				$('#bread-content-wrapper').empty().show();
 				if(selSettings.WDPAID !== null){
-					var countryURL = '/breadcrumb-pa-summary/'+selSettings.WDPAID;
-					countryURL = countryURL.toLowerCase();
-					Drupal.ajax({ 
-					  url: countryURL,
-					  success: function(response) {
-						var $regionContents
-						for (var key in response) {
-							// skip loop if the property is from prototype
-							if (!response.hasOwnProperty(key)) continue;
-							var obj = response[key];
-							for (var prop in obj) {
-								// skip loop if the property is from prototype
-								if(!obj.hasOwnProperty(prop)) continue;
-								//console.log(prop + " = " + obj[prop]);
-								if(prop == "data"){
-									//console.log(prop + " = " + obj[prop]);
-									$regionContents = $('<div>' + response[key].data + '</div>').appendTo('body');
-								}
-							}
-						}
-						$regionContents.appendTo('#bread-content-wrapper');
-						poulatePaCard();
-					  }
-					}).execute();
+					var paURL = '/breadcrumb-pa-summary/'+selSettings.WDPAID;
+					paURL = paURL.toLowerCase();
+					new Promise(function(resolve, reject) {
+					  buildBreadcrumbCard(paURL);
+					}).then(poulatePaCard());
+					
+					;
 				} else {
 					$('<div>No Protected Area Selected.</div>').appendTo('#bread-content-wrapper');
 				}
@@ -207,14 +126,39 @@ jQuery(document).ready(function($) {
 	};
 });
 
+function buildBreadcrumbCard(URL){
+	Drupal.ajax({ 
+	  url: URL,
+	  success: function(response) {		
+		var $cardContents
+		for (var key in response) {
+			if (!response.hasOwnProperty(key)) continue;
+			var obj = response[key];
+			for (var prop in obj) {
+				if(!obj.hasOwnProperty(prop)) continue;
+				if(prop == "data"){
+					$cardContents = jQuery('<div>' + response[key].data + '</div>');
+				}
+			}
+		}
+		jQuery('#bread-content-wrapper').empty().show();
+		$cardContents.appendTo('#bread-content-wrapper');
+		jQuery('<div class="closeSummaryCard"><i class="fas fa-times"></i></div>').appendTo('#bread-content-wrapper');
+		jQuery( "div.closeSummaryCard" ).click(function(e) {
+			jQuery('#bread-content-wrapper').empty().hide();
+		});
+	  }
+	}).execute();	
+}
+
 function updateBreadCountry(){
 	if (!jQuery(".bread-trail-region:visible").length)jQuery(".bread-trail-region").toggle( "slide" );
 	if (!jQuery(".bread-trail-country:visible").length)jQuery(".bread-trail-country").toggle( "slide" );
 	//if we are currently in the country tab, refresh the results
-	if (jQuery(".indi-tab-country.ui-state-active:visible").length) {
+	if (jQuery(".indi-tab-national.ui-state-active:visible").length) {
 		console.log(selSettings.ISO3);
 		getRestResults();
-	} else if ((jQuery(".indi-tab-country:visible").length) && (!jQuery(".indi-tab-country").hasClass("disable-scope"))){
+	} else if ((jQuery(".indi-tab-national:visible").length) && (!jQuery(".indi-tab-national").hasClass("disable-scope"))){
 		console.log(selSettings.ISO3);
 		updateCardTab();
 	}
@@ -235,7 +179,7 @@ function updateBreadRegion(){
 	if (!jQuery(".bread-trail-region:visible").length)jQuery(".bread-trail-region").toggle( "slide" );
 	//if we are currently in the region tab, refresh the results
 	thisMap.setLayoutProperty("regionSelected", 'visibility', 'visible');
-	thisMap.setFilter('regionSelected', ['==', 'Group', selSettings.regionID]);
+	thisMap.setFilter('regionSelected', ['==', 'Group', selSettings.regionName]);
 	if (jQuery(".indi-tab-regional.ui-state-active:visible").length) {
 		getRestResults();
 	} else if ((jQuery(".indi-tab-regional:visible").length) && (!jQuery(".indi-tab-regional").hasClass("disable-scope"))){
@@ -248,7 +192,6 @@ function updateBreadRegion(){
   jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.regionName +'</b></div></div>')
     .appendTo('#bread-parent-region');
 	jQuery('#bread-note-wrapper').delay( 5000 ).fadeOut("slow");
-
 	
 	jQuery("#bread-region").text(selSettings.regionName).one().effect( "highlight", {color: breadColor}, 500);
 	jQuery("#bread-region").append("<button type='button' class='breadClose' aria-label='Close' onclick='removeRegion()'><i class='fas fa-times'></i></button>");
@@ -259,10 +202,10 @@ function updateBreadPA(){
 	if (!jQuery(".bread-trail-pa:visible").length)jQuery(".bread-trail-pa").toggle( "slide" );
 	if (jQuery("#focus_details_right .view-breadcrumb-protected-area-summary:visible").length) updatePaInfo();
 	//if we are currently in the pa tab, refresh the results
-	if (jQuery(".indi-tab-pa.ui-state-active:visible").length) {
+	if (jQuery(".indi-tab-local.ui-state-active:visible").length) {
 		getRestResults();
 	//if we are not in the tab and it's not turned off, switch to it.
-	} else if ((jQuery(".indi-tab-pa:visible").length) && (!jQuery(".indi-tab-pa").hasClass("disable-scope"))){
+	} else if ((jQuery(".indi-tab-local:visible").length) && (!jQuery(".indi-tab-local").hasClass("disable-scope"))){
 		updateCardTab();
 	}
 //	jQuery('#bread-content-wrapper').empty().show();
@@ -280,7 +223,7 @@ function updateBreadPA(){
 function updateBreadIndicator(indicatorName){
 	if (!jQuery(".bread-trail-indicator:visible").length)jQuery(".bread-trail-indicator").toggle( "slide" );
 	jQuery("#bread-indicator").text(indicatorName).one().effect( "highlight", {color: breadColor}, 500);
-	jQuery("#bread-indicator").append("<button type='button' class='breadClose' aria-label='Close' onclick='removeIndicator()'><i class='fas fa-times'></i></button>");
+	jQuery("#bread-indicator").append("<button type='button' class='breadClose' aria-label='Close' onclick='closeIndicatorCard()'><i class='fas fa-times'></i></button>");
 }
 
 function removeCountry(){
@@ -289,10 +232,10 @@ function removeCountry(){
 	selSettings.ISO2 = null;
 	selSettings.ISO3 = null;
 	selSettings.NUM = null;
-	thisMap.setFilter('wdpaAcpFill', null);
-	thisMap.setFilter('countryFill', null);
+ 	thisMap.setFilter('wdpaAcpFill', null);
+/*	thisMap.setFilter('countryFill', null);
 	thisMap.setLayoutProperty("wdpaAcpFill", 'visibility', 'visible');
-	thisMap.setLayoutProperty("countryFill", 'visibility', 'visible');
+	thisMap.setLayoutProperty("countryFill", 'visibility', 'visible'); */
 	highlightMapFeature();
 	if (jQuery("#block-indicatorcard article:visible").length) updateCardTab();
 	jQuery("#bread-country").text("NA").one().effect( "highlight", {color: breadColor}, 500);

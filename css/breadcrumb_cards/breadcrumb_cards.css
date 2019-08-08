@@ -106,11 +106,9 @@ span.scope-divider {
     width: 100%;
 }
 .region-info {
-    /*background: #ffffffe6;*/
-	/*height: 210px;*/
   position:absolute;
   right:0;
-  top:100px;
+  top:50px;
   background-color:#0000006b;
   background-color:rgba(0, 0, 0, 0.4196078431372549);
   border-top-left-radius:5px;

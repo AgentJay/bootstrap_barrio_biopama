@@ -1,9 +1,9 @@
 {% set url = current_uri %}
 {% block head %}
 
-   {{ attach_library( 'bootstrap_barrio_biopama/landing-page' ) }}
+   {{ attach_library( 'bootstrap_barrio_biopama/pame' ) }}
 
-   <!-- <div id="header" class="header">
+   <div id="header" class="header">
         <nav{{ navbar_attributes }}>
             {{ page.header }}
             {% if page.primary_menu or page.header_form %}
@@ -18,115 +18,83 @@
 	          </div>
             {% endif %}
         </nav>
-   </div> -->
+   </div>
 
-   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img class="biopama-logo" src="/themes/custom/bootstrap_barrio_biopama/img/PEN_Biopama_Logo_no_text_sm.png">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 {% endblock %}
 
  <!-- <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> -->
 
 <body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 
 
 <header class="masthead text-left text-white">
 
   <div id="bkgd-linear" class="masthead-linear"></div>
+
   <div id="bkgd-img" class="masthead-img" style="display:none;"></div>
-      <div class="bg-circle-1 bg-circle"></div>
-      <div class="bg-circle-2 bg-circle"></div>
-      <div class="bg-circle-3 bg-circle"></div>
-      <div class="bg-circle-4 bg-circle"></div>
-  	  <div id="bkgd-filter"></div>
+
       <div class="masthead-content">
 
-      <div class="row">
+        <div class="row">
 
-        <div class="col-3 header-text">
-          <div class="container landing_headers">
-              {{ drupal_view('landingpage_headers', 'block_1') }}
-          </div>
-        </div>
-        <div class="col-9 header-table-cards">
-            <div class="header-table-wrap">
-                {{ drupal_view('landingpage_headers', 'block_6') }}
+          <div class="col-lg-2 header-text">
+            <div class="container landing_headers">
+            <h5>PAME Dashboard</h5>
+            <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/divider_02.png"/>
+                <ul class="list-group pame-links">
+                {{ drupal_view('pame_dashboard', 'block_7') }}
+                </ul>
             </div>
-        </div>
+          </div>
+          <div class="col-lg-10 header-table-cards">
+              <div class="header-table-wrap">
+                  <h1>Management Plans</h1>
+                  put here a view filtering and querying all documents tagged as Management Plans  (even not PAME)
+                  with filters
 
-      </div>
+                  <div class="form-group" hidden>
+                    <label for="assessment_tools">Tool</label>
+                      <select class="form-control cql_filters" id="assessment_tools" param="pame_methodology">
+                        <option value="%">All Assessment Tools</option>
+                       </select>
+
+                    <label for="assessment_year">Year</label>
+                     <select class="form-control cql_filters" id="assessment_year" param="pame_source_year">
+                       <option value="%">All Assessment Tools</option>
+                      </select>
+
+                      <label for="assessment_region">Region</label>
+                       <select class="form-control cql_filters" id="assessment_region" param="region">
+                         <option value="%">All Assessment Tools</option>
+                        </select>
+
+                        <label for="assessment_country">Country</label>
+                         <select class="form-control cql_filters" id="assessment_country" param="country_na">
+                           <option value="%">All Assessment Tools</option>
+                          </select>
+
+                  </div>
+
+                  <div id="pame_assessments_map"></div>
+                  <div id="pame_assessments_table">
+                     <table class="table" id="table_assessments">
+                     <thead></thead>
+                     <tbody></tbody>
+                     <tfoot></tfoot>
+                     </table>
+                  </div>
+              </div>
+          </div>
+
+        </div>
 
   </div>
-
+  <div class="wave-corner">
+    <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/color_wave.png"/>
+  </div>
  </header>
-
- <div class="row align-items-center title-element-fullwidth">
-   <div class="col-lg-12">
-     <h4>RRIS BIOPAMA Learn & Explore</h4>
-   </div>
- </div>
-
-
-<div class="main-section-container">
-  <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-12">
-
-{{ drupal_view('landingpage_headers', 'block_2') }}
-
-{{ drupal_view('landingpage_headers', 'block_3') }}
-
-{{ drupal_view('landingpage_headers', 'block_4') }}
-
-{{ drupal_view('landingpage_headers', 'block_5') }}
-
-
-          </div>
-        </div>
-
-    </div>
-   </div>
-  </div>
-
-
-  <!--
-        <div class="row align-items-center title-element-fullwidth">
-          <div class="col-lg-12">
-            <h4>RRIS BIOPAMA MAIN CONTENTS & TOOLS</h4>
-          </div>
-        </div>
-
-  <div class="main-section-container">
-   <div class="container">
-        <div class="row dashboard align-items-center">
-          <div class="col-lg-12">
-            <div class="card-columns" id="highlights_cards">
-
-              {{ drupal_view('landingpage_headers', 'block_6') }}
-
-            </div>
-         </div>
-        </div>
-
-  </div>
-</div>
--->
 
 
 <button id="myBtn_scrollTop" title="Go to top"><i class="fas fa-arrow-up fa-2x"></i></button>

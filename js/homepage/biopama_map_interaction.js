@@ -2,10 +2,11 @@
 jQuery(document).ready(function($) {
 	//alternative interesting events 'boxzoomend', 'zoomend', 'touchend'
 	thisMap.on('click', getFeatureInfo);
-	thisMap.on('mousemove', "regionsFill", function (e) {
+	thisMap.on('mousemove', "regionsMask", function (e) {
+		console.log("sad")
  		if (e.features.length > 0) {
-			$('#map-region-info').text("Region: "+ e.features[0].properties.Name);
-			if(e.features[0].properties.Group == selSettings.regionID){
+			$('#map-region-info').text("Region: "+ e.features[0].properties.Group);
+			if(e.features[0].properties.Group == selSettings.regionName){
 				thisMap.setLayoutProperty("regionHover", 'visibility', 'none');
 			} else {
 				thisMap.setFilter('regionHover', ['==', 'Group', e.features[0].properties.Group]);		
@@ -13,7 +14,7 @@ jQuery(document).ready(function($) {
 			}
         } 
 	});
-	thisMap.on("mouseleave", "regionsFill", function() {
+	thisMap.on("mouseleave", "regionsMask", function() {
 		$('#map-region-info').text("Region: NA");
         thisMap.setLayoutProperty("regionHover", 'visibility', 'none');
     });
@@ -292,7 +293,7 @@ function checkCountryChanged(mapValue = 'iso2') {
 	if (countryChanged == 1){
 		updateCountry(mapValue);
 		//Now we paint all the Protected areas in the selected country based on their IUCN category
-		zoomToCountry(selSettings.ISO2);
+		//zoomToCountry(selSettings.ISO2);
 	}
 }
 function paChanged() {
@@ -374,7 +375,7 @@ function updateRegion(region = selSettings.regionID) {
 	thisMap.setFilter('countryFill', ['==', 'Group', region]);
 	thisMap.setFilter('regionsFill', ['!=', 'Group', region]);
 	//thisMap.setPaintProperty("regionsFill", "fill-opacity", ["match", ["get", "Group"], [region], 0, 0.6]);
-	zoomToRegion(region);
+	//zoomToRegion(region);
 	thisMap.setLayoutProperty("countryFill", 'visibility', 'visible');
 	updateBreadRegion();
 }

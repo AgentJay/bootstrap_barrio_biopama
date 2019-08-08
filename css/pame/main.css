@@ -1,14 +1,157 @@
 /*http://www.pbs.org/wnet/nature/files/2008/03/Cuba-Explore.jpg*/
   body {
   	font-family: "Maven Pro";
-    background-color: #fdfdff;
+    background-color: #f3f3f4;
   }
+
+table.globalk{
+  color:black;
+}
+
+table.globalk tfoot{
+  background-color:#8eb4b1!important;
+  color:white;
+  font-weight: bolder;
+}
+
+.card-header{
+  background-color: transparent;
+  border-bottom: 0px;;
+}
+
+.open-table{
+  position: absolute;
+    right: 5px;
+    bottom: 3em;
+    transform: rotate(180deg);
+    color: #8fbf4b;
+}
+
+.open-table-close{
+  transform:rotate(0deg);
+}
+
+body.path-pame .btn-light, body.path-globalknowledge .btn-light{
+  border-color: #41ad53;
+}
+body.path-pame .btn-light a, body.path-globalknowledge .btn-light a{
+  color:black;
+}
+
   h1, h2, h3, h4, h5, h6 {
   	font-family: "Maven Pro";
-  	font-weight: 800!important;
-    font-variant:small-caps!important;
+  	font-weight: 700!important;
+    /*font-variant:small-caps!important;*/
     margin-top: 0;
   }
+
+#spinner{
+  text-align: center;
+  display: none;
+}
+
+h1{
+    color:#8FBF4B;
+}
+
+header div.masthead-content div.col-lg-10.header-table-cards h1,
+header div.masthead-content div.col-lg-10.header-table-cards h5{
+  color:#8eb4b1;
+}
+
+header div.masthead-content h4{
+  color:#8FBF4B!important;
+}
+
+.header-table-wrap .form-group{
+  display:inline-flex;
+}
+
+#pame_assessments_table{
+  color:black;
+}
+
+#table_assessments tbody tr.selected{
+  background-color: yellow;
+}
+
+#table_assessments tbody tr:hover{
+  background-color: #eee;
+}
+
+#pame_assessments_map{
+  height:600px;
+  width:100%;
+}
+
+.header-table-wrap .form-group label{
+  padding: 5px;
+color: #659a94;
+}
+
+.assessment-tools-details{
+  display:none;
+  color:#8eb4b1;
+  padding:20px;
+}
+
+.assessment-tools-details .col-2 .btn{width: 100%;
+    margin-bottom: 3px;
+  }
+
+.assessment-tools-more{
+  float: right;
+}
+
+.leaflet-popup-content center{
+  color:brown;
+}
+
+.leaflet-popup-content center.available{
+  color:green;
+}
+
+.pame-links img{
+  max-width: 50px;
+}
+
+.pame-links li{
+  list-style: none;
+  padding: 10px;
+}
+
+.pame-links li:hover{
+  transform:scale(1.2);
+  background-color:white;
+  border-radius:5px;
+}
+
+.pame-links li a, .pame-links li a:hover{
+  color:#77a6a1;
+}
+
+  #header{
+    z-index: 3;
+position: relative;
+  }
+
+.wave-corner{
+      position:absolute;
+      bottom:0;
+      right:0;
+      opacity:0.75;
+}
+
+.pame-edit-node{
+  position: absolute;
+    /* right: 0; */
+    left: 0;
+    /* top: 0; */
+    margin-top: -10%;
+    z-index: 2;
+    border-color: #41ad53;
+
+}
 
  #navbarResponsive .nav-link{
   color:#679c97;
@@ -65,15 +208,20 @@ footer .text_f {
   display:none;
 }
 
+.header-table-wrap .view-content.row{
+  display:block;
+}
+
 .header-text{
   /*background-color:#90c14f24;*/
-  background-color:#90c14fd1;
+  /*background-color:#90c14fd1;*/
   height: fit-content;
+  color:#8eb4b1!important;
 }
 
 .header-table-cards{
   min-height: -webkit-fill-available;
-  text-align:center;
+  /*text-align:center;*/
 }
 
 .header-table-cards .card{
@@ -81,23 +229,27 @@ border: 0px!important;
     border-radius: 0!important;
     padding: 10px!important;
     /* background-color: #f1f1f3!important; */
-    width: 150px;
-    height: 150px;
+    /*width: 150px;
+    height: 150px;*/
     margin: 20px;
-    /*border-radius: 2px!important;*/
-    border-radius: 20px 5px 20px 5px!important;
+    border-radius: 3px!important;
+    /*border-radius: 20px 5px 20px 5px!important;*/
     background-color: #fdfdff;
     /* border: 5px solid #90c14f4d!important; */
-    box-shadow: 3px 5px 0px 1px #00000047;
+    box-shadow: 0 0 20px 10px rgba(17,133,171,0.13);
 }
 
 .header-table-cards h6.masthead-subheading{
-  width: 150px;
-  margin: 20px;
+  /*width: 150px;
+  margin: 20px;*/
 }
 
 .header-table-cards .card:hover{
   transform:scale(1.1);
+}
+
+body.path-globalknowledge .card:hover{
+  transform:scale(1);
 }
 
 .header-table-cards .card-body{
@@ -105,23 +257,38 @@ border: 0px!important;
 }
 
 .card-link{
-  position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* margin: 0; */
-      /* padding: 0; */
-      background-color: #ffffff96;
-      left: 0;
-      height: 3rem;
-      padding: 10px;
-      /* border-radius: 100%; */
-      /* right: 10px; */
-      text-align: right;
-      border-radius: 0px 0px 20px 5px;
+  background: #90c14f;
+      outline: none;
+      border: none;
+      color: #fff;
+      margin-left: -20px;
+      cursor: pointer;
+      position: absolute;
+      right: -6rem;
+      top: 20px;
+      height: 80%;
+      width: 8rem;
+      padding-top: 20px;
+      text-align: center;
+      text-transform: uppercase;
+}
+
+.card-link:after{
+  content: '';
+    display: block;
+    width: 1.25rem;
+    height: 0.6875rem;
+    position: absolute;
+    top: 2.6rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: url(https://biopama.org/themes/biopama/images/find-more-arrow.png) no-repeat center;
 }
 
 .card-link:hover{
-  background-color: #fffffff2;
+  background-color: #91b090;
 }
 
 .card-link i{
@@ -143,7 +310,7 @@ border: 0px!important;
 .card-link .card-title{
   font-weight: bolder;
     font-family: "Maven Pro";
-    width: 85%;
+    width: 100%;
 }
 
   .header-table-wrap {
@@ -169,13 +336,24 @@ border: 0px!important;
   font-size:2rem;
 }
 
-h6.masthead-subheading.mb-0{
-  /*background-color: #00000057;
-height: 1.2rem;
-border-radius: 100px;
-width: 80%;
-margin-left: 10%;*/
-    text-shadow: 0px 0px 10px #000000;
+.h-card-pame h4{
+  font-size: 1.5rem!important;
+  margin-right: 25px;
+    font-weight: 700;
+}
+
+.h-card-pame h6, .h-card-pame h4{
+    color:#77a6a1!important;
+    text-align: left;
+}
+
+.h-card-pame .col-9{
+  color:#77a6a1!important;
+}
+
+.h-card-pame img{
+  /*max-height:100px;*/
+  padding:10px;
 }
 
 .landing_headers{
@@ -372,12 +550,14 @@ nav.navbar-we-mega-menu {
 
 header a {
   /*color: #8BC34A;*/
-  color:#488463;
+  color:#fff;
   text-decoration:none;
+  font-weight: lighter;
 }
 
 header a:hover {
-  color: #084f0b;
+  /*color: #084f0b;*/
+  color:#fff;
   text-decoration:none;
 }
 
@@ -400,8 +580,9 @@ header a:hover {
   background-color:black;
   opacity:0.5;*/
   z-index: 1;
-  background-color: white;
-  opacity: 0.1;
+  /*background-color: white;
+  opacity: 0.1;*/
+  background-image: linear-gradient(#87ab4929 25%, #41ad535e 75%, #42ad5294 100%);
 }
 
 .main-section-container .container .row{
@@ -416,11 +597,11 @@ header a:hover {
 }
 
 .masthead {
-  background-image: url("/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_000.jpg");
+  /*background-image: url("/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_000.jpg");
   background-repeat: no-repeat;
   	background-position: center center;
   	background-attachment: scroll;
-  	background-size: cover;
+  	background-size: cover;*/
 }
 
   .masthead-linear{
@@ -528,7 +709,7 @@ header a:hover {
 
 @media (max-width: 1024px) {
     body, p, h1, h2, h3, h4, h5, h6{
-      font-size:2rem;
+      font-size:medium;
   }
   a.navbar-brand{
     width:50%
@@ -539,6 +720,12 @@ header a:hover {
   .card-columns{
     column-count:1;
   }
+
+  .icons-rows h2 {
+      text-transform: uppercase;
+      font-size: larger;
+  }
+
 }
 
   @media (min-width:992px) {

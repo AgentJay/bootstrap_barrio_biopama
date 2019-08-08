@@ -6,9 +6,6 @@ function getChart(error = 0){
 		jQuery( ".rest-error" ).empty();
 		jQuery( ".indicator-chart" ).show();
 		currentCardScope = jQuery("#pa-card-tabs li.ui-tabs-active").text().trim().toLowerCase();
-		if (currentCardScope == "protected area"){
-			currentCardScope = "pa";
-		}
 		//destroy any active charts, this is to remove any active events that might be attached to them, it also looks nicer with the animations being refreshed.
 		//echarts.dispose(document.getElementById('indicator-chart-'+CurrentCardScope));
 		indicatorChart = echarts.init(document.getElementById('indicator-chart-'+currentCardScope));
@@ -29,7 +26,10 @@ function getChart(error = 0){
 		case "regional":
 			prepRegionalChart();
 			break;
-		case "pa":
+		case "national":
+			prepCountryChart();
+			break;
+		case "local":
 			prepPaChart();
 			break;
 		default:	//the country charts are the default for now....
@@ -62,7 +62,7 @@ function chartError(error){
 				break;
 		}
 		var currentScope = jQuery("ul.indicator-card-tabs").children(".ui-tabs-active").first().text();
-		if(((selSettings.regionID != null) && (currentScope == "Regional")) || ((selSettings.ISO2 != null) && (currentScope == "Country")) || ((selSettings.WDPAID > 0) && (currentScope == "Protected Area"))){
+		if(((selSettings.regionID != null) && (currentScope == "Regional")) || ((selSettings.ISO2 != null) && (currentScope == "National")) || ((selSettings.WDPAID > 0) && (currentScope == "Local"))){
 			jQuery( ".rest-error" ).html("<div class='alert alert-info'>No results were found.<br>"+
 			"Try selecting a different <b>" + scopeNeeded + "</b></div>");
 		} else {
@@ -80,6 +80,7 @@ function minimizeChart(){
   //updateBreadIndicator("NA");
 }
 function sortByKey(array, key, order='asc') {
+	//console.log("boom");
     return array.sort(function(a, b, order) {
 		if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 		  // property doesn't exist on either object
@@ -107,8 +108,11 @@ function sortByKey(array, key, order='asc') {
 function checkChartData(chartType = "barLine"){
 	//we take the REST results and put it into a new variable, this ensures the original results are stored unmodified.
 	var indicatorResults = selData.chart.RESTResults;
+	var acpCountryNames = ["Angola","Antigua and Barbuda","Bahamas","Barbados","Belize","Benin","Botswana","Burkina Faso","Burundi","Cameroon","Cape Verde","Central African Republic","Chad","Comoros","Congo (Brazzaville)","Congo, Democratic Republic of the","Cook Islands","Côte d'Ivoire","Cuba","Djibouti","Dominica","Dominican Republic","Equatorial Guinea","Eritrea","Ethiopia","Fiji","Gabon","Gambia","Ghana","Grenada","Guinea","Guinea-Bissau","Guyana","Haiti","Jamaica","Kenya","Kiribati","Lesotho","Liberia","Madagascar","Malawi","Mali","Marshall Islands","Mauritania","Mauritius","Micronesia, Federated States of","Mozambique","Namibia","Nauru","Niger","Nigeria","Niue","Palau","Papua New Guinea","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and Grenadines","Samoa","Sao Tome and Principe","Senegal","Seychelles","Sierra Leone","Solomon Islands","Somalia","South Africa","South Sudan","Sudan","Suriname","Eswatini","Tanzania, United Republic of","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tuvalu","Uganda","Vanuatu","Zambia","Zimbabwe"];
+	var acpIso2 = ["AO", "AG", "BS", "BB", "BZ", "BJ", "BW", "BF", "BI", "CM", "CV", "CF", "TD", "KM", "CG", "CD", "CK", "CI", "CU", "DJ", "DM", "DO", "GQ", "ER", "ET", "FJ", "GA", "GM", "GH", "GD", "GN", "GW", "GY", "HT", "JM", "KE", "KI", "LS", "LR", "MG", "MW", "ML", "MH", "MR", "MU", "FM", "MZ", "NA", "NR", "NE", "NG", "NU", "PW", "PG", "RW", "KN", "LC", "VC", "WS", "ST", "SN", "SC", "SL", "SB", "SO", "ZA", "SS", "SD", "SR", "SZ", "TZ", "TL", "TG", "TO", "TT", "TV", "UG", "VU", "ZM", "ZW"];
+	//console.log(indicatorResults);
 	//we need to see if the data was from a REST service or a WMS service as the WMS service needs to be formatted differently
-	if (selData.chart.dataSource == "External Map Data"){
+	if (selData.chart.dataSource == "External Map Data" || selData.chart.RESTdataContext == "features"){
 		var wmsData = [];
 		indicatorResults.forEach(function(object){
 			wmsData.push(object['properties']);
@@ -116,7 +120,6 @@ function checkChartData(chartType = "barLine"){
 		//console.log(wmsData);
 		indicatorResults = wmsData
 	}
-	
 	//if this is a country linked visualisation, lets clean the results to ensure only ACP countries are showing in the chart.
 	if (selData.chart.mapLayerField  == 'un_m49') {
 		indicatorResults = indicatorResults.filter(ACPNUMFilter);
@@ -127,16 +130,41 @@ function checkChartData(chartType = "barLine"){
 	if (selData.chart.mapLayerField  == 'iso2') {
 		indicatorResults = indicatorResults.filter(ACPISO2Filter);
 	}
-	function ACPISO2Filter(value) {
-		var acpIso2 = ["AO", "AG", "BS", "BB", "BZ", "BJ", "BW", "BF", "BI", "CM", "CV", "CF", "TD", "KM", "CG", "CD", "CK", "CI", "CU", "DJ", "DM", "DO", "GQ", "ER", "ET", "FJ", "GA", "GM", "GH", "GD", "GN", "GW", "GY", "HT", "JM", "KE", "KI", "LS", "LR", "MG", "MW", "ML", "MH", "MR", "MU", "FM", "MZ", "NA", "NR", "NE", "NG", "NU", "PW", "PG", "RW", "KN", "LC", "VC", "WS", "ST", "SN", "SC", "SL", "SB", "SO", "ZA", "SS", "SD", "SR", "SZ", "TZ", "TL", "TG", "TO", "TT", "TV", "UG", "VU", "ZM", "ZW"];
-		return acpIso2.indexOf(value[selData.chart.mappedField]) > -1
+	
+	function ACPISO2Filter(elem, index, array) {		
+		var arrayIndex = acpIso2.indexOf(elem[selData.chart.mappedField]);
+		if (arrayIndex > -1){
+			elem['countryLabel'] = acpCountryNames[arrayIndex];
+			elem['countryISO2'] = acpIso2[arrayIndex];
+			return true;
+		} else {
+			console.log("Country code: "+elem[selData.chart.mappedField]+" is not in the ACP");
+			return false; 
+		}
 	}
-	function ACPISO3Filter(value) {
+	function ACPISO3Filter(elem, index, array) {
 		var acpIso3 = ["AGO", "ATG", "BHS", "BRB", "BLZ", "BEN", "BWA", "BFA", "BDI", "CMR", "CPV", "CAF", "TCD", "COM", "COG", "COD", "COK", "CIV", "CUB", "DJI", "DMA", "DOM", "GNQ", "ERI", "ETH", "FJI", "GAB", "GMB", "GHA", "GRD", "GIN", "GNB", "GUY", "HTI", "JAM", "KEN", "KIR", "LSO", "LBR", "MDG", "MWI", "MLI", "MHL", "MRT", "MUS", "FSM", "MOZ", "NAM", "NRU", "NER", "NGA", "NIU", "PLW", "PNG", "RWA", "KNA", "LCA", "VCT", "WSM", "STP", "SEN", "SYC", "SLE", "SLB", "SOM", "ZAF", "SSD", "SDN", "SUR", "SWZ", "TZA", "TLS", "TGO", "TON", "TTO", "TUV", "UGA", "VUT", "ZMB", "ZWE"];
-		return acpIso3.indexOf(value[selData.chart.mappedField]) > -1
+		var arrayIndex = acpIso3.indexOf(elem[selData.chart.mappedField]);
+		if (arrayIndex > -1){
+			elem['countryLabel'] = acpCountryNames[arrayIndex];
+			elem['countryISO2'] = acpIso2[arrayIndex];
+			return true;
+		} else {
+			console.log("Country code: "+elem[selData.chart.mappedField]+" is not in the ACP");
+			return false; 
+		}
 	}
-	function ACPNUMFilter(value) {
+	function ACPNUMFilter(elem, index, array) {
 		var acpNUM = ["24", "28", "44", "52", "84", "204", "72", "854", "108", "120", "132", "140", "148", "174", "178", "180", "184", "384", "192", "262", "212", "214", "226", "232", "231", "242", "266", "270", "288", "308", "324", "624", "328", "332", "388", "404", "296", "426", "430", "450", "454", "466", "584", "478", "480", "583", "508", "516", "520", "562", "566", "570", "585", "598", "646", "659", "662", "670", "882", "678", "686", "690", "694", "90", "706", "710", "728", "736", "740", "748", "834", "626", "768", "776", "780", "798", "800", "548", "894", "716"].indexOf(value[selData.chart.mappedField]) > -1
+		var arrayIndex = acpNUM.indexOf(elem[selData.chart.mappedField]);
+		if (arrayIndex > -1){
+			elem['countryLabel'] = acpCountryNames[arrayIndex];
+			elem['countryISO2'] = acpIso2[arrayIndex];
+			return true;
+		} else {
+			console.log("Country code: "+elem[selData.chart.mappedField]+" is not in the ACP");
+			return false; 
+		}
 	}
 
 	if(selData.chart.sort == "Ascending"){
@@ -145,7 +173,6 @@ function checkChartData(chartType = "barLine"){
 	if(selData.chart.sort == "Descending"){
 		sortByKey(indicatorResults, selData.chart.chartSeries[0].data, 'desc');
 	}
-
 	//make a copy of the xaxis to modify
 	var xAxis = jQuery.extend( true, {}, selData.chart.Xaxis );
 
@@ -162,20 +189,26 @@ function checkChartData(chartType = "barLine"){
 	//here we replace the x axis data placeholder with the array of values from the rest service. We only do this if they have assigned a value to that axis.
 	if (typeof xAxis['data'] !== 'undefined'){
 		var xAxisData = [], testDate, fullDate;
-		indicatorResults.forEach(function(object){
-			//get the date - it could be a simple year, e.g. 2012 or more complex, e.g. 2016/04/16 - cant get date types to work in echarts
-			// testDate = object[xAxis['data']];
-			// if (testDate.length === 4){ //assumption is that if the test date is 4 characters long then it is a year
-			//   fullDate = new Date(testDate, 11, 31); //month index and date
-			// }else{
-			//   fullDate = new Date(testDate);
-			// }
-			// xAxisData.push(fullDate.toLocaleString());
-			xAxisData.push(object[xAxis['data']]);
-		});
+		if ((selData.chart.mapLayerField  == 'un_m49') || (selData.chart.mapLayerField  == 'iso3') || (selData.chart.mapLayerField  == 'iso2')){
+			//if the chart is linked to the map by a country field, then we replace the country code in the chart by the country name 
+			indicatorResults.forEach(function(object){
+				xAxisData.push(object['countryLabel']);
+			});
+		} else {
+			indicatorResults.forEach(function(object){
+				//get the date - it could be a simple year, e.g. 2012 or more complex, e.g. 2016/04/16 - cant get date types to work in echarts
+				// testDate = object[xAxis['data']];
+				// if (testDate.length === 4){ //assumption is that if the test date is 4 characters long then it is a year
+				//   fullDate = new Date(testDate, 11, 31); //month index and date
+				// }else{
+				//   fullDate = new Date(testDate);
+				// }
+				// xAxisData.push(fullDate.toLocaleString());
+				xAxisData.push(object[xAxis['data']]);
+			});
+		}
 		xAxis['data'] = xAxisData;
 	}
-	
 	var yAxis = jQuery.extend( true, {}, selData.chart.Yaxis );
 	//here we replace the y axis data placeholder with the array of values from the rest service. We only do this if they have assigned a vlaue to that axis.
 	if (typeof yAxis['data'] !== 'undefined'){
@@ -187,15 +220,18 @@ function checkChartData(chartType = "barLine"){
 	}
 	
 	var mappedField = [];
+	var countryLabels = [];
+	var countryISO2codes = [];
 	indicatorResults.forEach(function(object){
 		if(selData.chart.mapLayerField  == 'WDPAID'){
 			mappedField.push(parseInt(object[selData.chart.mappedField]));
 		} else {
 			mappedField.push(object[selData.chart.mappedField]);
+			countryLabels.push(object['countryLabel'])
+			countryISO2codes.push(object['countryISO2'])
 		}
 		
 	});
-	
 	//first we get the list of all data series defined in the indicator content type
 	//we push these to the chartSeries array
 	var chartSeries = [];
@@ -217,22 +253,38 @@ function checkChartData(chartType = "barLine"){
 			}
 		}
 	}
-	
 	//here we exchange the field labels in the array with arrays of the field values. 
 	chartSeries.forEach(function(object, index){
 		var chartData = [];
-		indicatorResults.forEach(function(object2){
-			var precisionCheck = precision(object2[chartSeries[index]]);
-			var tempDataVal = object2[chartSeries[index]];
-			if (precisionCheck >= 2){
-				tempDataVal = tempDataVal.toFixed(2);
-			}
-			var dataVal = parseFloat(tempDataVal, 10);
-			chartData.push(dataVal);
-		});
+		//if it's the first in the series we Swap it out with NaN so it can remain compatible with the chart
+		if (index == 0){
+			indicatorResults.forEach(function(object2){
+				//var precisionCheck = precision(object2[chartSeries[index]]);
+				var tempDataVal = object2[chartSeries[index]];
+				if (tempDataVal === null || Number.isNaN(tempDataVal)) {
+					chartData.push("NaN");
+				} else {
+					var dataVal = parseFloat(tempDataVal, 10);
+					chartData.push(dataVal);
+				}
+				/* if (precisionCheck >= 2){
+					tempDataVal = tempDataVal.toFixed(2);
+				} */
+
+			});
+		} else {
+			indicatorResults.forEach(function(object2){
+				//var precisionCheck = precision(object2[chartSeries[index]]);
+				var tempDataVal = object2[chartSeries[index]];
+				var dataVal = parseFloat(tempDataVal, 10);
+				chartData.push(dataVal);
+				/* if (precisionCheck >= 2){
+					tempDataVal = tempDataVal.toFixed(2);
+				} */
+			});
+		}
 		chartSeries[index]=chartData;
 	});
-	
 	//Now we got back into the original results and replace the series data with the arrays 
 	//we push these to the chartSeries array
 	for (var key2 in data) {
@@ -251,8 +303,10 @@ function checkChartData(chartType = "barLine"){
 	}
 	
 	data[0]['mapFeature'] = mappedField;
+	data[0]['countryISO2'] = countryISO2codes;
+	data[0]['countryLabels'] = countryLabels;
 	data[0]['emphasis'] = {itemStyle: {color: '#ff6600'}};		
-
+	//console.log(data[0])
 	chartSettings['xAxis'] = xAxis;
 	chartSettings['yAxis'] = yAxis;
 	chartSettings['data'] = data;
@@ -304,11 +358,11 @@ function highlightMapFeature() {
 							dataIndex: jQuery.inArray( selSettings.WDPAID, chartSettings.data[0].mapFeature )
 						});
 					}
-					if (wdpaAcpHover.length > 0){
-						for (var key in wdpaAcpHover) {
+					if (pasCurrentlyHovered.length > 0){
+						for (var key in pasCurrentlyHovered) {
 							indicatorChart.dispatchAction({
 								type: 'highlight',
-								dataIndex: jQuery.inArray( wdpaAcpHover[key], chartSettings.data[0].mapFeature )
+								dataIndex: jQuery.inArray( pasCurrentlyHovered[key], chartSettings.data[0].mapFeature )
 							});
 						}
 					}
@@ -384,11 +438,11 @@ function highlightMapFeature() {
 					dataIndex: jQuery.inArray( selSettings.WDPAID, chartSettings.data[0].mapFeature )
 				});
 			}
-			if ((selData.chart.mapLayerField == "WDPAID") && (wdpaAcpHover.length > 0)){
-				for (var key in wdpaAcpHover) {
+			if ((selData.chart.mapLayerField == "WDPAID") && (pasCurrentlyHovered.length > 0)){
+				for (var key in pasCurrentlyHovered) {
 					indicatorChart.dispatchAction({
 						type: 'highlight',
-						dataIndex: jQuery.inArray( wdpaAcpHover[key], chartSettings.data[0].mapFeature )
+						dataIndex: jQuery.inArray( pasCurrentlyHovered[key], chartSettings.data[0].mapFeature )
 					});
 				}
 			}
@@ -397,24 +451,24 @@ function highlightMapFeature() {
 }
 
 function getChartMappedFields(chart, dataSeries){
-	var option = chart.getOption();
-	
 	if (dataSeries == 1){
-		//console.log("start: " + option.dataZoom[0].startValue + " End: " + option.dataZoom[0].endValue)
-		var MappedSeriesArray = option.series[0].data;
-		var MappedSeriesZoom = MappedSeriesArray.slice(option.dataZoom[0].startValue, option.dataZoom[0].endValue + 1);
+		var MappedSeriesArray = chartSeriesGlobal[0].data;
+		//var MappedSeriesZoom = MappedSeriesArray.slice(chart.dataZoom[0].startValue, chart.dataZoom[0].endValue + 1);
+		var MappedSeriesZoom = MappedSeriesArray.slice(chart.dataZoom[0].startValue, chart.dataZoom[0].endValue + 1);
 		return MappedSeriesZoom;
 	} else {
 		//console.log("start: " + option.dataZoom[0].startValue + " End: " + option.dataZoom[0].endValue)
-		var MappedFieldsArray = option.series[0].mapFeature;
-		var MappedFieldsZoom = MappedFieldsArray.slice(option.dataZoom[0].startValue, option.dataZoom[0].endValue + 1);
+		var MappedFieldsArray = chart.series[0].mapFeature;
+		var MappedFieldsZoom = MappedFieldsArray.slice(chart.dataZoom[0].startValue, chart.dataZoom[0].endValue + 1);
 		return MappedFieldsZoom;
 	}
 }
 
 function mapTheIndicator(mapData){
-	var MappedFieldsZoom = getChartMappedFields(indicatorChart);
-	var MappedSeriesZoom = getChartMappedFields(indicatorChart, 1);
+	var chartOptions = indicatorChart.getOption();
+	var MappedFieldsZoom = getChartMappedFields(chartOptions);
+	var MappedSeriesZoom = getChartMappedFields(chartOptions, 1);
+	
 	var mapFilter = buildFilter(MappedFieldsZoom, 'in', selData.chart.mapLayerField);
 	userPointToggle = 0;
 	
@@ -441,19 +495,43 @@ function mapTheIndicator(mapData){
 }
 
 function map2D(MappedFieldsZoom, MappedSeriesZoom){
+	//console.log("boom");
 	removelayergroup();
 	dataPoints = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: []}
 	
-	//var dataHighCurve = [0,50]
-	
-	if (customStopAmnt == 0){
-		mapColors = colorbrewer.diverging[2][9];
+	if(customStopAmnt){
+		customNumStopPoints = customStopAmnt
 	} else {
-		mapColors = colorbrewer.diverging[2][customStopAmnt];
+		if (selData.chart.breakPoints){
+			customNumStopPoints = selData.chart.breakPoints;
+		} else {
+			customNumStopPoints = 3
+		}
 	}
-	var mapColorCopy = mapColors.slice(0);
-	if (((selData.chart.invertColors == "No") && (chartColorInvertedCheck == 0)) || (chartColorInvertedCheck == 1)){
-		chartColorInvertedCheck = 1;
+	if (selData.chart.colorSwatch){
+		var tempCustomStopAmnt = selData.chart.colorSwatch.split("-");
+		if (customNumStopPoints == 2){
+			mapCustomSwatchCat = 'diverging'
+		} else {
+			mapCustomSwatchCat = tempCustomStopAmnt[0]
+		}
+		mapCustomSwatchColors = parseInt(tempCustomStopAmnt[1], 10);
+	} 
+	
+	if (customNumStopPoints == 0){
+		mapColors = colorbrewer.diverging[3][3];
+	} else {
+		mapColors = colorbrewer[mapCustomSwatchCat][mapCustomSwatchColors][customNumStopPoints];
+	}
+	var mapColorCopy = mapColors.slice();
+	if (customColorInvert == null){
+		if (selData.chart.invertColors == "Yes"){
+			customColorInvert = "on"
+		} else {
+			customColorInvert = "off"
+		}
+	}
+	if (customColorInvert == "on"){
 		mapColorCopy.reverse(); 
 	} 
 	if (mapMarkers.length > 0){
@@ -461,44 +539,118 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 	}
 	//filter the map based on the user defined field in the indicator (filter)
 	if (['un_m49', 'iso3', 'iso2', 'WDPAID', 'Group'].indexOf(selData.chart.mapLayerField) >= 0) {
+		var legendText = [];
+		var tempLayer = mapCountryLayer;
+		if (selData.chart.mapLayerField == "WDPAID") tempLayer = mapPaLayer;
+		if (selData.chart.mapLayerField == "Group") tempLayer = mapRegionLayer;
 		thisMap.setPaintProperty("wdpaAcpFillHighlighted", "fill-opacity", 0);
-		//remove the layers that may exsist that were previously added by this function.	
+		//remove the layers that may exist that were previously added by this function.	
+		
+		//clean out the null/NaN values from the array and show them in the map as a second, non interactive layer.
+		var nanCheck = 0;
+		var nanCount = 0;
+		var nanMapAreas = [];
+		console.log(MappedSeriesZoom);
+		console.log("boom");
+		MappedSeriesZoom = MappedSeriesZoom.filter(function(elem, index, array) { 
+			if (array[index] == "NaN") {
+				nanCheck = 1;
+				nanCount++;
+				nanMapAreas.push(MappedFieldsZoom[0])
+				MappedFieldsZoom.splice(0, 1);
+			}
+			return elem !== "NaN"
+		})
+		if (nanCheck == 1) {
+			var mapLayer = thisMap.getLayer('nan-layer');
+			if(typeof mapLayer !== 'undefined') {
+				thisMap.setFilter("nan-layer", buildFilter(nanMapAreas, 'in', selData.chart.mapLayerField));
+			} else {
+				thisMap.loadImage('/themes/custom/bootstrap_barrio_biopama/img/nan-pattern.png', function(err, image) {
+					// Throw an error if something went wrong
+					if (err) throw err;
+					thisMap.addImage('pattern', image);
+					thisMap.addLayer({
+						"id": "nan-layer",
+						"type": "fill",
+						"source": "BIOPAMA_Poly",
+						"source-layer": tempLayer,
+						"paint": {
+							"fill-pattern": "pattern"
+							}
+					}, 'gaulACP');
+					thisMap.setFilter("nan-layer", buildFilter(nanMapAreas, 'in', selData.chart.mapLayerField));
+				});
+			}
+			jQuery("#custom-map-legend-nan").show();
+		} else {
+			jQuery("#custom-map-legend-nan").hide();
+			var mapLayer = thisMap.getLayer('nan-layer');
+			if(typeof mapLayer !== 'undefined') {
+				thisMap.setLayoutProperty("nan-layer", 'visibility', 'none');
+			}
+		}
+		
 		if (customStopPoints.length > 1) {
+			console.log("Custom Points "+ customStopPoints);
 			selectedStopPoints = customStopPoints;
 		} else {
-			selectedStopPoints = dataHighCurve;
+			console.log("Default Points");
+			//We do 3 things. If nothing was defined: define it, if it was defined: use it, if it was over ridden: use that.
+			if (customClassMethod == ""){
+				if (selData.chart.classificationMethod == ""){
+					customClassMethod = "Natural Breaks (Jenks)"; //if the card wasn't setup properly, use jenks as a default
+				} else {
+					customClassMethod = selData.chart.classificationMethod;
+				}
+			} 
+			selectedStopPoints = calcPointSatistics(MappedSeriesZoom, customClassMethod, customNumStopPoints);
 		}
-		var legendText = [];
+		
 		var filteredLegendText = [];
 		var filteredLegendColors = [];
-		jQuery(selectedStopPoints).each(function(index) {
-			if (selectedStopPoints[index+1] != null) {
-				legendText.push("=> "+selectedStopPoints[index] + " and < " + selectedStopPoints[index+1]);
+		
+		var stopPointMin = parseFloat(MappedSeriesZoom[0], 10);
+		if (stopPointMin == "NaN") stopPointMin = 0;
+		var stopPointMax = parseFloat(MappedSeriesZoom[MappedSeriesZoom.length - 1], 10);
+		var stopPointsWithEnds = selectedStopPoints.slice();
+		stopPointsWithEnds.unshift(stopPointMin)//adds min to beginning
+		jQuery(stopPointsWithEnds).each(function(index) {
+			if (stopPointsWithEnds[index+1] != null) {
+				legendText.push("=> "+stopPointsWithEnds[index] + " and < " + stopPointsWithEnds[index+1]);
 			} else {
-				legendText.push(" > " + selectedStopPoints[index])
+				legendText.push(" > " + stopPointsWithEnds[index])
 			}
 		});	
-		jQuery(MappedFieldsZoom).each(function(i, data) {
-			jQuery(selectedStopPoints).each(function(index) {
-				if (selectedStopPoints[index+1] != null) {
-					if ((MappedSeriesZoom[i] >= selectedStopPoints[index]) && (MappedSeriesZoom[i] < selectedStopPoints[index+1])){
+		var uniqueMappedFieldsZoom = MappedFieldsZoom.filter(function(elem, index, array) {
+			if (array.indexOf(elem) == -1) MappedSeriesZoom.splice(index, 1);
+			return index === array.indexOf(elem);
+		});
+		var dataColorArray = [];
+		jQuery(uniqueMappedFieldsZoom).each(function(i, data) {
+			jQuery(stopPointsWithEnds).each(function(index) {
+				if (stopPointsWithEnds[index+1] != null) {
+					if ((MappedSeriesZoom[i] >= stopPointsWithEnds[index]) && (MappedSeriesZoom[i] < stopPointsWithEnds[index+1])){
 						if(selData.chart.mapLayerField == "WDPAID"){
 							dataPoints[index].push(parseInt(data));
 						} else{
 							dataPoints[index].push(data);
 						}
+						dataColorArray.push(mapColorCopy[index]);
 					}
 				} else {
-					if (MappedSeriesZoom[i] >= selectedStopPoints[selectedStopPoints.length -1]){
+					if (MappedSeriesZoom[i] >= stopPointsWithEnds[stopPointsWithEnds.length -1]){
 						if(selData.chart.mapLayerField == "WDPAID"){
-							dataPoints[selectedStopPoints.length -1].push(parseInt(data));
+							dataPoints[stopPointsWithEnds.length -1].push(parseInt(data));
 						} else{
-							dataPoints[selectedStopPoints.length -1].push(data);
+							dataPoints[stopPointsWithEnds.length -1].push(data);
 						}
+						dataColorArray.push(mapColorCopy[index]);
 					}
 				}
 			});
 		});
+		
 		paintProp = ["match", ["get", selData.chart.mapLayerField]];
 		for (var prop in dataPoints) {
 			// skip loop if the property is from prototype
@@ -510,17 +662,13 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 			}
 		}
 		paintProp.push("rgba(0,0,0,0)");
+		//console.log(paintProp);
 		
-		//var filteredLegendTextCopy = filteredLegendText.slice(0);
-		//var filteredLegendColorsCopy = filteredLegendColors.slice(0);
-		//buildMapLegend(filteredLegendTextCopy, filteredLegendColorsCopy);
 		buildMapLegend(filteredLegendText, filteredLegendColors);
-		//buildMapSlider(selectedStopPoints, mapColorCopy);
-		updateIndicatorChart();
+		buildMapSlider(selectedStopPoints, mapColorCopy, stopPointMin, stopPointMax);
 		
-		var tempLayer = mapCountryLayer;
-		if (selData.chart.mapLayerField == "WDPAID") tempLayer = mapPaLayer;
-		if (selData.chart.mapLayerField == "Group") tempLayer = mapRegionLayer;
+		updateIndicatorChart(uniqueMappedFieldsZoom, dataColorArray, MappedSeriesZoom, nanCount);
+
 		thisMap.addLayer({
 			"id": "1nd1l4y3r",
 			"type": "fill",
@@ -552,49 +700,211 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 	} else if (['STATUS_YR'].indexOf(selData.chart.mapLayerField) >= 0){
 		thisMap.setFilter("wdpaAcpFillHighlighted", [ "all", buildFilter(MappedFieldsZoom, 'in', 'STATUS_YR'), ['==', 'ISO3', selSettings.ISO3] ]);
 	} else if (selSettings.WDPAID > 0){
-		if (currentTab == "Protected Area"){
+		if (currentTab == "Local"){
 			thisMap.setFilter("wdpaAcpFillHighlighted", [ "all", ['!=', 'WDPAID', selSettings.WDPAID], ['==', 'ISO3', selSettings.ISO3] ]);
 			thisMap.setPaintProperty("wdpaAcpFillHighlighted", "fill-opacity", 0.5);
 			//show layer again just incase it's been turned off by the point layer
 			thisMap.setLayoutProperty("wdpaAcpFillHighlighted", 'visibility', 'visible');
 		}	
 	} else {
-		if (currentTab == "Protected Area"){
+		if (currentTab == "Local"){
 			thisMap.setFilter("wdpaAcpFillHighlighted",['==', 'ISO3', selSettings.ISO3]);
 			//show layer again just incase it's been turned off by the point layer
 			thisMap.setLayoutProperty("wdpaAcpFillHighlighted", 'visibility', 'visible');	
 		}
 	}
 }
-function updateIndicatorChart(){
-/* 	if (customStopPoints.length > 1) {
-		selectedStopPoints = customStopPoints;
-	} else {
-		selectedStopPoints = dataHighCurve;
-	}
-	jQuery(chartSettings.data[0].data).each(function(i, data) {
-		jQuery(selectedStopPoints).each(function(index) {
-			console.log(chartSettings.data[0].data[i] + "     " + selectedStopPoints[index])
-			if (selectedStopPoints[index+1] != null) {
-				if ((chartSettings.data[0].data[i] >= selectedStopPoints[index]) && (chartSettings.data[0].data[i] < selectedStopPoints[index+1])){
-					
-					chartSettings.data[0].data[i]['itemStyle'] = {color: '#ff0000'};	
+function calcPointSatistics(MappedSeriesZoom, classMethod, stopPoints){
+	selectedStopPoints = [];
+	var stopGap = (1 / stopPoints);
+	var stopTotal = stopGap;
+	var stopPointMin = parseFloat(MappedSeriesZoom[0], 10);
+	var stopPointMax = parseFloat(MappedSeriesZoom[MappedSeriesZoom.length - 1], 10);
+	//console.log(stopPointMin +" - "+stopPointMax)
+	var loopNum = 1;
+	switch(classMethod){
+		case 'Equal Interval':
+			var tempVal = (stopPointMax - stopPointMin) * stopGap;
+			do {
+				selectedStopPoints.push((equalDistribution(stopPointMin, tempVal, loopNum)).toFixed(2));
+				loopNum++;
+			} while (loopNum < stopPoints);
+			break;
+		case 'Standard Deviation':
+			var avg = average(MappedSeriesZoom);
+			var tempVal = (standardDeviation(avg, MappedSeriesZoom)/2).toFixed(2);
+			do {
+				var checkLoop = isOdd(loopNum);
+				if (checkLoop){
+					if ((avg - (tempVal * loopNum)).toFixed(2) < stopPointMin){
+						selectedStopPoints.push(stopPointMin);
+					} else{
+						selectedStopPoints.push((avg - (tempVal * loopNum)).toFixed(2));
+					}
+				} else {
+					if ((avg - (tempVal * loopNum)).toFixed(2) > stopPointMax){
+						selectedStopPoints.push(stopPointMax);
+					} else{
+						selectedStopPoints.push((avg + (tempVal * loopNum)).toFixed(2));
+					}
 				}
-			} else {
-				if (chartSettings.data[0].data[i] >= selectedStopPoints[selectedStopPoints.length -1]){
-					chartSettings.data[0].data[i]['itemStyle'] = {color: '#00ff00'};	
+				loopNum++;
+			} while (loopNum < stopPoints);
+			break;
+		case 'Quantile':
+			do {
+				selectedStopPoints.push((Quantile(MappedSeriesZoom, stopTotal)).toFixed(2));
+				stopTotal = stopTotal + stopGap;
+				if (stopTotal > 0.95) stopTotal =  1; //we round it off if it gets close to 1 to fix decimal errors....
+			} while (stopTotal < 1);
+			break;
+		case 'Natural Breaks (Jenks)':
+		default:
+			selectedStopPoints = naturalBreaks(MappedSeriesZoom, parseInt(stopPoints));
+			selectedStopPoints = selectedStopPoints.slice(1,-1);	
+	}
+	return selectedStopPoints;
+	
+	function isOdd(num) { return num % 2;}
+	function equalDistribution(min, q, loopNum) {
+	  var base = min + (q * loopNum);
+	  return base;
+	}
+	function Quantile(data, q) {
+	  var pos = ((data.length) - 1) * q;
+	  var base = Math.floor(pos);
+	  var rest = pos - base;
+	  if( (data[base+1]!==undefined) ) {
+		return data[base] + rest * (data[base+1] - data[base]);
+	  } else {
+		return data[base];
+	  }
+	}
+	function standardDeviation(avg, values){
+	  var squareDiffs = values.map(function(value){
+		var diff = value - avg;
+		var sqrDiff = diff * diff;
+		return sqrDiff;
+	  });
+	  var avgSquareDiff = average(squareDiffs);
+	  var stdDev = Math.sqrt(avgSquareDiff);
+	  return stdDev;
+	}
+
+	function average(data){
+	  var sum = data.reduce(function(sum, value){
+		return sum + value;
+	  }, 0);
+	  var avg = sum / data.length;
+	  return avg;
+	}
+	function naturalBreaks(series, numClasses) {
+		var mat1 = [];
+		for ( var x = 0, xl = series.length + 1; x < xl; x++) {
+			var temp = []
+			for ( var j = 0, jl = numClasses + 1; j < jl; j++) {
+				temp.push(0)
+			}
+			mat1.push(temp)
+		}
+
+		var mat2 = []
+		for ( var i = 0, il = series.length + 1; i < il; i++) {
+			var temp2 = []
+			for ( var c = 0, cl = numClasses + 1; c < cl; c++) {
+				temp2.push(0)
+			}
+			mat2.push(temp2)
+		}
+
+		for ( var y = 1, yl = numClasses + 1; y < yl; y++) {
+			mat1[0][y] = 1
+			mat2[0][y] = 0
+			for ( var t = 1, tl = series.length + 1; t < tl; t++) {
+				mat2[t][y] = Infinity
+			}
+			var v = 0.0
+		}
+
+		for ( var l = 2, ll = series.length + 1; l < ll; l++) {
+			var s1 = 0.0
+			var s2 = 0.0
+			var w = 0.0
+			for ( var m = 1, ml = l + 1; m < ml; m++) {
+				var i3 = l - m + 1
+				var val = parseFloat(series[i3 - 1])
+				s2 += val * val
+				s1 += val
+				w += 1
+				v = s2 - (s1 * s1) / w
+				var i4 = i3 - 1
+				if (i4 != 0) {
+					for ( var p = 2, pl = numClasses + 1; p < pl; p++) {
+						if (mat2[l][p] >= (v + mat2[i4][p - 1])) {
+							mat1[l][p] = i3
+							mat2[l][p] = v + mat2[i4][p - 1]
+						}
+					}
 				}
 			}
-		});
+			mat1[l][1] = 1
+			mat2[l][1] = v
+		}
+
+		var k = series.length
+		var kclass = []
+
+		for (i = 0, il = numClasses + 1; i < il; i++) {
+			kclass.push(0)
+		}
+
+		kclass[numClasses] = parseFloat(series[series.length - 1])
+
+		kclass[0] = parseFloat(series[0])
+		var countNum = numClasses
+		while (countNum >= 2) {
+			var id = parseInt((mat1[k][countNum]) - 2)
+			kclass[countNum - 1] = series[id]
+			k = parseInt((mat1[k][countNum] - 1))
+
+			countNum -= 1
+		}
+
+		if (kclass[0] == kclass[1]) {
+			kclass[0] = 0
+		}
+
+		range = kclass;
+		range.sort(function (a, b) { return a-b })
+
+		return range; //array of breaks
+	}
+}
+function updateIndicatorChart(seriesData, colors, MappedSeriesZoom, nanCount){
+	var chartOptions = indicatorChart.getOption();
+	var startIndex = chartOptions.dataZoom[0].startValue;
+
+	var itemStyle = {
+		color: "#000", barBorderColor: '#666', barBorderWidth: 2
+	};
+	var newChartSettings = jQuery.extend( true, {}, chartSettings );
+	//newChartSettings.data[0]['itemStyle'] = itemStyle;
+	jQuery(seriesData).each(function(i, data) {
+		var tempVal = chartSettings.data[0].data[i+startIndex+nanCount];
+		newChartSettings.data[0].data[i+startIndex+nanCount] = {
+			value: tempVal,
+			itemStyle: {color: colors[i] },
+		}
 	});
-	console.log(chartSettings.data[0].data)
-		
+
+	//console.log(newChartSettings)
+	//indicatorChart.clear();
 	var option = {
-		series: chartSettings.data
-	}; 
+		series: newChartSettings.data
+	};
 	indicatorChart.setOption(option);
-	
-	return; */
+	//console.log(indicatorChart.getOption())
+	//makeBarLineChart(1, seriesData, colors)
 }
 function removelayergroup(){
 	//jQuery("#map-bad-legend, #map-legend").hide();
@@ -606,16 +916,18 @@ function removelayergroup(){
 	}
 }
 function buildMapLegend(legText, legColor){
-	jQuery("#map-legend").empty().show();
+	jQuery("#map-legend").show();
+	jQuery("#custom-map-legend").empty();
 	jQuery(legText).each(function(index) {
 		var legendUnit = "<div class='legend-unit' style='display: flex; padding: 5px;'>"+
 			"<div class='legend-color' style='background-color: "+legColor[index]+"; width:20px; height:20px;'></div>"+
 			"<div class='legend-text'>&nbsp;"+legText[index]+"</div>"+
 		"</div>";
-		jQuery("#map-legend").append( legendUnit );
+		jQuery("#custom-map-legend").append( legendUnit );
 	});	
+	jQuery("#custom-map-legend").append( "<div class='map-legend-title'>"+selData.chart.chartSeries[0].name+"</div>" );
 }
-function buildMapSlider(stopPoints, colors){
+function buildMapSlider(stopPoints, colors, minRange, maxRange){
 	//we clone the arrays to prevent inverting the original arrays
 	//var stopCopy = stopPoints.slice(0);
 	//we have to invert the colors each time due to the orientation of the bar
@@ -623,33 +935,119 @@ function buildMapSlider(stopPoints, colors){
 	//stopCopy.reverse(); 
 	//var colorCopy = colors.slice(0);
 	
-	if(jQuery('#slider-color').length){
-		jQuery('#slider-color').remove();
-		jQuery('#stop-point-wrapper').remove()
+	if(jQuery('#slider-color').length){ //remove any sliders that may have already been created
+		jQuery('#slider-color, #card-controls, #color-swatch-wrapper').remove()
 	}
-	jQuery( "<div id='slider-color' style='height: 190px; position: absolute; top: 110px;'></div>" ).insertAfter( "#indicator-chart-country" );
-	jQuery( "<div id='stop-point-wrapper'>Stop Points: <select id='stop-points' name='Stop Points'>"+
-		"<option selected='true' disabled>Change the number</option><option value='2'>2</option>"+
-		"<option value='3'>3</option>"+"<option value='4'>4</option>"+
-		"<option value='5'>5</option>"+"<option value='6'>6</option>"+
-		"<option value='7'>7</option>"+"<option value='8'>8</option>"+
-		"<option value='9'>Reset to default</option>"+
-	"</select></div>" ).insertAfter( "#indicator-chart-country" );
-	if (customStopAmnt > 1) jQuery('#stop-points').val(customStopAmnt);
-	var slider = document.getElementById('slider-color');
+	//attach a new one to the visible chart
+	jQuery( "<div id='slider-color' style='height: 190px; position: relative; top: -290px; margin-bottom: -180px;'></div>" ).insertAfter( ".indicator-chart:visible" );
+	jQuery( "<div id='card-controls'>"+
+			"<div id='stop-point-wrapper' class='card-control'>Classes <br><select id='stop-points' name='Stop Points'>"+
+				"<option value='0' selected='true'>Default</option>"+
+				"<option value='3'>3</option>"+"<option value='4'>4</option>"+
+				"<option value='5'>5</option>"+"<option value='6'>6</option>"+
+				"<option value='7'>7</option>"+"<option value='8'>8</option>"+
+			"</select></div>" +
+			"<div id='class-method-wrapper' class='card-control'>Classification <br>"+
+				"<select id='class-method' name='Class Method'>"+
+				"<option selected='true'>Default</option>"+
+				"<option>Equal Interval</option>"+
+				"<option>Standard Deviation</option>"+
+				"<option>Natural Breaks (Jenks)</option>"+
+				"<option>Quantile</option>"+
+				"</select>"+
+			"</div>"+
+			"<div id='color-selected-wrapper' class='card-control'>Color <br>"+
+				"<div id='active-color-selected'>"+
+				"</div>"+
+			"</div>"+
+			"<div id='color-reverse-wrapper' class='card-control'>Invert <br>"+
+				"<input id='color-reverse' type='checkbox' value='on'>" +
+			"</div>"+
+		"</div>").insertAfter( ".indicator-chart:visible" );
+		jQuery( "<div id='color-swatch-wrapper'>"+
+			'<H5>Diverging</H5>'+
+			'<div id="ramps-diverging">' +
+			'</div>'+	
+			'<H5>Sequential</H5>'+
+			'<div id="ramps-sequential">' +
+			'</div>'+
+		"</div>").insertAfter( "#block-indicatorcard" );
+	jQuery("#color-swatch-wrapper").hide(0);
+	var selectedNumClasses = stopPoints.length + 1;
+	jQuery("#ramps-diverging, #ramps-sequential").empty();
+	jQuery("#color-selected-wrapper").click(function() {
+		jQuery("#color-swatch-wrapper").toggle("fast");
+	});
+
+	if (selData.chart.classificationMethod != customClassMethod){
+		jQuery('#class-method').val(customClassMethod)
+	} else {
+		jQuery('#class-method').val(selData.chart.classificationMethod)
+	}
+	if (customColorInvert == "on"){
+		jQuery('#color-reverse').prop("checked",true);
+	} 
+	if (customClassMethod == "Standard Deviation"){
+		jQuery('#stop-points').val(3).attr('disabled', 'disabled');
+	}
+	jQuery('#stop-points').val(customNumStopPoints);
+	for ( var i in colorbrewer.diverging ){
+		var ramp = jQuery("<div class='ramp colorbrewdiverging-"+ i +"'></div>"),
+			svg = "<svg width='15' height='"+selectedNumClasses*15+"'>";
+		for ( var n = 0; n < selectedNumClasses; n++ ){
+			svg += "<rect fill="+colorbrewer.diverging[i][selectedNumClasses][n]+" width='15' height='15' y='"+n*15+"'/>";
+		}
+		svg += "</svg>";
+		jQuery("#ramps-diverging").append(ramp.append(svg).click( function(){
+			if ( jQuery(this).hasClass("selected") ) return;
+			setScheme( jQuery(this).attr("class").substr(14) );
+		}));
+	}
+	for ( var i in colorbrewer.sequential ){
+		var ramp = jQuery("<div class='ramp colorbrewsequential-"+ i +"'></div>"),
+			svg = "<svg width='15' height='"+selectedNumClasses*15+"'>";
+		for ( var n = 0; n < selectedNumClasses; n++ ){
+			svg += "<rect fill="+colorbrewer.sequential[i][selectedNumClasses][n]+" width='15' height='15' y='"+n*15+"'/>";
+		}
+		svg += "</svg>";
+		jQuery("#ramps-sequential").append(ramp.append(svg).click( function(){
+			if ( jQuery(this).hasClass("selected") ) return;
+			setScheme( jQuery(this).attr("class").substr(14) );
+		}));
+	}
+	if (selData.chart.colorSwatch){
+		setScheme( selData.chart.colorSwatch );
+	}
+	function setScheme(selectedScheme){
+		jQuery(".ramp.selected").removeClass("selected");
+		jQuery("#active-color-selected").empty();
+		jQuery(".ramp.colorbrew"+selectedScheme).clone().appendTo( "#active-color-selected" ).addClass("card-selected-color");
+		jQuery(".ramp.colorbrew"+selectedScheme).addClass("selected");
+		if (selData.chart.colorSwatch !== selectedScheme){
+			selData.chart.colorSwatch = selectedScheme;
+			mapTheIndicator(chartSettings.data);
+		}
+	}
+
 	
-	var connects = [false];
+	var slider = document.getElementById('slider-color');
+	var connects = [true];
 	jQuery(stopPoints).each(function(i, data) {
 		connects.push(true);
 	});
+	console.log(stopPoints)
+	console.log(connects)
+	console.log(minRange)
+	console.log(maxRange)
 	noUiSlider.create(slider, {
 		orientation: "vertical",
 		direction: 'rtl',
+		//tooltips: true,
 		start: stopPoints,
 		connect: connects,
 		range: {
-			'min': [0],
-			'max': [100]
+			'min': [minRange],
+			'max': [maxRange]
 		}
 	});
 	
@@ -662,36 +1060,29 @@ function buildMapSlider(stopPoints, colors){
 		mapTheIndicator(chartSettings.data);
 	});
 	jQuery('#stop-points').change(function() {
-		switch(jQuery( this ).val()){
-			case '2':
-				customStopAmnt = 2;
-				customStopPoints = [0, 50];
-				mapTheIndicator(chartSettings.data);
-				break;
-			case '3':
+		customStopPoints = 0;
+		customStopAmnt = jQuery( this ).val();
+		if (customStopAmnt == 0){
+			customStopAmnt = selData.chart.breakPoints;
+		} 
+		mapTheIndicator(chartSettings.data);
+	});
+	jQuery('#color-reverse').change(function() {
+		if (jQuery(this).prop("checked")) {
+			customColorInvert = "on";
+		} else{
+			customColorInvert = "off";
+		}
+		mapTheIndicator(chartSettings.data);
+	});
+	jQuery('#class-method').change(function() {
+		customStopPoints = 0;
+		if (customClassMethod !== jQuery( this ).val()){
+			customClassMethod = jQuery( this ).val();
+			if (customClassMethod == "Standard Deviation"){
 				customStopAmnt = 3;
-				customStopPoints = [0, 33, 66];
-				mapTheIndicator(chartSettings.data);
-				break;
-			case '4':
-				customStopAmnt = 4;	
-				customStopPoints = [0, 25, 50, 75];
-				mapTheIndicator(chartSettings.data);
-				break;
-			case '5':
-				customStopAmnt = 5;	
-				customStopPoints = [0, 20, 40, 60, 80];
-				mapTheIndicator(chartSettings.data);
-				break;
-			case '6':
-				customStopAmnt = 6;	
-				customStopPoints = [0, 16, 32, 48, 64, 80];
-				mapTheIndicator(chartSettings.data);
-				break;
-			default:
-				customStopAmnt = 0;	
-				customStopPoints = [0,1,2,5,8,12,17,30,50]
-				mapTheIndicator(chartSettings.data);
+			}
+			mapTheIndicator(chartSettings.data);
 		}
 	});
 }

@@ -12,6 +12,17 @@
 			});
 			$('#drupal-off-canvas').find('form.node-indicator-form .alert-success, form.node-indicator-edit-form .alert-success').once('updated-view').each( function() {
 				$( ".menu-indicators:visible" ).trigger('RefreshView');
+				if ($('#block-indicatorcard:visible').length){
+					closeIndicatorCard();
+					showIndicatorCard(currentIndicatorNodeURL);
+				}
+				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
+			});	
+			$('#drupal-off-canvas').find('form.node-indicator-data-glo-form .alert-success, form.node-indicator-data-regional-form .alert-success, form.node-indicator-data-country-form .alert-success, form.node-indicator-data-local-form .alert-success').once('updated-view').each( function() {
+				if ($('#block-indicatorcard:visible').length){
+					closeIndicatorCard();
+					showIndicatorCard(currentIndicatorNodeURL);
+				}
 				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
 			});	
 			// menuDivFix();
@@ -41,6 +52,8 @@ function mapPostLoadOptions() {
 	thisMap.addControl(paFill, 'top-right');	
 	thisMap.addControl(mapInfo, 'bottom-right');		
 	thisMap.addControl(mapLegend, 'bottom-right');
+	thisMap.setMinZoom(1.4);
+	thisMap.setMaxZoom(12);
 	jQuery('.mapboxgl-ctrl.ajax-loader').toggle(false);
 	
 	jQuery('#satellite-layer').bind("click", function(){
@@ -84,7 +97,7 @@ function mapPostLoadOptions() {
 		});
 	});
 	jQuery('.mapboxgl-ctrl-z-region').bind("click", function(){
-		zoomToRegion(selSettings.regionName);
+		zoomToRegion(selSettings.regionID);
 	});
 	jQuery('.mapboxgl-ctrl-z-country').bind("click", function(){
 		zoomToCountry(selSettings.ISO2);
@@ -316,42 +329,42 @@ jQuery(document).ready(function($) {
 			$(".activeSelection" ).removeClass( "activeSelection" );
 			$(this).closest('.indicator-row').addClass( "activeSelection" );
 			$("<div id='mini-loader-wrapper'><div id='mini-loader'></div></div>").insertBefore(".activeSelection");
-			var indicatorTitle = $(this).find(".field--name-title").text().replace(/\s/g, "-").trim().toLowerCase();
+			//var indicatorTitle = $(this).find(".field--name-title").text().replace(/\s/g, "-").trim().toLowerCase();
 			var nodeID = $(this).closest(".indicator-row").find(".views-field-nid").text().trim();
-			//var indicatorURL = '/indicator/'+indicatorTitle;
-			var indicatorURL = '/node/'+nodeID;
-			Drupal.ajax({ 
-			  url: indicatorURL,
-			  success: function(response) {			
-				var $countryDialogContents
-				for (var key in response) {
-					// skip loop if the property is from prototype
-					if (!response.hasOwnProperty(key)) continue;
-					var obj = response[key];
-					for (var prop in obj) {
-						// skip loop if the property is from prototype
-						if(!obj.hasOwnProperty(prop)) continue;
-						//console.log(prop + " = " + obj[prop]);
-						if(prop == "data"){
-							//console.log(prop + " = " + obj[prop]);
-							$('#block-indicatorcard').show();
-							$countryDialogContents = $('<div>' + response[key].data + '</div>').appendTo('body');
-						}
-					}
-				}
-				$('#block-indicatorcard').empty();
-				$countryDialogContents.appendTo('#block-indicatorcard');
-				Drupal.attachBehaviors($("#block-indicatorcard").get(0));
-				//var countryDialog = Drupal.dialog($countryDialogContents, {title: 'Country summary for ' + selSettings.countryName, dialogClass: "country-summary-dialog", width: "80%", height: "80%"});
-				//countryDialog.showModal();
-			  }
-			}).execute();
-
+			currentIndicatorNodeURL = '/node/'+nodeID;
+			showIndicatorCard(currentIndicatorNodeURL)
 		});
 	});
 });
+function showIndicatorCard(indicatorURL){
+	Drupal.ajax({ 
+	  url: indicatorURL,
+	  success: function(response) {			
+		var $countryDialogContents
+		for (var key in response) {
+			// skip loop if the property is from prototype
+			if (!response.hasOwnProperty(key)) continue;
+			var obj = response[key];
+			for (var prop in obj) {
+				// skip loop if the property is from prototype
+				if(!obj.hasOwnProperty(prop)) continue;
+				//console.log(prop + " = " + obj[prop]);
+				if(prop == "data"){
+					//console.log(prop + " = " + obj[prop]);
+					jQuery('#block-indicatorcard').show();
+					$countryDialogContents = jQuery('<div>' + response[key].data + '</div>').appendTo('body');
+				}
+			}
+		}
+		jQuery('#block-indicatorcard').empty();
+		$countryDialogContents.appendTo('#block-indicatorcard');
+		Drupal.attachBehaviors(jQuery("#block-indicatorcard").get(0));
+	  }
+	}).execute();
+}
 
 function getRestResults(){
+	firstChartRun = 1;
 	var dataCountry = 1;
 	//delete any errors that might be up, if they persist, they will be re-added
 	jQuery( ".rest-error" ).empty();

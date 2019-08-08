@@ -6,9 +6,54 @@
   h1, h2, h3, h4, h5, h6 {
   	font-family: "Maven Pro";
   	font-weight: 800!important;
-    font-variant:small-caps!important;
-    margin-top: 0;
+    /*font-variant:small-caps!important;*/
+    /*margin-top: 0;*/
   }
+
+  body.path-landingpage .btn-light{
+    border-color: #41ad53;
+  }
+  body.path-landingpage .btn-light a{
+    color:black;
+  }
+
+button.ui-dialog-titlebar-close{
+  background-color:green!important;
+  padding:5px!important;
+  border-radius:100%!important;
+  color:#fff!important;
+  border:0px!important;
+}
+
+.main-section-container .views-row{
+  width:100%;
+}
+
+  #header{
+    z-index: 3;
+position: relative;
+  }
+
+.main-section-container{
+  position:relative;
+}
+  .wave-corner{
+    position:absolute;
+    right:0;
+    bottom:0;
+  }
+
+  .pame-edit-node{
+    position: absolute;
+      /* right: 0; */
+      left: 0;
+      /* top: 0; */
+      margin-top: -10%;
+      z-index: 2;
+      border-color: #41ad53;
+
+  }
+
 
  #navbarResponsive .nav-link{
   color:#679c97;
@@ -65,9 +110,9 @@ footer .text_f {
   display:none;
 }
 
-.header-text{
+.header-text .views-element-container{
   /*background-color:#90c14f24;*/
-  background-color:#90c14fd1;
+  background-color:#0000002e;
   height: fit-content;
 }
 
@@ -76,19 +121,42 @@ footer .text_f {
   text-align:center;
 }
 
+#landing_top_cards{
+  /*display:none;*/
+}
+
 .header-table-cards .card{
 border: 0px!important;
     border-radius: 0!important;
     padding: 10px!important;
     /* background-color: #f1f1f3!important; */
-    width: 150px;
+    /*width: 150px;*/
+    /*width:33%;*/
+    min-width:300px;
     height: 150px;
     margin: 20px;
-    /*border-radius: 2px!important;*/
-    border-radius: 20px 5px 20px 5px!important;
-    background-color: #fdfdff;
+    border-radius: 3px!important;
+    /*border-radius: 20px 5px 20px 5px!important;*/
+    /*background-color: rgba(0, 0, 0, 0);*/
+    background-color: rgb(253, 253, 255);
     /* border: 5px solid #90c14f4d!important; */
-    box-shadow: 3px 5px 0px 1px #00000047;
+    /*box-shadow: 3px 5px 0px 1px #00000047;*/
+    /*box-shadow: 0 0 20px 10px rgba(17, 133, 171, 0.3);*/
+    opacity:0.75;
+}
+
+.header-table-cards .landing-card-img{
+  /*background-color: white;*/
+/*border-radius: 3px;
+padding: 7px;*/
+/*overflow: visible;*/
+/*border: 2px solid #42ab55;*/
+/*box-shadow: 0 0 20px 10px rgba(17, 133, 171, 0.3);*/
+/*box-shadow: 0px 8px 1px -3px rgba(139, 195, 74, 0.27);*/
+}
+
+.header-table-cards .landing-card-img img{
+  max-height:120px;
 }
 
 .header-table-cards h6.masthead-subheading{
@@ -98,31 +166,74 @@ border: 0px!important;
 
 .header-table-cards .card:hover{
   transform:scale(1.1);
+  opacity:1;
 }
 
 .header-table-cards .card-body{
    padding:5px!important;
 }
 
-.card-link{
+.landing-modal{
+  background-color: white;
+    padding: 5px;
+    border-radius: 50px;
+    border: 1px solid #90c14f;
+    text-decoration: none;
+    margin: 5px;
+width: fit-content;
+width: -moz-fit-content;
+/* text-align: center; */
+margin-left: auto;
+margin-right: auto;
+}
+
+.landing-edit-node{
+  margin:5px;
   position: absolute;
-      bottom: 0;
-      width: 100%;
-      /* margin: 0; */
-      /* padding: 0; */
-      background-color: #ffffff96;
-      left: 0;
-      height: 3rem;
-      padding: 10px;
-      /* border-radius: 100%; */
-      /* right: 10px; */
-      text-align: right;
-      border-radius: 0px 0px 20px 5px;
+left: 0;
+bottom: 0;
+}
+
+.card-link{
+  background: #90c14f;
+  outline: none;
+  border: none;
+  color: #fff!important;
+  margin-left: -20px;
+  cursor: pointer;
+  position: relative;
+  right: -2rem;
+  top: 20px;
+  height: 80%;
+  width: 5rem;
+  padding-top: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.card-link a{
+  color:#fff;
+  text-decoration: none;
+}
+
+.card-link:after{
+  content: '';
+    display: block;
+    width: 1.25rem;
+    height: 0.6875rem;
+    position: absolute;
+    top: 2.6rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: url(https://biopama.org/themes/biopama/images/find-more-arrow.png) no-repeat center;
 }
 
 .card-link:hover{
-  background-color: #fffffff2;
+  background-color: #91b090;
 }
+
 
 .card-link i{
   border-radius: 100%;
@@ -143,7 +254,7 @@ border: 0px!important;
 .card-link .card-title{
   font-weight: bolder;
     font-family: "Maven Pro";
-    width: 85%;
+    /*width: 85%;*/
 }
 
   .header-table-wrap {
@@ -154,6 +265,7 @@ border: 0px!important;
     display: inline-block;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
     text-align:auto;
    }
+
 
 .icons-rows .card-body{
      color:#77a6a1;
@@ -175,7 +287,7 @@ height: 1.2rem;
 border-radius: 100px;
 width: 80%;
 margin-left: 10%;*/
-    text-shadow: 0px 0px 10px #000000;
+    /*text-shadow: 0px 0px 10px #000000;*/
 }
 
 .landing_headers{
@@ -187,6 +299,7 @@ margin-left: 10%;*/
   font-size:1rem;
       text-align: justify;
       font-family:"Maven Pro";
+          text-shadow: 0px 0px 5px black;
 }
 
 .hidden_background{
@@ -259,13 +372,15 @@ font-size: large;
 }
 
 .title-element-fullwidth{
-      background-color: #cde2ec;
+      background-color: #a7cb48d1;
       padding-top:50px;
       padding-bottom:50px;
       margin-top: 30px;
 margin-bottom: 30px;
 margin-left:0px!important;
 margin-right:0px!important;
+position:relative;
+z-index:1;
 }
 .title-element-fullwidth h4{
   color:white;
@@ -361,7 +476,7 @@ nav.navbar-we-mega-menu {
   	overflow: hidden;
   	padding-top: calc(3rem + 55px)!important;
   	padding-bottom: 20px!important;
-    min-height:650px!important;
+    height:950px!important;
 
         width: 100%;
         /* min-height: 350px!important; */
@@ -370,14 +485,14 @@ nav.navbar-we-mega-menu {
 
   }
 
-header a {
+header .landing_headers a {
   /*color: #8BC34A;*/
-  color:#488463;
+  color:#a7d1e5;
   text-decoration:none;
 }
 
 header a:hover {
-  color: #084f0b;
+  color: #90c14f;
   text-decoration:none;
 }
 
@@ -389,10 +504,11 @@ header a:hover {
 
 
 #bkgd-linear, #bkgd-img, #bkgd-filter{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
+    min-height: 900px;
 }
 
 #bkgd-filter{
@@ -400,8 +516,9 @@ header a:hover {
   background-color:black;
   opacity:0.5;*/
   z-index: 1;
-  background-color: white;
-  opacity: 0.1;
+  /*background-color: white;
+  opacity: 0.1;*/
+  background-image: linear-gradient(#87ab4929 25%, #41ad535e 75%, #42ad5294 100%);
 }
 
 .main-section-container .container .row{
@@ -528,7 +645,7 @@ header a:hover {
 
 @media (max-width: 1024px) {
     body, p, h1, h2, h3, h4, h5, h6{
-      font-size:2rem;
+      font-size:medium;
   }
   a.navbar-brand{
     width:50%
@@ -539,6 +656,12 @@ header a:hover {
   .card-columns{
     column-count:1;
   }
+
+  .icons-rows h2 {
+      text-transform: uppercase;
+      font-size: larger;
+  }
+
 }
 
   @media (min-width:992px) {
@@ -584,7 +707,7 @@ header a:hover {
   position: fixed;
   bottom: 20px;
   right: 30px;
-  z-index: 99;
+  z-index: 999;
   font-size: 18px;
   border: none;
   outline: none;
@@ -618,7 +741,7 @@ header a:hover {
 }
 
 .card-img-top{
-  max-width:185px;
+  max-width:125px;
 }
 
 
@@ -655,4 +778,38 @@ header a:hover {
     z-index: 99;
     box-shadow: inset 0 7px 19px 0px rgba(35,35,35,0.12);
 
+}
+
+/* MODAL DRUPAL LANDINGPAGE STYLE */
+
+.field--name-field-landingpage-link a{
+  text-decoration:none;
+  padding:10px;
+  background-color:#7faa46;
+  color:#fff;
+  float:right;
+}
+
+.field--name-field-landingpage-link a:hover{
+  text-decoration:none;
+  padding:10px;
+  background-color:green;
+  color:#fff;
+}
+
+.ui-dialog .ui-dialog-title, .header-table-wrap h5{
+  color:#7faa46;
+  font-size:2rem;
+  font-family: "Maven Pro";
+}
+
+.ui-dialog h5, .header-table-wrap h6{
+  color:#669a94;
+  font-size:1rem;
+  font-family: "Maven Pro";
+}
+
+.ui-dialog .field--name-body *{
+  color:#669a94;
+  font-family: "Maven Pro";
 }

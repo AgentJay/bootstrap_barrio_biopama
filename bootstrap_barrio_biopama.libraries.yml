@@ -41,7 +41,8 @@ echarts:
     theme:
       css/homepage/mapbox_chart.css: {}
   js:
-    /libraries/echarts/echarts_v3.min.js: {minified: true, preprocess: false}
+    /libraries/echarts/echarts_v4.min.js: {minified: true, preprocess: false}
+    js/data_card/classybrew.js: {minified: false, preprocess: false}
     js/data_card/data_chart_init.js: {minified: false, preprocess: false}
     js/data_card/data_chart_bar_line.js: {minified: false, preprocess: false}
     js/data_card/data_chart_doughnut.js: {minified: false, preprocess: false}
@@ -312,7 +313,50 @@ pame:
       css/pame/main.css: {}
       css/pame/footer.css: {}
       css/pame/timeline.css: {}
+      https://cdn.datatables.net/v/bs/jqc-1.12.4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.css: {}
+
   js:
     js/pame/main.js: {minified: false, preprocess: false}
+    js/pame/map.js: {minified: false, preprocess: false}
+    https://cdn.datatables.net/v/bs/jqc-1.12.4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js: { external: true }
+  dependencies:
+    - core/jquery
+
+globalknowledge:
+  css:
+    theme:
+      css/pame/main.css: {}
+      css/pame/footer.css: {}
+      css/pame/timeline.css: {}
+      https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css: {}
+      https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css: {}
+
+  js:
+    https://code.jquery.com/jquery-3.4.1.min.js: { external: true }
+    https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js: { external: true }
+    https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js: { external: true }
+    https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js: { external: true }
+    https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js: { external: true }
+    js/globalknowledge/main.js: {minified: false, preprocess: false}
+  dependencies:
+    - bootstrap_barrio_biopama/echarts
+    
+datatables:
+  css:
+    theme:
+      /libraries/datatables/datatables.min.css: {}
+
+  js:
+    /libraries/datatables/datatables.min.js: {minified: true, preprocess: false}
+  dependencies:
+    - core/jquery
+    
+datatables-with-extensions:
+  css:
+    theme:
+      /libraries/datatables-with-extensions/datatables.min.css: {}
+
+  js:
+    /libraries/datatables-with-extensions/datatables.min.js: {minified: true, preprocess: false}
   dependencies:
     - core/jquery

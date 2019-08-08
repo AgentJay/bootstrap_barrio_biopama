@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+	//console.log("boom");
 	selData = {
 		info: {
 			name: '',
@@ -38,6 +39,9 @@ jQuery(document).ready(function($) {
 			chartRadarSeries: '',
 			chartRadarSettings: '',
 			ranking: '',
+			breakPoints: 0,
+			classificationMethod: '',
+			colorSwatch: '',
 		},
 	};
 	
@@ -69,6 +73,10 @@ jQuery(document).ready(function($) {
 	}
 	addCardLayers()
 	function changeTheDataAndLayers(firstTime = false){
+		//console.log("boom");
+		if ($("a.edit-indicator.indicator-card-edit-link.use-ajax.menu-tip").length){
+			$("div.edit-menu-trigger").css("display", "block");
+		}
 		var typeOfData = jQuery( "div.field--name-field-indi-get-data-from .field__item").text();
 		if (firstTime == true){
 			//This IF is needed because if the Card Has a Global value open by default it will not resolve correctly.
@@ -112,7 +120,7 @@ jQuery(document).ready(function($) {
 					setupScopeData('regional');
 				}
 				break;
-			case 'Country':
+			case 'National':
 				zoomToCountry(selSettings.ISO2);
 				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-country .field__item").text() == "On")){
 					getGeonodeData('national', "ISO3");
@@ -120,7 +128,7 @@ jQuery(document).ready(function($) {
 					setupScopeData('national');
 				}
 				break;
-			case 'Protected Area':
+			case 'Local':
 				zoomToPA(selSettings.WDPAID)
 				if ((typeOfData == "BIOPAMA Geonode") && (jQuery( "div.field--name-field-indi-geonode-pa .field__item").text() == "On")){
 					getGeonodeData("local", "WDPAID");
@@ -134,6 +142,7 @@ jQuery(document).ready(function($) {
 		}
 	}
 	function getGeonodeData(scopeSelected, scopeID = null){
+		//console.log("boom");
 		selData.map.mapScope = scopeSelected;
 		selData.chart.RESTurl = "https://dopa-services.jrc.ec.europa.eu/services/d6biopamarest/d6biopama/get_indicator_data?format=json&geonode_layer=cp84&indicator_method=area_summaries&entity_id="+ scopeID +"&children=TRUE";
 		selData.chart.mappedField = "id";
@@ -166,6 +175,7 @@ jQuery(document).ready(function($) {
 	}
 	
 	function setupScopeData(scopeSelected){
+		//console.log("boom");
 		selData.map.mapScope = scopeSelected;
 		if (jQuery( "div.field--name-field-indi-data-"+scopeSelected+" div.field--name-field-data-chart" ).length){
 			$('.indicator-make-points').on('click', function(e) {
@@ -265,6 +275,15 @@ jQuery(document).ready(function($) {
 			if ($( ".field--name-field-chart-bl-sort" ).length){
 				selData.chart.sort = $(indicatorWrapper).find( ".field--name-field-chart-bl-sort.field__item" ).text().trim();
 			}
+			if ($( ".field--name-field-data-classes" ).length){
+				selData.chart.breakPoints = $(indicatorWrapper).find( ".field--name-field-data-classes.field__item" ).text().trim();
+			}
+			if ($( ".field--name-field-data-classification-method" ).length){
+				selData.chart.classificationMethod = $(indicatorWrapper).find( ".field--name-field-data-classification-method.field__item" ).text().trim();
+			}
+			if ($( ".field--name-field-data-color-swatch" ).length){
+				selData.chart.colorSwatch = $(indicatorWrapper).find( ".field--name-field-data-color-swatch.field__item" ).text().trim();
+			}
 			if (cardError != '') console.log(cardError);
 			
 			addTabLayers(scopeSelected);
@@ -278,6 +297,7 @@ jQuery(document).ready(function($) {
 
 //this function helps us force off the layers from scopes that are not currently a part of the active data card.
 function lockScopeLayers(locked = 1){
+	//console.log("boom");
 	
 	//we need to know ALL the scopeAttributes in ALL the tabs, just so we know which layers should be on for the interaction events... 
 	var scopeMapAttributes = [];
@@ -297,7 +317,7 @@ function lockScopeLayers(locked = 1){
 	jQuery.unique(scopeMapAttributes);
 	if ((scopeMapAttributes.indexOf("Group") >= 0) || (selData.chart.RESTfilter = 'Group')) {
 		selData.map.regionActive = 1;
-		thisMap.setPaintProperty("regionsFill", "fill-opacity", 0);
+/* 		thisMap.setPaintProperty("regionsFill", "fill-opacity", 0);
 		if (selSettings.regionID !== null){
 			thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
 		} else {
@@ -307,9 +327,9 @@ function lockScopeLayers(locked = 1){
 		//if the regional tab is off (no chart defined, turn it on to make a doughnut)
 		if (jQuery(".indi-tab-regional.disable-scope").length > 0){
 			//jQuery(".indi-tab-regional").removeClass("disable-scope");
-		}
+		} */
 	} else {
-		thisMap.setLayoutProperty("regionsFill", 'visibility', 'none');
+		//thisMap.setLayoutProperty("regionsFill", 'visibility', 'none');
 	}
 	if ((scopeMapAttributes.indexOf('iso2') >= 0) || (scopeMapAttributes.indexOf('iso3') >= 0) || (scopeMapAttributes.indexOf('un_m49') >= 0) || (selData.chart.RESTfilter = 'Country')) {
 		thisMap.setPaintProperty("countryFill", "fill-opacity", 0);
@@ -325,8 +345,8 @@ function lockScopeLayers(locked = 1){
 			thisMap.setFilter('countryFill', null);
 		}
 		//if the country tab is off (no chart defined, turn it on to make a doughnut)
-		if (jQuery(".indi-tab-country.disable-scope").length > 0){
-			//jQuery(".indi-tab-country").removeClass("disable-scope");
+		if (jQuery(".indi-tab-national.disable-scope").length > 0){
+			//jQuery(".indi-tab-national").removeClass("disable-scope");
 		}
 	} else {
 		thisMap.setLayoutProperty("countryFill", 'visibility', 'none');
@@ -348,16 +368,16 @@ function controlLayerOpacity(tab){
 	switch(tab) {
 		case 'regional':
 			if (selData.map.regionActive == 1){
-				thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
-				thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
+				//thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
+				//thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
 			}
 			thisMap.setPaintProperty("countryFill", "fill-opacity", 0);
 			break;
 		case 'national':
 			if (selData.map.regionActive == 1){
-				thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
-				thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
-				thisMap.setFilter('countryFill', [ "all", ['==', 'Group', selSettings.regionID], ['!=', 'iso3', selSettings.ISO3] ]);
+/* 				thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
+				thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6); */
+				thisMap.setFilter('countryFill', [ "all", ['==', 'Group', selSettings.regionName], ['!=', 'iso3', selSettings.ISO3] ]);
 			} else {
 				thisMap.setFilter('countryFill', ['!=', 'iso3', selSettings.ISO3]);
 			}
@@ -377,10 +397,10 @@ function checkForLayersToRemove(){
 	if (jQuery(".indi-tab-regional.ui-tabs-active").length === 0){
 		removeCustomLayers('-r3g10n');
 	}
-	if (jQuery(".indi-tab-country.ui-tabs-active").length === 0){
+	if (jQuery(".indi-tab-national.ui-tabs-active").length === 0){
 		removeCustomLayers('-n4t10n41');
 	}
-	if (jQuery(".indi-tab-pa.ui-tabs-active").length === 0){
+	if (jQuery(".indi-tab-local.ui-tabs-active").length === 0){
 		removeCustomLayers('-l0c4l');
 	}
 }
@@ -391,9 +411,11 @@ function addCardLayers(){
 		tabLayerKey = '-b10p4m4';
 		//I change the map layer loading to be different
 		var mapLayersArray = [];
+		var mapLayerName;
 		var mapLayer;
 		var mapLegend;
 		jQuery( ".field--name-field-indi-map-layers-all .field__items" ).children().each(function () {
+			mapLayerName = jQuery(this).find(".map-layer-name").text();
 			mapLayer = jQuery(this).find(".map-layer").text();
 			mapLegend = jQuery(this).find(".map-legend").text();
 			try {
@@ -408,7 +430,8 @@ function addCardLayers(){
 					} 
 				}
 				thisMap.addLayer(mapLayer, 'gaulACP'); 
-				jQuery("#map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>").show();
+				jQuery("#map-legend").show();
+				jQuery("#wms-map-legend").append("<div class='"+mapLayer.id+"'><div class='map-legend-title'>"+mapLayerName+"</div><img src="+mapLegend+"></div>");
 			} catch (e) {
 				console.log("You have a messed up layer for the card")
 				mapLayer = '{}'; 
@@ -459,7 +482,8 @@ function addTabLayers(tab){
 						} 
 					}
 					thisMap.addLayer(mapLayer, 'gaulACP'); 
-					jQuery("#map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>").show();
+					jQuery("#map-legend").show();
+					jQuery("#wms-map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>");
 				} catch (e) {
 					console.log("You have a messed up layer in the "+tab+" tab")
 					mapLayer = '{}'; 
@@ -471,15 +495,23 @@ function addTabLayers(tab){
 }
 
 function closeIndicatorCard(){
+	var mapLayer = thisMap.getLayer('nan-layer');
+	if(typeof mapLayer !== 'undefined') {
+		thisMap.removeLayer("nan-layer");
+	}
 	resetMapPoints();
 	removelayergroup();
 	chartColorInvertedCheck = 0;
 	customStopAmnt = 0;
+	firstChartRun = 1;
 	customStopPoints = [];
 	//removes the card layers
 	removeCustomLayers();
 	//removes whatever other layers from the tabs.
 	removeCustomLayers('||a11');
+	jQuery("#map-legend").hide();
+	jQuery("#wms-map-legend").empty();
+	jQuery("#custom-map-legend").empty();
 	jQuery('#block-indicatorcard').hide();
 	thisMap.setLayoutProperty("wdpaAcpFill", 'visibility', 'visible');
 	thisMap.setLayoutProperty("countryFill", 'visibility', 'visible');
@@ -487,18 +519,18 @@ function closeIndicatorCard(){
 	var indicatorClass = indicatorName.replace(/\s/g, "-");
 	if (jQuery(".bread-trail-indicator:visible").length)jQuery(".bread-trail-indicator").one().toggle( "slide" );
 	thisMap.setPaintProperty("wdpaAcpFillHighlighted", "fill-opacity", 0.6);
-	thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
+	//thisMap.setPaintProperty("regionsFill", "fill-opacity", 0.6);
 	thisMap.setPaintProperty("countryFill", "fill-opacity", 0.6);
 	//this is just incase someone closed the country in the breadcrumbs before closing the card.
 	if (selSettings.regionID != null){
-		thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
+		//thisMap.setFilter('regionsFill', ['!=', 'Group', selSettings.regionID]);
 		thisMap.setFilter('countryFill', ['==', 'Group', selSettings.regionID]);
 		thisMap.setLayoutProperty("wdpaAcpFillHighlighted", 'visibility', 'visible');
 	} else {
-		thisMap.setFilter('regionsFill', null);
+		//thisMap.setFilter('regionsFill', null);
 		thisMap.setLayoutProperty("countryFill", 'visibility', 'none');
 	}
-	thisMap.setLayoutProperty("regionsFill", 'visibility', 'visible');
+	//thisMap.setLayoutProperty("regionsFill", 'visibility', 'visible');
 	
 	if (selSettings.ISO3 != null){
 		thisMap.setFilter("wdpaAcpFillHighlighted", ['==', 'ISO3', selSettings.ISO3]);

@@ -72,12 +72,28 @@
  * @ingroup themeable
  */
 #}
+{% set nodeid = node.id %}
+{{ attach_library( 'bootstrap_barrio_biopama/landing-page' ) }}
+{#/* <article{{ attributes }}> */#}
+<article>
+  <div class="row">
+    <div class="col-lg-3">
+		 {{ content.field_landingpage_image_icon }}
+    </div>
+    <div class="col-lg-9">
+     <h5>{{ content.title }}</h5>
+     <h5>{{ content.field_landingpage_subtitle }}</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+     {{ content.body }}
+     </div>
+  </div>
+  <div class="row">
+     <div class="col-lg-12">
+     {{ content.field_landingpage_link }}
+     </div>
+  </div>
 
-{% if content %}
-<div class="map-layer">
-{{'{ "id": "'}}{{content.field_wms_layer_name.0}}{{'", "type": "raster", "source": { "type": "raster", "tiles": [ "'}}{{content.field_wms_base_url.0}}{{'bbox={bbox-epsg-3857}&service=WMS&request=GetMap&layers='}}{{content.field_wms_layer_name.0}}{{'&format=image%2Fpng&transparent=true&version=1.1.1&height=256&width=256&srs=EPSG%3A3857" ], "tileSize": 256 }, "paint": {} }'}}
-</div>
-<div class="map-legend">
-{{content.field_layer_wms_legend.0}}
-</div>
-{% endif %}
+</article>

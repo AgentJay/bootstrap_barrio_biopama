@@ -13,7 +13,7 @@
 {% if content %}
 	<div class='chart-bar-line'>
 		<div class='chart-xaxis'>
-		  {{ '{"name":"'}}{{content.field_x_axis_label.0}}{{'", "show": false, "nameLocation": "middle", "nameGap": 80, "type":"'}}{{content.field_x_axis_type.0}}{{'", "data":"'}}{{content.field_x_axis_rest_field.0}}{{'"}'}}
+		  {{ '{"name":"'}}{{content.field_x_axis_label.0}}{{'", "show": true, "nameLocation": "middle", "nameGap": 80, "type":"'}}{{content.field_x_axis_type.0}}{{'", "data":"'}}{{content.field_x_axis_rest_field.0}}{{'"}'}}
 		</div>
 		<div class='chart-yaxis'>
 		  {{'{"name":"'}}{{content.field_y_axis_label.0}}{{'", "nameLocation": "middle", "nameGap": 80, "type":"'}}{{content.field_y_axis_type.0}}{{'", "data":"'}}{{content.field_y_axis_rest_field.0}}{{'"}'}}

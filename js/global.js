@@ -4,8 +4,12 @@
  *
  */
 var tipTemplate    = '<div class="tooltip biopama-tip" role="tooltip"><div class="arrow biopama-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
+var tipWideTemplate    = '<div class="tooltip biopama-tip biopama-tip-wide" role="tooltip"><div class="arrow biopama-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
 var tipTopTemplate = '<div class="tooltip biopama-tip" role="tooltip"><div class="arrow biopama-top-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
 var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip"><div class="arrow biopama-bottom-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
+var regionColor = "#a25b28";
+var countryColor = "#679B95";
+var paColor = "#8FBF4B";
 
 (function ($, Drupal) {
   Drupal.behaviors.bootstrap_barrio_subtheme = {
@@ -60,6 +64,7 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "a.view-policy" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"View policy details",
 			delay: tTipDelay,
 			template: tipTemplate
@@ -67,6 +72,7 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "div.Draft" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"Draft Policy",
 			delay: tTipDelay,
 			template: tipTemplate
@@ -74,6 +80,7 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "a.edit-policy" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"Edit Policy",
 			delay: tTipDelay,
 			template: tipTemplate
@@ -81,13 +88,47 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "a.edit-target" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"Edit Target",
 			delay: tTipDelay,
 			template: tipTemplate
 		});
+		$( "a.edit-global-data" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Add/Edit Global Indicator Data",
+			delay: tTipDelay,
+			template: tipWideTemplate
+		});
+		$( "a.edit-regional-data" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Add/Edit Regional Indicator Data",
+			delay: tTipDelay,
+			template: tipWideTemplate
+		});
+		$( "a.edit-country-data" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Add/Edit National Indicator Data",
+			delay: tTipDelay,
+			template: tipWideTemplate
+		});
+		$( "a.edit-local-data" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Add/Edit Local Indicator Data",
+			delay: tTipDelay,
+			template: tipWideTemplate
+		});
 		$( "a.edit-indicator" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"Edit Indicator",
 			delay: tTipDelay,
 			template: tipTemplate
@@ -95,6 +136,7 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "div.graph-link.chart-icon" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"Enlarge Graph",
 			delay: tTipDelay,
 			template: tipTemplate
@@ -102,7 +144,40 @@ var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip">
 		$( "div.info-link.chart-icon" ).tooltip({
 			trigger:"hover",
 			placement: "right",
+			container: 'body',
 			title:"More Information",
+			delay: tTipDelay,
+			template: tipTemplate
+		});
+		$( "li.menu-tab-list" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"List of all indicators",
+			delay: tTipDelay,
+			template: tipTemplate
+		});
+		$( "li.ui-tabs-tab.ui-tab:first-child" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Information representing the current state of Protected Areas",
+			delay: tTipDelay,
+			template: tipTemplate
+		});
+		$( "li.ui-tabs-tab.ui-tab:nth-child(2)" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Information representing the pressures (threats) of Protected Areas",
+			delay: tTipDelay,
+			template: tipTemplate
+		});
+		$( "li.ui-tabs-tab.ui-tab:nth-child(3)" ).tooltip({
+			trigger:"hover",
+			placement: "right",
+			container: 'body',
+			title:"Information organised by supporting policies and targets for Protected Areas",
 			delay: tTipDelay,
 			template: tipTemplate
 		});

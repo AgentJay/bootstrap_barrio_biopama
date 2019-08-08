@@ -4,11 +4,13 @@ jQuery(document).ready(function($) {
   var first_load = true;
   var sequential = 0;
 
+  // empty array = no background-imgs
+  // var bkgd_imgs = [ '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_01.jpg' ,
+  //                  '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_03.jpg',
+  //                  '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_05.jpg',
+  //                  '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_02.jpg' ];
+  var bkgd_imgs = [];
 
-  var bkgd_imgs = [ '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_01.jpg' ,
-                   '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_03.jpg',
-                   '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_05.jpg',
-                   '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_02.jpg' ];
   //preload images source test
   $.each(bkgd_imgs,function(idx,imgurl){
     $('#preload-images').append('<img src="'+imgurl+'"/>');
@@ -130,5 +132,10 @@ jQuery(document).ready(function($) {
       //$(this).parent().find('.card-body').css('margin-top','60%');
     }
   });
+
+  $('.assessment-tools-more').on('click',function(){
+    $(this).closest('.card').find('.assessment-tools-details').fadeToggle('slow');
+  });
+
 
 });

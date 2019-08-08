@@ -75,6 +75,7 @@
 {% set url = current_uri %}
 {% block head %}
 {{ attach_library( 'bootstrap_barrio_biopama/focus-page' ) }}
+{{ attach_library( 'bootstrap_barrio_biopama/panorama-solutions' ) }}
    <div id="header" class="header">
         <nav{{ navbar_attributes }}>
             {{ page.header }}
@@ -150,6 +151,13 @@
         <h3><i class="fas fa-chevron-circle-down"></i>Climate Data</h3>
           <div>
             <div class="country-scope-Content"><div class="indicator-chart" id="pa-avg-climate-chart"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div></div> 
+          </div>
+		<h3 class="panorama-solutions panorama-solutions-hide"><i class="fas fa-chevron-circle-down"></i>Protected Area Solutions</h3>
+          <div class="solution-background">
+			<div class="alert alert-success" role="alert">
+			  These solutions are provided by the PANORAMA – Solutions for a Healthy Planet initiative and are published on the <a class="alert-link" href="https://panorama.solutions/en" target="_blank">PANORAMA web platform</a>.
+			</div>
+            <div class="panorama-solutions-results"></div> 
           </div>
 		<h3><i class="fas fa-chevron-circle-down"></i>Documents (e.g. Management Assessments)</h3>
           <div>

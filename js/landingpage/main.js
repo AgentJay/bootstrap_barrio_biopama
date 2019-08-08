@@ -1,8 +1,14 @@
 /* MAIN SCRIPOT TO LOAD CARDS APPLICATIONS */
+
 jQuery(document).ready(function($) {
 
   var first_load = true;
   var sequential = 0;
+
+  //hide cards
+  // setTimeout(function(){
+  //   $('#landing_top_cards').fadeIn(3000);
+  // },1000);
 
 
   var bkgd_imgs = [ '/themes/custom/bootstrap_barrio_biopama/img/landingpage/bkgd_satellite_01.jpg' ,
@@ -20,6 +26,7 @@ jQuery(document).ready(function($) {
       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
           document.getElementById("myBtn_scrollTop").style.display = "block";
           $('nav').fadeOut(2000);
+          $(".header-table-wrap").fadeOut(2000);
       } else {
           document.getElementById("myBtn_scrollTop").style.display = "none";
           $('nav').fadeIn(2000);
@@ -27,6 +34,7 @@ jQuery(document).ready(function($) {
 
       if (document.documentElement.scrollTop == 0 ){
         resetHeaderBkgd();
+        setTimeout(function(){ $(".header-table-wrap").fadeIn(2000);},1000);
       }
   }
 
@@ -52,7 +60,7 @@ jQuery(document).ready(function($) {
               $('.masthead-img').css('background-image', 'url("'+bkgd_imgs[idx]+'")' );
               setTimeout(function(){ $('.masthead-img').fadeIn(3000);},200);
             });
-          },1000);
+          },100);
 
       }else{
             $('.masthead-img').fadeOut(1000,function(){

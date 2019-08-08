@@ -1,6 +1,13 @@
-function makeBarLineChart(){
+function makeBarLineChart(colorUpdate = 0){
 	chartSettings = checkChartData("barLine");
 	var symbolSize = 20;
+	//the first time this runs it's 'clean' IE. I don't inject the color values. But then as it's getting updated after the first draw the color values are nested inside... 
+	//so can only run it once (the first time)
+	if (firstChartRun){
+		firstChartRun = 0;
+		chartSeriesGlobal = (chartSettings.data).slice();
+		//console.log(chartSeriesGlobal)
+	}
 	var option = {
 		title: {
 			text: selData.info.name + " for \n" + selSettings.countryName,
@@ -13,7 +20,7 @@ function makeBarLineChart(){
 			axisPointer : {            
 				type : 'shadow',        // 'line' | 'shadow'
 			},
-			position: [50, 10],
+			position: [60, 30],
 			enterable: true,
 			formatter: function (params) {
 				var tooltip = makeTTwMap(params, chartSettings.data)
@@ -30,10 +37,10 @@ function makeBarLineChart(){
 		series: chartSettings.data
 	}; 
 	indicatorChart.setOption(option); 
-
 	highlightMapFeature();
-	
-	mapTheIndicator(chartSettings.data);
+	if (colorUpdate == 0){
+		mapTheIndicator(chartSettings.data);
+	}
 
 	indicatorChart.on('dataZoom', function (params) {
 		mapTheIndicator(chartSettings.data);
@@ -43,7 +50,12 @@ function makeBarLineChart(){
 		//console.log(params[0].axisValue)
 		var toolTip = params[0].axisValue;
 		params.forEach(function(element) {
-			toolTip += "<br>" + element.seriesName + ": " + element.data;
+			if (typeof element.data === 'object'){
+				toolTip += "<br>" + element.seriesName + ": " + element.data.value;
+			} else{
+				toolTip += "<br>" + element.seriesName + ": " + element.data;
+			}
+			
 		});
 		var mapFeature = data[0].mapFeature[params[0].dataIndex];
 		if (mapFeature){
@@ -73,8 +85,17 @@ function makeBarLineChart(){
 		}
 		return toolTip;
 	}
-
+/* 	var chartHighlight = null;
+	indicatorChart.on('mouseover', function (params) {
+		console.log("mouseover")
+		console.log(params)
+	}); 
+	indicatorChart.on('mousemove', function (params) {
+		console.log("mousemove")
+		console.log(params)
+	});  */
 	indicatorChart.on('click', function (params) {
+		console.log(params)
 		if (params.componentType === 'series'){
 			var mapFeature = option.series[0].mapFeature[params.dataIndex];
 			//TODO - instead if just highlighting on click, we should see if there's a tab we can navigate to based on the current selection.
@@ -87,19 +108,11 @@ function makeBarLineChart(){
 					zoomToPA(mapFeature);	
 					break;
 				case 'iso2':
-					selSettings.ISO2 = mapFeature;
+				case 'iso3':
+				case 'un_m49':
+					selSettings.ISO2 = option.series[0].countryISO2[params.dataIndex];
 					countryChanged = 1;
 					updateCountry('iso2');
-					break;
-				case 'iso3':
-					selSettings.ISO3 = mapFeature;
-					countryChanged = 1;
-					updateCountry('iso3');
-					break;
-				case 'un_m49':
-					selSettings.NUM = mapFeature;
-					countryChanged = 1;
-					updateCountry('num');
 					break;
 				case 'Group':
 					regionChanged = 1;

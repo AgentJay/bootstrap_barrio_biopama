@@ -6,17 +6,24 @@ var mapboxTour;
 var activeData;
 var globalMapObject;
 var customStopAmnt = 0;
+var customClassMethod = '';
 var mapColors;
-var selectedStopPoints;
+var firstChartRun = 1;
+var chartSeriesGlobal = [];
+var mapCustomSwatchCat = "diverging";
+var mapCustomSwatchColors = 3;
+var selectedStopPoints = [];
 var dataHighCurve = [0,1,2,5,8,12,17,30,50];
+var customNumStopPoints = 0;
 var customStopPoints = [];
 var customChartStart;
 var customChartStop;
+var customColorInvert = null;
 var chartColorInvertedCheck = 0;
 var customStops;
 var mapMarkers = [];
 var userPointToggle = 0;
-var wdpaAcpHover = [];
+var pasCurrentlyHovered = [];
 var countryHover2 = null;
 var countryHover3 = null;
 var countryHoverNum = null;
@@ -24,12 +31,14 @@ var regionHover = null;
 var currentTab;
 var paintProp;		//this is for the Data layer to have the paint property toggleable
 var currentCardScope;
+var currentIndicatorNodeURL;
 
 var mapNonACPCountryLayer = "non_acp_countries";
 var mapCountryLayer = "ACP_Countries";
 var mapCountryPointLayer = "ACP_Countries_points";
 var mapPaLayer = "WDPA2019MayPoly";
-var mapPaPointLayer = "WDPA2019MayPointALL";
+var mapPaLabelsLayer = "WDPA2019MayPolyPoints";
+var mapPaPointLayer = "WDPA2019MayPoints";
 var mapRegionLayer = "ACP_Groups";
 var mapSubRegionLayer = "ACP_SubGroups";
 var mapRegionPointLayer = "ACP_Groups_points";
@@ -240,9 +249,9 @@ function scopeCheck(){
 	var scopeCheck = null;
 	//go down the list of possible combinations and to open the correct tab by default
 	//if the variable is set and it hasn't been disabled as a tab, set it
-	if((selSettings.WDPAID > 0) && (!jQuery("ul.indicator-card-tabs").children(".indi-tab-pa").hasClass("disable-scope"))){
+	if((selSettings.WDPAID > 0) && (!jQuery("ul.indicator-card-tabs").children(".indi-tab-local").hasClass("disable-scope"))){
 		return 3;
-	}else if((selSettings.ISO2 != null) && (!jQuery("ul.indicator-card-tabs").children(".indi-tab-country").hasClass("disable-scope"))){
+	}else if((selSettings.ISO2 != null) && (!jQuery("ul.indicator-card-tabs").children(".indi-tab-national").hasClass("disable-scope"))){
 		return 2;
 	}else if((selSettings.regionID != null) && (!jQuery("ul.indicator-card-tabs").children(".indi-tab-regional").hasClass("disable-scope"))){
 		return 1;

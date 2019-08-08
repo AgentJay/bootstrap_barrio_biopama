@@ -1,0 +1,104 @@
+{% set url = current_uri %}
+{% block head %}
+
+   {{ attach_library( 'bootstrap_barrio_biopama/pame' ) }}
+
+   <div id="header" class="header">
+        <nav{{ navbar_attributes }}>
+            {{ page.header }}
+            {% if page.primary_menu or page.header_form %}
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+                {{ page.primary_menu }}
+                {% if page.header_form %}
+                  <div class="form-inline navbar-form float-right">
+                    {{ page.header_form }}
+                  </div>
+                {% endif %}
+	          </div>
+            {% endif %}
+        </nav>
+   </div>
+
+{% endblock %}
+
+ <!-- <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> -->
+
+<body>
+
+
+<header class="masthead text-left text-white">
+
+  <div id="bkgd-linear" class="masthead-linear"></div>
+
+  <div id="bkgd-img" class="masthead-img" style="display:none;"></div>
+
+      <div class="masthead-content">
+
+        <div class="row">
+
+          <div class="col-lg-2 header-text">
+            <div class="container landing_headers">
+            <h5>PAME Dashboard</h5>
+            <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/divider_02.png"/>
+                <ul class="list-group pame-links">
+                {{ drupal_view('pame_dashboard', 'block_7') }}
+                </ul>
+            </div>
+          </div>
+          <div class="col-lg-10 header-table-cards">
+              <div class="header-table-wrap">
+                  <h1>Resources Search and Filters</h1>
+                  put here a view filtering and querying all documents tagged as PAME
+                  with filters
+                  <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/mockup_resources.png" style="max-height:800px;"/>
+
+              </div>
+          </div>
+
+        </div>
+
+  </div>
+  <div class="wave-corner">
+    <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/color_wave.png"/>
+  </div>
+ </header>
+
+
+<button id="myBtn_scrollTop" title="Go to top"><i class="fas fa-arrow-up fa-2x"></i></button>
+
+
+<footer>
+<div id="footer-biopama">
+   <div class="row align-items-center"><div class="col-12 col-md-2 logo_f">
+    <img src="/themes/custom/bootstrap_barrio_biopama/img/PEN_Biopama_Logo_no_text_sm.png">
+   </div>
+   <div class="col-12 col-md-6 text_f"><div class="copyright_text">
+     COPYRIGHT © BIOPAMA - ALL RIGHTS RESERVED<br>
+    <div>
+    <div role="navigation" aria-labelledby="block-footer-menu" id="block-footer">
+   <h2 class="visually-hidden" id="block-footer-menu">Footer</h2>
+   <a href="/terms-and-conditions" class="text_f copyright_text">Terms and Conditions</a>
+   </div></div></div>
+   <div class="details">
+     This publication has been produced with support of the 11th EDF.
+     The contents of this publication are the sole responsibility of IUCN
+     and the European Commission’s Joint Research Centre and can in no way
+     be taken to reflect the views of the European Union nor of the ACP Group of States.
+  </div>
+  </div>
+  <div class="col-12 col-md-4 logos_f">
+  <div class="color sep">
+  <div class="c1"></div><div class="c2"></div><div class="c3"></div>
+  <div class="c4"></div></div><ul class="logos_partners">
+  <li><img src="/themes/custom/bootstrap_barrio_biopama/img/landingpage/acp_logo.png" alt="acp"></li>
+  <li><img src="/themes/custom/bootstrap_barrio_biopama/img/landingpage/eu.jpg" alt="EU"></li>
+  <li><img src="/themes/custom/bootstrap_barrio_biopama/img/landingpage/iucn.png" alt="IUCN"></li>
+  <li><img src="/themes/custom/bootstrap_barrio_biopama/img/landingpage/EC.png" alt="EC">
+  </li></ul></div></div>
+</footer>
+
+<div id="preload-images"></div>
+
+
+</body>

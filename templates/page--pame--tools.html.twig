@@ -3,7 +3,7 @@
 
    {{ attach_library( 'bootstrap_barrio_biopama/pame' ) }}
 
-   <!-- <div id="header" class="header">
+   <div id="header" class="header">
         <nav{{ navbar_attributes }}>
             {{ page.header }}
             {% if page.primary_menu or page.header_form %}
@@ -18,27 +18,8 @@
 	          </div>
             {% endif %}
         </nav>
-   </div> -->
+   </div>
 
-   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img class="biopama-logo" src="/themes/custom/bootstrap_barrio_biopama/img/PEN_Biopama_Logo_no_text_sm.png">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 {% endblock %}
 
  <!-- <div class="country-scope-Content">{{ drupal_view('protected_area_list_by_country', 'block_1') }}</div> -->
@@ -49,84 +30,71 @@
 <header class="masthead text-left text-white">
 
   <div id="bkgd-linear" class="masthead-linear"></div>
+
   <div id="bkgd-img" class="masthead-img" style="display:none;"></div>
-      <div class="bg-circle-1 bg-circle"></div>
-      <div class="bg-circle-2 bg-circle"></div>
-      <div class="bg-circle-3 bg-circle"></div>
-      <div class="bg-circle-4 bg-circle"></div>
-  	  <div id="bkgd-filter"></div>
+
       <div class="masthead-content">
 
-      <div class="row">
+        <div class="row">
 
-        <div class="col-3 header-text">
-          <div class="container landing_headers">
-              {{ drupal_view('pame_dashboard', 'block_1') }}
-          </div>
-        </div>
-        <div class="col-9 header-table-cards">
-            <div class="header-table-wrap">
-                {{ drupal_view('pame_dashboard', 'block_6') }}
+          <div class="col-lg-2 header-text">
+            <div class="container landing_headers">
+            <h5>PAME Dashboard</h5>
+            <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/divider_02.png"/>
+                <ul class="list-group pame-links">
+                {{ drupal_view('pame_dashboard', 'block_7') }}
+                </ul>
             </div>
-        </div>
+          </div>
+          <div class="col-lg-10 header-table-cards">
+              <div class="header-table-wrap">
+                  <h1>Assessment Tools</h1>
+                  <h5>available assessment tools details and links</h5>
 
-      </div>
+                  {% if 'content_manager' in user.getroles  %}
+                    <div class="row">
+                      <a href="/node/add/pame_assessment_tools"><button class="btn btn-info">+ Add Assessment tool</button></a>
+                    </div>
+                  {% endif %}
+
+
+                  {{ drupal_view('pame_contents', 'block_1') }}
+
+                  <!-- Mockup Start
+
+                  <div class="h-card-pame">
+                  <div class="card">
+                      <div class="card-body">
+                           <div class="row">
+                                     <div class="col-3">  <img src="/sites/default/files/styles/medium/public/landingpage/2019-05/iconmonstr-task-thin.png?itok=16v6kex_" width="200" height="167" alt="" typeof="Image" class="image-style-medium">
+                      </div>
+                       <div class="col-9">
+                          <h4 class="masthead-subheading mb-0">IMET</h4>
+                          <h6 class="masthead-subheading mb-0">...</h6>
+                          <p class="card-text"></p>
+                       </div>
+                 </div>
+                  <a href="/pame/tools">
+                  <div class="text-center card-link">
+                    <div class="card-title">More</div>
+                  </div>
+                  </a>
+                 </div>
+
+
+                   Mockup end -->
+
+
+              </div>
+          </div>
+
+        </div>
 
   </div>
-
+  <div class="wave-corner">
+    <img src="/themes/custom/bootstrap_barrio_biopama/img/pame/color_wave.png"/>
+  </div>
  </header>
-
- <div class="row align-items-center title-element-fullwidth">
-   <div class="col-lg-12">
-     <h4>PAME BIOPAMA Learn & Explore</h4>
-   </div>
- </div>
-
-
-<div class="main-section-container">
-  <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-12">
-
-          {{ drupal_view('pame_dashboard', 'block_2') }}
-
-
-          {{ drupal_view('pame_dashboard', 'block_3') }}
-
-          {{ drupal_view('pame_dashboard', 'block_4') }}
-
-          {{ drupal_view('pame_dashboard', 'block_5') }}
-          
-          </div>
-        </div>
-
-    </div>
-   </div>
-  </div>
-
-
-  <!--
-        <div class="row align-items-center title-element-fullwidth">
-          <div class="col-lg-12">
-            <h4>RRIS BIOPAMA MAIN CONTENTS & TOOLS</h4>
-          </div>
-        </div>
-
-  <div class="main-section-container">
-   <div class="container">
-        <div class="row dashboard align-items-center">
-          <div class="col-lg-12">
-            <div class="card-columns" id="highlights_cards">
-
-              {{ drupal_view('pame_dashboard', 'block_6') }}
-
-            </div>
-         </div>
-        </div>
-
-  </div>
-</div>
--->
 
 
 <button id="myBtn_scrollTop" title="Go to top"><i class="fas fa-arrow-up fa-2x"></i></button>

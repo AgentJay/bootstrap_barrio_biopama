@@ -24,6 +24,23 @@ jQuery(document).ready(function($) {
 });
 
 function poulateCountryCard(){
+	console.log("country card")
+	jQuery( "div.tooltip-ter" ).tooltip({
+		trigger:"hover",
+		html: true,
+		placement: "right",
+		title:"CBD Target 11. Progress towards goal of protecting 17% of Terrestrial Areas.<br><div style='text-align: left;'><span style='color:#679b95;'>Blue</span> = Area protected towards the target<br><span style='color:#000;'>Black</span> = Area remaining<br><span style='color:#8fc04f;'>Green</span> = Area protected in addition to the target goal</div>",
+		delay: 200,
+		template: tipTemplate
+	});
+	jQuery( "div.tooltip-mar" ).tooltip({
+		trigger:"hover",
+		html: true,
+		placement: "right",
+		title:"CBD Target 11. Progress towards goal of protecting 10% of Marine Areas.<br><div style='text-align: left;'><span style='color:#679b95;'>Blue</span> = Area protected towards the target<br><span style='color:#000;'>Black</span> = Area remaining<br><span style='color:#8fc04f;'>Green</span> = Area protected in addition to the target goal</div>",
+		delay: 200,
+		template: tipTemplate
+	});
 	getWbRestData("wb-total-pop", "SP.POP.TOTL", "number", false);
 	getWbRestData("wb-area", "AG.LND.TOTL.K2", "number");
 	getWbRestData("wb-gdp", "NY.GDP.PCAP.PP.CD", "number");
@@ -254,7 +271,6 @@ function getCountryProtCon(){
 	});	
 }
 function makeDOPARadar(containerID){
-	if ((jQuery(".view-breadcrumb-protected-area-summary:visible").length)){
 		var restURL = DOPAgetRadarPlot+selSettings.WDPAID
 		jQuery.ajax({
 			url: restURL,
@@ -314,7 +330,6 @@ function makeDOPARadar(containerID){
 				cardRestError('#'+containerID, "DOPA");
 			}
 		});	
-	}
 }
 function makeDOPAAvgClimate(containerID){
 	var restURL = DOPAavgClimate+selSettings.WDPAID;

@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 			globalScope.spr = '';
 			globalScope.sprCat = '';
 			var tabName = $(this).text().toLowerCase();
-			console.log(tabName)
+			//console.log(tabName)
 			if ((tabName != "explore") || (tabName != "explorer")){
 				switch (tabName){
 					case "etat":

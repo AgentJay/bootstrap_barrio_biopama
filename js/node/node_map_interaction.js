@@ -10,16 +10,16 @@ jQuery(document).ready(function($) {
 		var pasText = '';
 
 		if (typeof regionSelected !== 'undefined' ){
-			regionText = "<div class='pop-region'>" + regionSelected + "</div>";
+			regionText = "<div class='node-pop-region'>" + regionSelected + "</div>";
 		}
 		if (typeof CountrySelected !== 'undefined' ){
-			countryText = "<div class='pop-country'>" + CountrySelected + "</div>";
+			countryText = "<div class='node-pop-country'>" + CountrySelected + "</div>";
 		}
 		if (typeof pasSelected !== 'undefined' ){
-			pasText = "<div class='pop-pa'>" + pasSelected + "</div>";
+			pasText = "<div class='node-pop-pa'>Protected Areas:<br>" + pasSelected + "</div>";
 		}
 		
-		var paPopupContent = "<div class='pop-wrapper'>" +
+		var paPopupContent = "<div class='node-pop-wrapper'>" +
 				regionText +
 				countryText +
 				pasText +
@@ -34,12 +34,32 @@ jQuery(document).ready(function($) {
 	}
 	function regionCheck(e){
 		var region = getMapRegion(e.point);
+		var regionURL = '';
+		console.log(region)
 		if (typeof region !== 'undefined') {
+			switch(region.properties.Group) {
+				case "Eastern Africa":
+					regionURL = "eastern_africa";
+					//console.log(popUpContents.regionID);
+					break;
+				case "Central Africa":
+					regionURL = "central_africa";
+					break;
+				case "Western Africa":
+					regionURL = "western_africa";
+					break;
+				case "Southern Africa":
+					regionURL = "southern_africa";
+					break;
+				default:
+					regionURL = selSettings.regionName;
+					break;
+				}
 			var regionSelected = 'disabled';
 			if (selSettings.regionID != region.properties.Group){
 				regionSelected = 'enabled'
 			}
-			var regionLink = "<a class='btn btn-primary btn-sm "+regionSelected+"' href='/region/"+region.properties.Group+"'>" + region.properties.Name + "</a><a class='btn btn-secondary btn-sm' href='/region/"+region.properties.Group+"'><i class='fas fa-external-link-alt'></i></a>";	
+			var regionLink = "Region: <a class=' "+regionSelected+"' href='/region/"+regionURL+"'>" + region.properties.Group + "</a>";	
 			return regionLink;
 		} 
 	}
@@ -50,7 +70,7 @@ jQuery(document).ready(function($) {
 			if (selSettings.iso2 != country.properties.iso2){
 				countrySelected = 'enabled';
 			}
-			var countryLink = "<a class='btn btn-primary btn-sm "+countrySelected+"' href='/country/"+country.properties.iso2+"'>" + country.properties.original_n + "</a><a class='btn btn-secondary btn-sm' href='/country/"+country.properties.iso2+"'><i class='fas fa-external-link-alt'></i></a>";
+			var countryLink = "Country: <a class=' "+countrySelected+"' href='/country/"+country.properties.iso2+"'>" + country.properties.original_n + "</a>";
 			return countryLink;
 		}
 	}
@@ -59,7 +79,7 @@ jQuery(document).ready(function($) {
 		if (typeof PAs !== 'undefined') {
 			var paLinks = "";
 			for (var key in PAs) {
-			  paLinks = paLinks + "<a href='/pa/"+PAs[key].properties.WDPAID+"'>" + PAs[key].properties.NAME + "</a>";
+			  paLinks = paLinks + "<a href='/pa/"+PAs[key].properties.WDPAID+"'>" + PAs[key].properties.NAME + "</a><br>";
 			}
 			return paLinks;
 		}
@@ -73,18 +93,23 @@ var homepageMapZoomOptions = {
 	$( ".view-id-menu_level_1_policies_:visible" ).trigger('RefreshView')
 })(jQuery, Drupal); */
 function zoomToRegion(region){
-  var lowRegion = region.toLowerCase();
-  if(lowRegion === 'cw_africa'){
-	selSettings.regionID = 'CW_Africa';
-    thisMap.fitBounds([[-20.917969,-21.779905], [34.277344,28.149503]], homepageMapZoomOptions);
-  } else if (lowRegion === 'es_africa'){
-	selSettings.regionID = 'ES_Africa';
-    thisMap.fitBounds([[5.976563,-35.960223], [53.789062,18.729502]], homepageMapZoomOptions);
-  } else if (lowRegion === 'pacific'){
-	selSettings.regionID = 'Pacific';
+  if(region === 'central_africa'){
+	selSettings.regionID, selSettings.regionName = 'Central Africa';
+    thisMap.fitBounds([[1.8683898449,24.8886363352], [36.1896789074,-16.0012446593]], homepageMapZoomOptions);
+  } else if (region === 'eastern_africa'){
+	selSettings.regionID, selSettings.regionName = 'Eastern Africa';
+    thisMap.fitBounds([[20.3034484386,26.6692628716], [54.6247375011,-14.0916051203]], homepageMapZoomOptions);
+  } else if (region === 'western_africa'){
+	selSettings.regionID, selSettings.regionName = 'Western Africa';
+    thisMap.fitBounds([[-28.1462585926,31.1678846111], [20.4572570324,-0.7446243056]], homepageMapZoomOptions);
+  } else if (region === 'southern_africa'){
+	selSettings.regionID, selSettings.regionName = 'Southern Africa';
+    thisMap.fitBounds([[6.5265929699,-5.3073515284], [61.0187804699,-47.2924889494]], homepageMapZoomOptions);
+  } else if (region === 'pacific'){
+	selSettings.regionID, selSettings.regionName = 'Pacific';
     thisMap.fitBounds([[123.75,-24.846565], [216.914063,18.312811]], homepageMapZoomOptions);
-  } else if (lowRegion === 'caribbean') {
-	selSettings.regionID = 'Caribbean';
+  } else if (region === 'caribbean') {
+	selSettings.regionID, selSettings.regionName = 'Caribbean';
 	thisMap.fitBounds([[-93.691406,-1.581830], [-51.240234,28.844674]], homepageMapZoomOptions);
   } else {
 	  return;
@@ -135,7 +160,7 @@ function zoomToPA(wdpaid){
 //returns the first region object
 function getMapRegion(point){
 	var feature = thisMap.queryRenderedFeatures(point, {
-		layers:["regionsFill"],
+		layers:["regionsMask"],
 	});
 	//as long as we have something in the feature query 
 	if (typeof feature[0] !== 'undefined'){
@@ -146,7 +171,7 @@ function getMapRegion(point){
 //returns the first country object
 function getMapCountry(point){
 	var feature = thisMap.queryRenderedFeatures(point, {
-		layers:["countryFill"],
+		layers:["countryMask"],
 	});
 	//as long as we have something in the feature query 
 	if (typeof feature[0] !== 'undefined'){
@@ -157,7 +182,7 @@ function getMapCountry(point){
 //returns a list of PA objects
 function getMapPAs(point){
 	var paFeatures = thisMap.queryRenderedFeatures(point, {
-		layers:["wdpaAcpFillHighlighted"]
+		layers:["wdpaAcpMask"]
 	});
 	if (typeof paFeatures[0] !== 'undefined'){
 		return paFeatures;

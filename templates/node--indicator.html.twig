@@ -92,7 +92,33 @@
 		<div class="indicator-breadcrumbs"></div>
 		<div class="indicator-image">{{content.field_indicator_image.0}}</div>
 		<div class="indicator-title">{{ label }} for <span class="indicator-country">Country Name</span><div class='indicator-source'>{{content.field_source}}</div> </div>
-		<div class="indicator-edit-link">{{ drupal_view('edit_indicator_card_link', 'block_1', nodeid) }}</div>
+			<div class="edit-menu-trigger">
+				<div style="display: none;">{{ drupal_view('edit_indicator_card_link', 'block_1', nodeid) }}</div>
+				<div class="edit-indi-menu">
+				  <input type="checkbox" id="edit-indi-toggle" />
+				  <label id="show-menu" for="edit-indi-toggle">
+					<div class="indi-menu-btn">
+					  <i class="fas fa-bars menuBtn md-36"></i>
+					  <i class="fas fa-times closeBtn md-36"></i>
+					</div>
+					<div class="indi-menu-btn">
+					  <a href="/node/{{ nodeid }}/edit/data_glo" class="edit-global-data indicator-card-edit-link use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}"><img class="indi-edit-icon" src="/themes/custom/bootstrap_barrio_biopama/img/icons/global.png"></a>
+					</div>
+					<div class="indi-menu-btn">
+					  <a href="/node/{{ nodeid }}/edit/data_regional" class="edit-regional-data indicator-card-edit-link use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}"><img class="indi-edit-icon" src="/themes/custom/bootstrap_barrio_biopama/img/icons/region.png"></a>
+					</div>
+					<div class="indi-menu-btn">
+					  <a href="/node/{{ nodeid }}/edit/data_country" class="edit-country-data indicator-card-edit-link use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}"><img class="indi-edit-icon" src="/themes/custom/bootstrap_barrio_biopama/img/icons/country.png"></a>
+					</div>
+					<div class="indi-menu-btn">
+					  <a href="/node/{{ nodeid }}/edit/data_local" class="edit-local-data indicator-card-edit-link use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}"><img class="indi-edit-icon" src="/themes/custom/bootstrap_barrio_biopama/img/icons/local.png"></a>
+					</div>
+					<div class="indi-menu-btn">
+					  <a href="/node/{{ nodeid }}/edit" class="edit-indicator indicator-card-edit-link use-ajax" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}"><i class="fas fa-wrench"></i></a>
+					</div>
+				  </label>
+				</div>
+			</div>
 	</div>
 	<div class='indicator-content-wrapper'>
 		<div id="pa-card-tabs">
@@ -108,14 +134,14 @@
 					<li class="indi-tab indi-tab-regional disable-scope"><a href="#tabs-2">Regional</a></li>
 				{% endif %}
 				{% if (content.field_indi_data_national|length > 3) or (content.field_indi_geonode_country.0|render == 'On') %}
-					<li class="indi-tab indi-tab-country"><a href="#tabs-3">Country</a></li>
+					<li class="indi-tab indi-tab-national"><a href="#tabs-3">National</a></li>
 				{% else %}
-					<li class="indi-tab indi-tab-country disable-scope"><a href="#tabs-3">Country</a></li>
+					<li class="indi-tab indi-tab-national disable-scope"><a href="#tabs-3">National</a></li>
 				{% endif %}
 				{% if (content.field_indi_data_local|length > 3) or (content.field_indi_geonode_pa.0|render == 'On') %}
-					<li class="indi-tab indi-tab-pa"><a href="#tabs-4">Protected Area</a></li>
+					<li class="indi-tab indi-tab-local"><a href="#tabs-4">Local</a></li>
 				{% else %}
-					<li class="indi-tab indi-tab-pa disable-scope"><a href="#tabs-4">Protected Area</a></li>
+					<li class="indi-tab indi-tab-local disable-scope"><a href="#tabs-4">Local</a></li>
 				{% endif %}
 				<li class="indi-tab indi-tab-help"><a href="#tabs-5"><i class="far fa-question-circle"></i></a></li>
 		  </ul>
@@ -138,8 +164,8 @@
 			{% endif %}
 		  </div>
 		  <div id="tabs-3">
-			<div class='rest-error rest-error-country'></div>
-			<div id='indicator-chart-country' class='indicator-chart'></div> 
+			<div class='rest-error rest-error-national'></div>
+			<div id='indicator-chart-national' class='indicator-chart'></div> 
 			{% if node.field_indi_data_national.entity.body.value|length > 1 %}
 				{{ node.field_indi_data_national.entity.body.value }}
 			{% else %}
@@ -147,8 +173,8 @@
 			{% endif %}
 		  </div>
 		  <div id="tabs-4">
-			<div class='rest-error rest-error-pa'></div>
-			<div id='indicator-chart-pa' class='indicator-chart'></div> 
+			<div class='rest-error rest-error-local'></div>
+			<div id='indicator-chart-local' class='indicator-chart'></div> 
 			{% if node.field_indi_data_local.entity.body.value|length > 1 %}
 				{{ node.field_indi_data_local.entity.body.value }}
 			{% else %}
