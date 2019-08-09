@@ -7,8 +7,8 @@ jQuery(document).ready(function($) {
 		style: 'mapbox://styles/jamesdavy/cjw25laqe0y311dqulwkvnfoc', //Andrews default new RIS v2 style based on North Star
 		attributionControl: true,
 		renderWorldCopies: true,
-		center: [0, -6.66],
-        zoom: 1.5,
+		center: homepageMapCenter,
+        zoom: homepageMapZoom,
 		minZoom: 1.4,
 		maxZoom: 12,
 		attributionControl: false,
@@ -177,13 +177,13 @@ jQuery(document).ready(function($) {
 
 		map.addSource("BIOPAMA_Poly", {
 			"type": 'vector',
-			"tiles": ["https://tiles.biopama.org/BIOPAMA_poly_2/{z}/{x}/{y}.pbf"],
+			"tiles": [mapPolyHostURL+"/{z}/{x}/{y}.pbf"],
 			"minZoom": 0,
 			"maxZoom": 12,
 		});
 		map.addSource("BIOPAMA_Point", {
 			"type": 'vector',
-			"tiles": ["https://tiles.biopama.org/BIOPAMA_point_2/{z}/{x}/{y}.pbf"],
+			"tiles": [mapPointHostURL+"/{z}/{x}/{y}.pbf"],
 			"minZoom": 0,
 			"maxZoom": 12,
 		});

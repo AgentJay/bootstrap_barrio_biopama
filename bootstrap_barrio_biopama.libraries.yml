@@ -21,7 +21,8 @@ mapbox:
 
 biopama-global-vars:
   js:
-    js/homepage/global_vars_functs.js: {minified: false, preprocess: false}
+    js/global_vars_functs.js: {minified: false, preprocess: false}
+    /BIOPAMA_configs/map_settings.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
 
@@ -87,7 +88,6 @@ focus-page:
       css/node/style.css: {}
   js:
     js/node_country/country_chart.js: {minified: false, preprocess: false}
-    js/homepage/global_vars_functs.js: {minified: false, preprocess: false}
     js/homepage/id_editor.js: {minified: false, preprocess: false}
     js/node/node_map.js: {minified: false, preprocess: false}
     js/map.js: {minified: false, preprocess: false}
@@ -114,6 +114,7 @@ focus-page:
     - bootstrap_barrio_biopama/nouislider
     - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/breadcrumb-cards
+    - bootstrap_barrio_biopama/biopama-global-vars
 
 global-rest:
   js:
