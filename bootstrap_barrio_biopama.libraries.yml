@@ -22,7 +22,7 @@ mapbox:
 biopama-global-vars:
   js:
     js/global_vars_functs.js: {minified: false, preprocess: false}
-    /BIOPAMA_configs/map_settings.js: {minified: false, preprocess: false}
+    /biopama-config/map_settings.js: {minified: false, preprocess: false}
   dependencies:
     - core/jquery
 
