@@ -269,7 +269,8 @@ g#biopama-green path.cls-2 {
 }
   #drupal-off-canvas .form-select, #drupal-off-canvas .form-text, #drupal-off-canvas .form-tel, #drupal-off-canvas .form-email, #drupal-off-canvas .form-url, #drupal-off-canvas .form-search, #drupal-off-canvas .form-number, #drupal-off-canvas .form-color, #drupal-off-canvas .form-file, #drupal-off-canvas .form-textarea, #drupal-off-canvas .form-date, #drupal-off-canvas .form-time {
     color: #669a94;
-	background-color: #f1f1f1 !important; 
+    border-color: silver;
+    background-color: #fafafa !important;
 }
 #drupal-off-canvas h4, #drupal-off-canvas .heading-d {
     background: #fff;
@@ -284,11 +285,9 @@ g#biopama-green path.cls-2 {
 	border: 0px !important;
     border-bottom: 1px solid #ccc !important;
 }
-#drupal-off-canvas .horizontal-tabs * {
-	border: 0px !important;
-}
+
 #drupal-off-canvas details, #drupal-off-canvas summary, #drupal-off-canvas .details-wrapper {
-    margin: 5px 0px;
+    margin: 0px 0px;
     padding: 0 0px;
 }
 #drupal-off-canvas input[type=file] {
@@ -302,7 +301,6 @@ g#biopama-green path.cls-2 {
     padding: 0px;
     margin-bottom: 0px;
     font-size: 16px;
-    margin-top: 10px;
 }
 #drupal-off-canvas legend,
 .ui-corner-all.ui-dialog legend{
@@ -392,8 +390,11 @@ div.entities-list {
 	width: 100% !important;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
 }
-#drupal-off-canvas fieldset.js-form-item {
+/* #drupal-off-canvas fieldset.js-form-item {
     width: 100% !important;
+} */
+div.details-wrapper div.form-group.js-form-wrapper, div.details-wrapper small.details-description{
+	margin: 10px !important;
 }
 #drupal-off-canvas .chosen-container-multi .chosen-choices li.search-choice, .chosen-container-multi .chosen-choices li.search-choice {
     background: #fff !important;
@@ -424,8 +425,8 @@ button.breadClose {
     height: 80% !important;
     top: 10% !important;
 }
-.ui-dialog-off-canvas #drupal-off-canvas {
-    padding: 0 15px 20px!important;
+#drupal-off-canvas  .col.layout-region-node-footer {
+    margin-bottom: 200px;
 }
 
 #drupal-off-canvas .description, #drupal-off-canvas .form-item .description, #drupal-off-canvas .details-description {
@@ -517,11 +518,19 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
     width: auto;
     color: #426e89;
 }
-
-#drupal-off-canvas details, #drupal-off-canvas summary, #drupal-off-canvas .details-wrapper{
-  outline:none;
+#drupal-off-canvas details.field-group-tab {
+    outline: none !important;
 }
-
+#drupal-off-canvas details[open], #drupal-off-canvas div.field--widget-link-default {
+    outline: 1px solid #c5c5c5;
+    padding-bottom: 0px;
+}
+#drupal-off-canvas div.field--widget-link-default div.fieldset-wrapper{
+	padding: 10px;
+}
+#drupal-off-canvas div.field--widget-link-default div.fieldset-wrapper fieldset{
+	margin: 0px;
+}
 #drupal-off-canvas summary:hover, #drupal-off-canvas summary:focus{
     background-color: #a7d1e500!important;
     /* padding: 10px!important; */
@@ -543,7 +552,6 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
 }
 
 #drupal-off-canvas select.form-select{
-  border-radius: 5px 5px 3px 3px !important;
   border: 1px solid silver!important;
   background-color:#fafafa!important;
 }

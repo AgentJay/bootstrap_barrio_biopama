@@ -3,10 +3,10 @@
 #block-mapmenuscope div.menu-policy div.view-content {
     flex-direction: column;
 	margin: 0px;
-	padding: 15px 0px;
 	flex-wrap: nowrap;
 	flex-grow: 1;
 	overflow: auto;
+	overflow-x: hidden;
 }
 
 #block-mapmenuscope div#state-tab div.menu-indicators,
@@ -157,7 +157,7 @@ li.active-menu-tab {
 }
 .view-content .row-goal.views-row:last-child,
 .view-content .row-policy.views-row:last-child  {
-  margin-bottom: 58px;
+  padding-bottom: 10px;
 }
 form#views-exposed-form-menu-level-1-policies--block-regional,
 form#views-exposed-form-menu-level-1-policies--block-global,
@@ -268,8 +268,8 @@ div#map-menu div.scope-content {
 div.menu-policy {
 	background: white;
 	box-shadow: inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
-    overflow-x: hidden;
-    overflow-y: auto;
+	display: flex;
+	flex-direction: column;
     height: 100%;
     /* height: -webkit-fill-available; */
 }
@@ -334,8 +334,6 @@ div#map-menu > div.scope-content.menu-policy-effect {
 div.menu-policy > .view-footer,
 div.menu-goals > .view-footer {
 	box-shadow: inset 60px 0px 60px -60px rgba(17, 133, 171, 0.15);
-    position: absolute;
-    bottom: 0;
     text-align: center;
     padding: 20px;
     color: #7aa7a3;
@@ -512,9 +510,6 @@ h2.menu-title {
 }
 .ui-dialog{
 	z-index: 999 !important;
-}
-.ui-dialog-off-canvas #drupal-off-canvas {
-    padding-bottom: 140px !important; 
 }
 .ui-dialog-off-canvas .layout-region-node-main,
 .ui-dialog .ui-dialog-content .layout-region-node-main{

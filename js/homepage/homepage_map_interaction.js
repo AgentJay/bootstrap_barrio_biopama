@@ -187,6 +187,7 @@ jQuery(document).ready(function($) {
 			selSettings.WDPAID = $(this).attr('id');
 			selSettings.paName = $(this).closest(".card").find(".area-subheading").text().trim();
 			selSettings.ISO3 = popUpContents.country3Code;
+			selSettings.ISO2 = popUpContents.countryCode;
 			updatePa();
 			closeMapCards();
 		});
