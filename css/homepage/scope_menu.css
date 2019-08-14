@@ -1,6 +1,8 @@
 #block-mapmenuscope div.menu-goals div.view-content,
 #block-mapmenuscope div.view-indicators-by-target-goal div.view-content,
-#block-mapmenuscope div.menu-policy div.view-content {
+#block-mapmenuscope div.menu-policy div.view-content,
+#block-mapmenuscope div.menu-policy div.view-empty,
+#block-mapmenuscope div.menu-goals div.view-empty {
     flex-direction: column;
 	margin: 0px;
 	flex-wrap: nowrap;
