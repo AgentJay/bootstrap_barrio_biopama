@@ -33,11 +33,11 @@
 		<h3><i class="fas fa-chevron-circle-down"></i>Priority Actions</h3>
           <div>
 			<h4>Priority actions for the region</h4>
-            <div class="actions-content">{{ drupal_view('priority_actions_regional', 'block_1') }}</div> 
+            <div class="actions-content">{{ drupal_view('priority_actions_by_policy_and_target', 'block_3') }}</div> 
 			<h4>Priority actions for the countries in the region</h4>
-			<div class="actions-content">{{ drupal_view('priority_actions_country', 'block_2') }}</div> 
+			<div class="actions-content">{{ drupal_view('priority_actions_by_policy_and_target', 'block_4') }}</div> 
 			<h4>Priority actions for the protected areas in the region</h4>
-			<div class="actions-content">{{ drupal_view('priority_actions_pa', 'block_1') }}</div> 
+			<div class="actions-content">{{ drupal_view('priority_actions_by_policy_and_target', 'block_5') }}</div> 
           </div>
 		{% endif %}
 	  	<h3><i class="fas fa-chevron-circle-down"></i>Countries in this Region</h3>
