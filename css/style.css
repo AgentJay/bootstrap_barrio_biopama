@@ -124,9 +124,12 @@ ul#superfish-account li a{
 	overflow: hidden;
 	background: #fff;
 	opacity: 0.7;
-  min-width:40px;
-  min-height:40px;
-  position:relative;
+    width:40px;
+    height:40px;
+    position:relative;
+}
+.source-wrapper div.field--name-field-source-logo{
+    padding: 0px !important;
 }
 .source-wrapper .container-fluid {
     margin: 0px;
@@ -262,7 +265,17 @@ g#biopama-green path.cls-2 {
  /**
  * off canvas overrides
  */
-
+#drupal-off-canvas .source-wrapper {
+    position: absolute;
+    left: 0;
+}
+#drupal-off-canvas .field.field--name-field-policy-full-title,
+#drupal-off-canvas .field--name-field-policy{
+	font-size: 30px;
+}
+#drupal-off-canvas .node__meta {
+    display: none;
+}
 #drupal-off-canvas *, #drupal-off-canvas *:not(div) {
     color: unset;
     background: unset;
@@ -295,12 +308,15 @@ g#biopama-green path.cls-2 {
 }
 #drupal-off-canvas legend,
 #drupal-off-canvas label,
+#drupal-off-canvas .field__label,
 .ui-corner-all.ui-dialog legend,
 .ui-corner-all.ui-dialog label{
     width: 100%;
     padding: 0px;
     margin-bottom: 0px;
     font-size: 16px;
+	background: #fff;
+    color: #41ad53;
 }
 #drupal-off-canvas legend,
 .ui-corner-all.ui-dialog legend{
@@ -308,11 +324,7 @@ g#biopama-green path.cls-2 {
     color: #fff;
 	padding-left: 5px;
 }
-#drupal-off-canvas label,
-.ui-corner-all.ui-dialog label{
-    background: #fff;
-    color: #41ad53;
-}
+
 #drupal-off-canvas div.paragraphs-subform label,
 .ui-corner-all.ui-dialog div.paragraphs-subform label{
     background: none;
@@ -379,6 +391,12 @@ div.entities-list {
 }
 #drupal-off-canvas div.field--type-entity-reference {
     padding: 5px;
+}
+#drupal-off-canvas div.node__content div.field--type-entity-reference {
+    padding: 5px 0px;
+}
+#drupal-off-canvas div.node__content div.field {
+    padding: 5px 0px;
 }
 #drupal-off-canvas .chosen-container ul.chosen-results {
     background: #fff !important;

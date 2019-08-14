@@ -1,3 +1,15 @@
+div.priority-actions .views-field-field-countries,
+div.priority-actions .views-field-field-ac-region,
+div.priority-actions .views-field-field-policy-pa,
+div.priority-actions .views-field-field-ac-category{
+width: 20%;
+}
+
+div.priority-actions .views-field-title,
+div.priority-actions .views-field-title-1{
+width: 30%;
+}
+
 .chart-title {
     font-size: 1.5em;
 }
