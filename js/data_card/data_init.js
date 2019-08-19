@@ -137,8 +137,10 @@ jQuery(document).ready(function($) {
 				}
 				break;
 			default:
-				console.log("nothing to do")
+				console.log("nothing to do");
 				removeCustomLayers('||a11');
+				$("span.indicator-for").text("");
+				$("span.indicator-country").text("");
 		}
 	}
 	function getGeonodeData(scopeSelected, scopeID = null){
@@ -176,6 +178,7 @@ jQuery(document).ready(function($) {
 	
 	function setupScopeData(scopeSelected){
 		//console.log("boom");
+		$("span.indicator-for").text(" for");
 		selData.map.mapScope = scopeSelected;
 		if (jQuery( "div.field--name-field-indi-data-"+scopeSelected+" div.field--name-field-data-chart" ).length){
 			$('.indicator-make-points').on('click', function(e) {

@@ -17,7 +17,7 @@ function getChart(error = 0){
 		}
 		//indicatorChart.disconnect();
 		//initalize the chart library and attach it to the correct div
-		
+		console.log(currentCardScope)
 		//show the chart, in case it was hidden from a previous error
 		switch(currentCardScope) {
 		case "global":
@@ -33,7 +33,7 @@ function getChart(error = 0){
 			prepPaChart();
 			break;
 		default:	//the country charts are the default for now....
-			prepCountryChart();
+			noChart();
 		}
 	} else {
 		chartError(error)
@@ -325,7 +325,6 @@ function checkForChartType(chartTab){
 		jQuery( ".rest-error" ).html("<div class='alert alert-info'>No Chart was Configured yet.</div>");
 	}
 }
-
 function prepCountryChart(){
 	//Any custom that we want to have at the country level can be done here.
 	if (selSettings.ISO2 != null) {
@@ -338,6 +337,14 @@ function prepCountryChart(){
 		jQuery( ".indicator-chart" ).hide();
 		jQuery( ".rest-error-country" ).html("<div class='alert alert-info'>There is no Country currently selected, Try selecting one on the map.</div>");
 	}
+}
+function noChart(){
+	//Any custom that we want to have at the country level can be done here.
+	//we update the title
+	jQuery("span.indicator-for").text("");
+	jQuery("span.indicator-country").text("");
+	echarts.dispose(document.getElementById('indicator-chart-country'));
+	jQuery( ".indicator-chart" ).hide();
 }
 function highlightMapFeature() {
 	if (jQuery("#block-indicatorcard article:visible").length) {
