@@ -149,7 +149,7 @@
 			<div class='rest-error rest-error-global'></div>
 			<div id='indicator-chart-global' class='indicator-chart'></div> 
 			{% if node.field_indi_data_global.entity.body.value|length > 1 %}
-				{{ node.field_indi_data_global.entity.body.value }}
+				{{ node.field_indi_data_global.entity.body.value|raw }}
 			{% else %}
 				{{ content.body }}
 			{% endif %}
@@ -158,7 +158,7 @@
 			<div class='rest-error rest-error-regional'></div>
 			<div id='indicator-chart-regional' class='indicator-chart'></div> 
 			{% if node.field_indi_data_regional.entity.body.value|length > 1 %}
-				{{ node.field_indi_data_regional.entity.body.value }}
+				{{ node.field_indi_data_regional.entity.body.value|raw }}
 			{% else %}
 				{{ content.body }}
 			{% endif %}
@@ -167,7 +167,7 @@
 			<div class='rest-error rest-error-national'></div>
 			<div id='indicator-chart-national' class='indicator-chart'></div> 
 			{% if node.field_indi_data_national.entity.body.value|length > 1 %}
-				{{ node.field_indi_data_national.entity.body.value }}
+				{{ node.field_indi_data_national.entity.body.value|raw }}
 			{% else %}
 				{{ content.body }}
 			{% endif %}
@@ -176,7 +176,7 @@
 			<div class='rest-error rest-error-local'></div>
 			<div id='indicator-chart-local' class='indicator-chart'></div> 
 			{% if node.field_indi_data_local.entity.body.value|length > 1 %}
-				{{ node.field_indi_data_local.entity.body.value }}
+				{{ node.field_indi_data_local.entity.body.value|raw }}
 			{% else %}
 				{{ content.body }}
 			{% endif %}
