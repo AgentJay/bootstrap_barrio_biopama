@@ -333,7 +333,7 @@ function prepCountryChart(){
 		checkForChartType("national");
 	} else {
 		//if there's a previously created country chart, kill it
-		echarts.dispose(document.getElementById('indicator-chart-country'));
+		echarts.dispose(document.getElementById('indicator-chart-national'));
 		jQuery( ".indicator-chart" ).hide();
 		jQuery( ".rest-error-country" ).html("<div class='alert alert-info'>There is no Country currently selected, Try selecting one on the map.</div>");
 	}
@@ -343,7 +343,6 @@ function noChart(){
 	//we update the title
 	jQuery("span.indicator-for").text("");
 	jQuery("span.indicator-country").text("");
-	echarts.dispose(document.getElementById('indicator-chart-country'));
 	jQuery( ".indicator-chart" ).hide();
 }
 function highlightMapFeature() {
@@ -1205,7 +1204,7 @@ function prepRegionalChart(chartSettings){
 		checkForChartType("regional");
 	} else {
 		//if there's a previously created country chart, kill it
-		echarts.dispose(document.getElementById('indicator-chart-country'));
+		echarts.dispose(document.getElementById('indicator-chart-regional'));
 		jQuery( ".indicator-chart" ).hide();
 		jQuery( ".rest-error-regional" ).html("<div class='alert alert-info'>There is no Region currently selected, Try selecting one on the map.</div>");
 	}
@@ -1218,7 +1217,7 @@ function prepPaChart(chartSettings){
 
 	} else {
 		//if there's a previously created pa chart, kill it
-		echarts.dispose(document.getElementById('indicator-chart-pa'));
+		echarts.dispose(document.getElementById('indicator-chart-local'));
 		jQuery( ".indicator-chart" ).hide();
 		jQuery( ".rest-error-pa" ).html("<div class='alert alert-info'>There is no Protected Area currently selected, Try selecting one on the map.</div>");
 	}
