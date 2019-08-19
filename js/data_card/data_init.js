@@ -469,8 +469,10 @@ function addTabLayers(tab){
 			//I change the map layer loading to be different
 			var mapLayersArray = [];
 			var mapLayer;
+			var mapLayerName;
 			var mapLegend;
 			jQuery( "div.field--name-field-indi-data-"+tab+" .field--name-field-data-map-layers.field__items" ).children().each(function () {
+				mapLayerName = jQuery(this).find(".map-layer-name").text();
 				mapLayer = jQuery(this).find(".map-layer").text();
 				mapLegend = jQuery(this).find(".map-legend").text();
 				try {
@@ -486,7 +488,7 @@ function addTabLayers(tab){
 					}
 					thisMap.addLayer(mapLayer, 'gaulACP'); 
 					jQuery("#map-legend").show();
-					jQuery("#wms-map-legend").append("<div class='"+mapLayer.id+"'><img src="+mapLegend+"></div>");
+					jQuery("#wms-map-legend").append("<div class='"+mapLayer.id+"'><div class='map-legend-title'>"+mapLayerName+"</div><img src="+mapLegend+"></div>");
 				} catch (e) {
 					console.log("You have a messed up layer in the "+tab+" tab")
 					mapLayer = '{}'; 
