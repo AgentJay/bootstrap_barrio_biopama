@@ -17,7 +17,6 @@ function getChart(error = 0){
 		}
 		//indicatorChart.disconnect();
 		//initalize the chart library and attach it to the correct div
-		console.log(currentCardScope)
 		//show the chart, in case it was hidden from a previous error
 		switch(currentCardScope) {
 		case "global":
@@ -175,9 +174,11 @@ function checkChartData(chartType = "barLine"){
 	}
 	//make a copy of the xaxis to modify
 	var xAxis = jQuery.extend( true, {}, selData.chart.Xaxis );
+	
+	var xAxisLabel = xAxis.data.toLowerCase();
 
 	//if it's a year field we sort it. This overrides what the user may have defined because it's important to standardise how the dates are displayed.
-	if ((xAxis.data == "timePeriodStart") || (xAxis.data == "Year")){
+	if ((xAxis.data == "timePeriodStart") || (xAxisLabel == "year") || (xAxisLabel == "years")){
 		sortByKey(indicatorResults, xAxis.data, 'asc');
 	}
 	function precision(a) {
@@ -556,8 +557,6 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 		var nanCheck = 0;
 		var nanCount = 0;
 		var nanMapAreas = [];
-		console.log(MappedSeriesZoom);
-		console.log("boom");
 		MappedSeriesZoom = MappedSeriesZoom.filter(function(elem, index, array) { 
 			if (array[index] == "NaN") {
 				nanCheck = 1;
@@ -1041,10 +1040,7 @@ function buildMapSlider(stopPoints, colors, minRange, maxRange){
 	jQuery(stopPoints).each(function(i, data) {
 		connects.push(true);
 	});
-	console.log(stopPoints)
-	console.log(connects)
-	console.log(minRange)
-	console.log(maxRange)
+
 	noUiSlider.create(slider, {
 		orientation: "vertical",
 		direction: 'rtl',
