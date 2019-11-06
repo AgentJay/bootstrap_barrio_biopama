@@ -8,32 +8,6 @@
 use Drupal\Core\Form\FormStateInterface;
 use \Drupal\taxonomy\Entity\Term;
 
-/**
- * Implements hook_form_system_theme_settings_alter() for settings form.
- *
- * Replace Barrio setting options with subtheme ones.
- * 
- * Example on how to alter theme settings form
- * 
- */
-function bootstrap_barrio_biopama_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = array(
-      'bg-primary' => t('Primary'),
-      'bg-secondary' => t('Secondary'),
-      'bg-light' => t('Light'),
-      'bg-dark' => t('Dark'),
-      'bg-white' => t('White'),
-      'bg-transparent' => t('Transparent'),
-  );
-  $form['components']['navbar']['bootstrap_barrio_navbar_background']['#options'] = array(
-      'bg-primary' => t('Primary'),
-      'bg-secondary' => t('Secondary'),
-      'bg-light' => t('Light'),
-      'bg-dark' => t('Dark'),
-      'bg-white' => t('White'),
-      'bg-transparent' => t('Transparent'),
-  );
-}
 /*
 * implements hook_view_pre_render()
 */
@@ -51,9 +25,15 @@ function bootstrap_barrio_biopama_views_pre_render(\Drupal\views\ViewExecutable 
 			$resultNoDoubleNodes = array(); // manipulated results
 			$skipped = 0;
 			$nothin = 0;
+			$track = 0;
 			foreach($view->result as $key => $result) // check each node of the result array on its nid
 			{
-				$nid = $result->nid;
+				if(property_exists($result, 'nid')){
+					$nid = $result->nid;
+				} else {
+					$nid = $track;
+					$track++;
+				}
 				//dsm($view->result); 
 				if (!in_array($nid, $nids)) // if this node isn't a duplicate
 				{
@@ -163,26 +143,22 @@ function bootstrap_barrio_biopama_theme_suggestions_page_alter(array &$suggestio
 }
  
 function bootstrap_barrio_biopama_preprocess(&$variables, $hook) {
-  $variables['current_path'] = \Drupal::service('path.current')->getPath();
+  $current_path = \Drupal::service('path.current')->getPath();
+  $variables['current_path'] = $current_path;
   $variables['current_uri'] = \Drupal::request()->getRequestUri();
-  try {
-    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
-  }
-  catch (Exception $e) {
-    $variables['is_front'] = FALSE;
+  if ($variables['current_path'] == '/map') {
+    $variables['is_map'] = TRUE;
+  } else {
+    $variables['is_map'] = FALSE;
   }
   // Ensure the cache varies correctly (new in Drupal 8.3).
-  $variables['#cache']['contexts'][] = 'url.path.is_front';
+  $variables['#cache']['contexts'][] = 'url.path';
   $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $variables['language'] = $language;
 }
 function bootstrap_barrio_biopama_preprocess_page(&$variables) {
-	$current_path = \Drupal::service('path.current')->getPath();
-	//dsm($current_path); 
-	//\Drupal::logger('theme')->notice($current_path);
-  if ($current_path == '/focus') {
-    $variables['#attached']['library'][] = 'bootstrap_barrio_biopama/focus-page';
-  }
+  $current_path = \Drupal::service('path.current')->getPath();
+  //dsm($current_path); 
   if ($current_path == '/rest') {
     $variables['#attached']['library'][] = 'bootstrap_barrio_biopama/rest-checker';
   }
@@ -193,9 +169,6 @@ function bootstrap_barrio_biopama_preprocess_node(&$variables) {
 	$node = $variables['node'];
 	
  	switch($node->getType()){
-		case 'country':
-			$variables['#attached']['library'][] = 'bootstrap_barrio_biopama/region-country-pa-page';
-			break; 
 		case 'policy':
 			$variables['#attached']['library'][] = 'bootstrap_barrio_biopama/policy-style';
 			break;
@@ -205,24 +178,4 @@ function bootstrap_barrio_biopama_preprocess_node(&$variables) {
 		default:
 			break; 
 	}
-}
-/**
- * Implements hook_theme_suggestions_taxonomy_term_alter().
- */
-function bootstrap_barrio_biopama_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
-  /** @var \Drupal\taxonomy\TermInterface $term */
-  $term = $variables['elements']['#taxonomy_term'];
-  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
-  // Add view mode theme suggestions.
-  $suggestions[] = 'taxonomy_term__' . $sanitized_view_mode;
-  $suggestions[] = 'taxonomy_term__' . $term->bundle() . '__' . $sanitized_view_mode;
-  $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
-}
-function bootstrap_barrio_biopama_theme_suggestions_node_alter(array &$suggestions, array $variables, $hook) {
- $node = $variables['elements']['#node'];
- $type = $node->bundle();
- $view_mode = $variables['elements']['#view_mode'];
- $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
- $suggestions[] = 'node__'.$type;
- $suggestions[] = 'node__'.$type.'__'.$view_mode;
 }

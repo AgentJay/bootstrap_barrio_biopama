@@ -27,22 +27,36 @@
 #}
 <div class="region-image-container">
 	<div class="region-summary-image-container">
-    <div class="region-summary-image" style="background-image:url('{{content.field_region_image.0['#markup']}}');"></div>
-  </div>
+		<div class="region-summary-image" style="background-image:url('{{content.field_region_image.0['#markup']}}');"></div>
+	</div>
 	<div class="container-fluid region-container">
 		<div class="row">
 			<div class="col-sm-12">
-         <div class="region-title">{{ name.0 }}</div>
-      </div>
-{#/**			<div class="col-sm-3"><div class="region-info">chart</div></div>
-			<div class="col-sm-3"><div class="region-info">chart</div></div>
-			<div class="col-sm-3"><div class="region-info">chart</div></div>
- */#}
-			<div class="col-sm-12"><div class="region-info"><h4>You might also be interested in other regions:</h4>{{ drupal_view('regions_list', 'region_list') }}</div></div>
+			   <div class="region-title">{{ name.0 }}</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="container-fluid region-info">
+					<div class="row">
+						<div class="col-sm-12"><h4>Region Protection Coverage</h4></div>
+						<div class="col-sm-6"><div id="terrestrial-prot-title">Terrestrial</div><div class="info-link chart-icon tooltip-ter menu-tip"><i class="fas fa-info"></i></div></div>
+						<div class="col-sm-6"><div id="marine-prot-title">Marine</div><div class="info-link chart-icon tooltip-mar menu-tip"><i class="fas fa-info"></i></div></div>
+						<div class="col-sm-6"><div id="region-terrestrial-prot-chart" style="height: 150px;"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div></div>
+						<div class="col-sm-6"><div id="region-marine-prot-chart" style="height: 150px;"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="container-fluid region-info">
+					<div class="row">
+						<div class="col-sm-12"><h4>You might also be interested in other regions:</h4></div>
+						<div class="col-sm-12">{{ drupal_view('regions_list', 'region_list') }}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<a href="/region/{{content.field_region_id.0}}" target="_blank" class="btn btn-success bread-page-link" role="button" aria-pressed="true">Go to Region Page</a>
+	<a href="/region/{{content.field_region_id.0}}" target="_blank" class="btn btn-info bread-page-link" role="button" aria-pressed="true">Go to Region Page</a>
 </div>
 <div class="hidden">
-	<div class="views-field-field-region-id">{{content.field_region_id.0}}</div>
+	<div class="views-field-field-region-id">{{fields.field_region_id.content}}</div>
 </div>
