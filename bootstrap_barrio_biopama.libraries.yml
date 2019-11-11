@@ -10,6 +10,15 @@ global-styling:
       css/scroll_bar.css: {}
       https://fonts.googleapis.com/css?family=Maven%20Pro: {type: external, weight:2000}
 
+mapbox:
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/mapbox-gl@1/dist/mapbox-gl.css: {type: external, weight:2000}
+  header: true
+  js:
+    https://cdn.jsdelivr.net/npm/mapbox-gl@1/dist/mapbox-gl.min.js: { type: external, minified: true, preprocess: false}
+    /libraries/mapbox/wellknown.js: {minified: false}
+
 biopama-global-vars:
   js:
     js/global_vars_functs.js: {minified: false, preprocess: false}
@@ -24,16 +33,16 @@ colorbrewer:
 nouislider:
   css:
     theme:
-      /libraries/nouislider/nouislider.min.css: {}
+      https://cdn.jsdelivr.net/npm/nouislider@14/distribute/nouislider.min.css: {type: external}
   js:
-    /libraries/nouislider/nouislider.min.js: {minified: true, preprocess: false}
+    https://cdn.jsdelivr.net/npm/nouislider@14/distribute/nouislider.min.js: { type: external, minified: true, preprocess: false}
 
 echarts:
   css:
     theme:
       css/homepage/mapbox_chart.css: {}
   js:
-    /libraries/echarts/echarts_v4.min.js: {minified: true, preprocess: false}
+    https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js: { type: external, minified: true, preprocess: false}
     js/data_card/classybrew.js: {minified: false, preprocess: false}
     js/data_card/data_chart_init.js: {minified: false, preprocess: false}
     js/data_card/data_chart_bar_line.js: {minified: false, preprocess: false}
@@ -51,67 +60,75 @@ custom-mapbox:
     js/homepage/biopama_map.js: {minified: false, preprocess: false}
     js/map_interaction.js: {minified: false, preprocess: false}
   dependencies:
-    - biopama_protected_areas/global-styling
-    - biopama_protected_areas/echarts
+    - core/drupal
+    - core/drupal.ajax
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.effects.core
+    - core/jquery.ui.effects.slide
+    - core/jquery.ui.tabs
+    - core/drupalSettings
+    - bootstrap_barrio_biopama/echarts
     - bootstrap_barrio_biopama/id-editor
+    - bootstrap_barrio_biopama/global-rest
     - bootstrap_barrio_biopama/biopama-address-manager
     - bootstrap_barrio_biopama/ajax-loader
+    - bootstrap_barrio_biopama/biopama-breadcrumbs
     - bootstrap_barrio_biopama/colorbrewer
     - bootstrap_barrio_biopama/nouislider
-    - biopama_protected_areas/biopama-breadcrumbs
-    - biopama_protected_areas/breadcrumb-cards
+    - bootstrap_barrio_biopama/breadcrumb-cards
     - bootstrap_barrio_biopama/j-storage
     - bootstrap_barrio_biopama/homepage-tour
 
-# focus-page:
-  # css:
-    # theme:
-      # css/homepage/mapbox.css: {}
-      # css/node/node_map.css: {}
-      # css/node/style.css: {}
-  # js:
-    # js/node_country/country_chart.js: {minified: false, preprocess: false}
-    # js/homepage/id_editor.js: {minified: false, preprocess: false}
-    # js/node/node_map.js: {minified: false, preprocess: false}
-    # js/map.js: {minified: false, preprocess: false}
-    # js/node/node.js: {minified: false, preprocess: false}
-    # js/node/node_map_interaction.js: {minified: false, preprocess: false}
-    # js/map_interaction.js: {minified: false, preprocess: false}
-  # dependencies:
-    # - core/drupal
-    # - core/drupal.ajax
-    # - core/jquery
-    # - core/jquery.once
-    # - core/jquery.ui.effects.core
-    # - core/jquery.ui.effects.slide
-    # - core/jquery.ui.accordion
-    # - core/jquery.ui.tabs
-    # - core/drupalSettings
-    # - bootstrap_barrio_biopama/echarts
-    # - bootstrap_barrio_biopama/id-editor
-    # - bootstrap_barrio_biopama/global-rest
-    # - bootstrap_barrio_biopama/country-address-manager
-    # - bootstrap_barrio_biopama/ajax-loader
-    # - bootstrap_barrio_biopama/biopama-breadcrumbs
-    # - bootstrap_barrio_biopama/colorbrewer
-    # - bootstrap_barrio_biopama/nouislider
-    # - bootstrap_barrio_biopama/biopama-map-tooltips
-    # - bootstrap_barrio_biopama/breadcrumb-cards
-    # - bootstrap_barrio_biopama/biopama-global-vars
+focus-page:
+  css:
+    theme:
+      css/homepage/mapbox.css: {}
+      css/node/node_map.css: {}
+      css/node/style.css: {}
+  js:
+    js/node_country/country_chart.js: {minified: false, preprocess: false}
+    js/homepage/id_editor.js: {minified: false, preprocess: false}
+    js/node/node_map.js: {minified: false, preprocess: false}
+    js/map.js: {minified: false, preprocess: false}
+    js/node/node.js: {minified: false, preprocess: false}
+    js/node/node_map_interaction.js: {minified: false, preprocess: false}
+    js/map_interaction.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.effects.core
+    - core/jquery.ui.effects.slide
+    - core/jquery.ui.accordion
+    - core/jquery.ui.tabs
+    - core/drupalSettings
+    - bootstrap_barrio_biopama/echarts
+    - bootstrap_barrio_biopama/id-editor
+    - bootstrap_barrio_biopama/global-rest
+    - bootstrap_barrio_biopama/country-address-manager
+    - bootstrap_barrio_biopama/ajax-loader
+    - bootstrap_barrio_biopama/biopama-breadcrumbs
+    - bootstrap_barrio_biopama/colorbrewer
+    - bootstrap_barrio_biopama/nouislider
+    - bootstrap_barrio_biopama/biopama-map-tooltips
+    - bootstrap_barrio_biopama/breadcrumb-cards
+    - bootstrap_barrio_biopama/biopama-global-vars
 
 global-rest:
   js:
     js/global_rest.js: {minified: false, preprocess: false}
 
-# breadcrumb-cards:
-  # css:
-    # theme:
-      # css/breadcrumb_cards/breadcrumb_cards.css: {}
-  # js:
-    # js/breadcrumb_cards/breadcrumb_cards.js: {minified: false, preprocess: false}
-  # dependencies:
-    # - core/jquery
-    # - bootstrap_barrio_biopama/echarts
+breadcrumb-cards:
+  css:
+    theme:
+      css/breadcrumb_cards/breadcrumb_cards.css: {}
+  js:
+    js/breadcrumb_cards/breadcrumb_cards.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/jquery
+    - bootstrap_barrio_biopama/echarts
 
 biopama-address-manager:
   js:
@@ -121,13 +138,13 @@ biopama-address-manager:
     - bootstrap_barrio_biopama/jquery-address
     - bootstrap_barrio_biopama/biopama-global-vars
 
-# country-address-manager:
-  # js:
-    # js/node/address_manager.js: {minified: false, preprocess: false}
-  # dependencies:
-    # - core/jquery
-    # - bootstrap_barrio_biopama/jquery-address
-    # - bootstrap_barrio_biopama/biopama-global-vars
+country-address-manager:
+  js:
+    js/node/address_manager.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/jquery
+    - bootstrap_barrio_biopama/jquery-address
+    - bootstrap_barrio_biopama/biopama-global-vars
 
 rris-map:
   css:
@@ -139,7 +156,7 @@ rris-map:
     js/homepage/map_menu.js: {minified: false, preprocess: false}
   dependencies:
     - bootstrap_barrio_biopama/custom-mapbox
-    - biopama_protected_areas/biopama-tooltips
+    - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/indicator-country-chart
 
 id-editor:
@@ -158,24 +175,31 @@ indicator-card:
     - core/jquery
     - core/jquery.ui.effects.core
 
+biopama-map-tooltips:
+  css:
+    theme:
+      css/tooltips.css: {}
+  js:
+    js/tooltips_map.js: {minified: false, preprocess: false}
+
 policy-style:
   css:
     theme:
       css/policy_style.css: {}
 
-# biopama-breadcrumbs:
-  # css:
-    # theme:
-      # css/homepage/nav-breadcrumbs.css: {}
-  # js:
-    # js/breadcrumbs.js: {minified: false, preprocess: false}
-  # dependencies:
-    # - core/jquery
-    # - core/jquery.ui.effects.core
-    # - core/jquery.ui.effects.highlight
-    # - core/jquery.ui.effects.slide
-    # - core/drupal.dialog.ajax
-    # - biopama_protected_areas/mapbox
+biopama-breadcrumbs:
+  css:
+    theme:
+      css/homepage/nav-breadcrumbs.css: {}
+  js:
+    js/breadcrumbs.js: {minified: false, preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.effects.core
+    - core/jquery.ui.effects.highlight
+    - core/jquery.ui.effects.slide
+    - core/drupal.dialog.ajax
+    - bootstrap_barrio_biopama/mapbox
 
 anon-link-redirect:
   js:
@@ -183,7 +207,7 @@ anon-link-redirect:
 
 nice-scroll:
   js:
-    /libraries/nicescroll/jquery.nicescroll.min.js: {minified: false, preprocess: false}
+    https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/jquery.nicescroll.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
     - core/jquery
 
@@ -196,7 +220,7 @@ ajax-loader:
 
 jquery-address:
   js:
-    /libraries/jquery-address-master/src/jquery.address.min.js: {minified: true, preprocess: false}
+    https://cdn.jsdelivr.net/npm/jquery-address@1.6.0/src/jquery.address.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
     - core/jquery
 
@@ -225,7 +249,7 @@ indicator-country-chart:
 
 j-storage:
   js:
-    /libraries/jstorage/jstorage.min.js: {minified: true, preprocess: false}
+    https://cdn.jsdelivr.net/npm/jstorage@0.4.8/jstorage.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
     - core/jquery
 
