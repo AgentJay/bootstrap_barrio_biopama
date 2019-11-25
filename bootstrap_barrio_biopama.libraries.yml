@@ -361,3 +361,8 @@ datatables-with-extensions:
     /libraries/datatables-with-extensions/datatables.min.js: {minified: true, preprocess: false}
   dependencies:
     - core/jquery
+    
+fontawesome:
+  css:
+    component:
+      //use.fontawesome.com/releases/v5.11.2/css/all.css: {}
