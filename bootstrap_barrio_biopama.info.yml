@@ -13,6 +13,8 @@ libraries-override:
     css:
       theme:
         assets/vendor/jquery.ui/themes/base/theme.css: false
+        
+  bootstrap_barrio/fontawesome: bootstrap_barrio_biopama/fontawesome
 
 regions:
   top_header: 'Top Header'
