@@ -108,12 +108,12 @@ focus-page:
     - bootstrap_barrio_biopama/global-rest
     - bootstrap_barrio_biopama/country-address-manager
     - bootstrap_barrio_biopama/ajax-loader
-    - bootstrap_barrio_biopama/biopama-breadcrumbs
     - bootstrap_barrio_biopama/colorbrewer
     - bootstrap_barrio_biopama/nouislider
     - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/breadcrumb-cards
     - bootstrap_barrio_biopama/biopama-global-vars
+    - bootstrap_barrio_biopama/mapbox
 
 global-rest:
   js:
