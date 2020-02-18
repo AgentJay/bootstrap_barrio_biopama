@@ -42,6 +42,7 @@ jQuery(document).ready(function($) {
 			breakPoints: 0,
 			classificationMethod: '',
 			colorSwatch: '',
+			areaIn: '',
 		},
 	};
 	
@@ -73,6 +74,7 @@ jQuery(document).ready(function($) {
 	}
 	addCardLayers()
 	function changeTheDataAndLayers(firstTime = false){
+		selData.chart.areaIn = '';
 		//console.log("boom");
 		if ($("a.edit-indicator.indicator-card-edit-link.use-ajax.menu-tip").length){
 			$("div.edit-menu-trigger").css("display", "block");
@@ -95,8 +97,11 @@ jQuery(document).ready(function($) {
 			}
 			return;
 		}
-		var indicatorName = jQuery("div.indicator-row.activeSelection").find('.field--name-title').text();
-		updateBreadIndicator(indicatorName);
+		if (selData.info.name == ''){
+			selData.info.name = jQuery("div.indicator-row.activeSelection").find('.field--name-title').text();
+		}
+		
+		updateBreadIndicator(selData.info.name);
 		currentTab = jQuery( "#pa-card-tabs:visible .ui-tabs-active" ).text()
 		switch(currentTab) {
 			case 'Global':
@@ -286,6 +291,11 @@ jQuery(document).ready(function($) {
 			}
 			if ($( ".field--name-field-data-color-swatch" ).length){
 				selData.chart.colorSwatch = $(indicatorWrapper).find( ".field--name-field-data-color-swatch.field__item" ).text().trim();
+			}
+			if ($( ".field--name-field-data-area-not-in" ).length){
+				selData.chart.areaIn = $(indicatorWrapper).find( ".field--name-field-data-area-not-in.field__item" ).text().trim();
+			} else {
+				selData.chart.areaIn = '';
 			}
 			if (cardError != '') console.log(cardError);
 			
@@ -550,6 +560,7 @@ function closeIndicatorCard(){
 	//as there are no charts we turn off the 3D toggle option
 	jQuery(".mapboxgl-ctrl-icon.mapboxgl-ctrl-chart-3D").addClass("disabled");
     selData.info.countries = '';
+	selData.info.name = '';
 }
 
 function updateCardTab(){

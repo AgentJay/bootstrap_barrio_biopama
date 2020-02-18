@@ -403,17 +403,17 @@ function getRestResults(){
 			  //we create a card, but tell it that the response was empty (error 2)
 			  getChart(2);
 			} else {
-			  //create the map
-			  //mapTheIndicator(activeMapIndicator);
 			  //the 0 means there was no error
 			  getChart(0);
 			}
 		  }
 		  else if (d.hasOwnProperty(selData.chart.RESTdataContext)){
 			selData.chart.RESTResults = d[selData.chart.RESTdataContext];
+			console.log("1");
 			getChart(0);
 		  } else {
 			selData.chart.RESTResults = d;
+			console.log("2");
 			getChart(0);
 		  }
 			},

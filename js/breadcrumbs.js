@@ -167,8 +167,8 @@ function updateBreadCountry(){
 // 	jQuery('#bread-content-wrapper').empty().show();
 // 	jQuery('<div><div class="bread-note-country-arrow"><i class="fas fa-arrow-up"></i></div><div class="bread-note-country-note">Click here to see more info for <b>'+ selSettings.countryName +'</b></div></div>').appendTo('#bread-content-wrapper');
 // 	jQuery('#bread-content-wrapper').delay( 4000 ).fadeOut("slow");
-  jQuery('#bread-note-wrapper').remove();
-  jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.countryName +'</b></div></div>')
+    jQuery('#bread-note-wrapper').remove();
+    jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.countryName +'</b></div></div>')
     .appendTo('#bread-parent-country');
 	jQuery('#bread-note-wrapper').delay( 5000 ).fadeOut("slow");
   
@@ -188,8 +188,8 @@ function updateBreadRegion(){
 // 	jQuery('#bread-content-wrapper').empty().show();
 // 	jQuery('<div><div class="bread-note-region-arrow"><i class="fas fa-arrow-up"></i></div><div class="bread-note-region-note">Click here to see more info for <b>'+ selSettings.regionName +'</b></div></div>').appendTo('#bread-content-wrapper');
 // 	jQuery('#bread-content-wrapper').delay( 4000 ).fadeOut("slow");
-  jQuery('#bread-note-wrapper').remove();
-  jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.regionName +'</b></div></div>')
+    jQuery('#bread-note-wrapper').remove();
+    jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.regionName +'</b></div></div>')
     .appendTo('#bread-parent-region');
 	jQuery('#bread-note-wrapper').delay( 5000 ).fadeOut("slow");
 	
@@ -210,7 +210,7 @@ function updateBreadPA(){
 	}
 //	jQuery('#bread-content-wrapper').empty().show();
 	jQuery('#bread-note-wrapper').remove();
-  jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.paName +'</b></div></div>')
+    jQuery('<div id="bread-note-wrapper"><div class="bread-note--arrow"><i class="fas fa-2x fa-arrow-circle-up"></i></div><div class="bread-note-pa-note">Click here to see more info for <hr></hr><b>'+ selSettings.paName +'</b></div></div>')
     .appendTo('#bread-parent-pa');
 	jQuery('#bread-note-wrapper').delay( 5000 ).fadeOut("slow");
 	

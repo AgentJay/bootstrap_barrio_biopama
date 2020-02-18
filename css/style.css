@@ -1,3 +1,10 @@
+
+
+/* z-ndex fix for pop-ups*/
+.ui-widget-overlay {
+    z-index: 90 !important;
+}
+
 /* Priority Actions */
 .form-item-field-ac-protected-area-0-target-id,
 .form-item-field-ac-region-0-target-id,
@@ -51,7 +58,7 @@ a {
 
 /* GLOBAL TABLE CSS */
 table{
-  
+
 }
 .form-item-field-assessment-country-0-target-id,
 .field--name-field-assessment-protected-area,
@@ -76,7 +83,7 @@ table tr{
   border:0px!important;
   border-bottom: 1px solid #0000000d!important;
       background: #fdfdfd;
-} 
+}
 
 table td{
   border:0px!important;
@@ -170,7 +177,7 @@ li.ui-tabs-active {
     background-color: #8fc04f !important;
     border-bottom: 2px solid #679b95 !important;
 	color: #fff !important;
-	
+
 }
 li.ui-tabs-tab.ui-tabs-active a {
 	font-weight: normal;
@@ -225,7 +232,7 @@ fieldset.indicator-scope-wrapper .fieldset-wrapper > div {
 #response-accordion .ui-accordion-content,
 #pressure-accordion .ui-accordion-content{
 	min-height: 500px;
-} 
+}
   /**
  * icon colors
  */
@@ -250,7 +257,7 @@ ul.sf-menu.menu, ul.sf-menu.menu ul, ul.sf-menu.menu li {
  g#biopama-blue path {
     fill: #679b95;
 }
- 
+
 g#biopama-green polygon {
     stroke: #8fbf4b;
 	fill: #fff; /*the backgound color*/
@@ -293,7 +300,7 @@ g#biopama-green path.cls-2 {
 #drupal-off-canvas .col, #drupal-off-canvas .col-auto{
     padding-right: 0px !important;
     padding-left: 0px !important;
-} 
+}
 .horizontal-tabs {
 	border: 0px !important;
     border-bottom: 1px solid #ccc !important;
@@ -342,7 +349,7 @@ g#biopama-green path.cls-2 {
     width: 100%;
 	font-size: 16px;
 }
-.ui-dialog .radio input, 
+.ui-dialog .radio input,
 .ui-corner-all.ui-dialog div.paragraphs-subform .radio input{
     width: auto;
 }
@@ -359,7 +366,7 @@ g#biopama-green path.cls-2 {
 #drupal-off-canvas table {
     min-width: 100% !important;
     margin: 0px;
-	
+
 }
 #drupal-off-canvas td, #drupal-off-canvas th{
     color: #41ad53 !important;
@@ -430,7 +437,7 @@ input.remove-button {
 }
 
 .close {
-    font-size: 21px !important; 
+    font-size: 21px !important;
 }
 
 button.breadClose {
@@ -451,7 +458,7 @@ button.breadClose {
     color: #8e8e8e !important;
 }
 #drupal-off-canvas .tabledrag-toggle-weight-wrapper,
-#drupal-off-canvas form .filter-wrapper, 
+#drupal-off-canvas form .filter-wrapper,
 .ui-widget-content .filter-wrapper {
     display: none;
 }
@@ -593,7 +600,7 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
   10%, 90% {
     transform: translate3d(-1px, 0, 0);
   }
-  
+
   20%, 80% {
     transform: translate3d(2px, 0, 0);
   }
@@ -614,7 +621,7 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
 
 #drupal-off-canvas .image-style-thumbnail{
   margin-right:5px!important;
-  border-radius: 5px;  
+  border-radius: 5px;
 }
 #drupal-off-canvas tr:hover td {
     background: unset;
@@ -727,4 +734,16 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
   .block.block-superfish.block-superfishaccount{
     display:none;
   }
+}
+
+/* TalkingMaps Dialog CSS Override */
+
+.story-edit-dialog{
+  background-color:#fff;
+  border-radius:10px;
+}
+
+.story-edit-dialog .ui-dialog-titlebar{
+  background-color: #7faa46;
+color: #fff;
 }

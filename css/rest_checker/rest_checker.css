@@ -24,8 +24,10 @@ span#rest-total-wrapper {
 }
 
 .item-list ul li {
-    margin: 0;
-    padding: 1.2em 0.5em 0 0;
+    border: 2px solid #ccc;
+    padding: 0px !important;
+    margin-bottom: 10px !important;
+	border-radius: 5px;
 }
 
 /* #user-rest-working,

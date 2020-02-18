@@ -64,8 +64,9 @@ jQuery(document).ready(function($) {
 					var restProccessed = 0;
 					errorLength = errors.length;
 					while(errorLength--) {
-					   if (result.indexOf(errors[errorLength])!=-1) { //an error was found!
-							if (result.indexOf('"success":true')!=-1) { //we check if it's not a False Negative from our own services
+						console.log(result);
+					   if (result.indexOf(errors[errorLength]) > 0) { //an error was found!
+							if (result.indexOf('"success":true') > 0) { //we check if it's not a False Negative from our own services
 								restProccessed = 0;
 							} else{
 								restProccessed = 1;
@@ -82,8 +83,9 @@ jQuery(document).ready(function($) {
 						$(thisRestRow).append( '<div class="alert alert-warning"><strong>Error!</strong></div>' );
 					}
 				},
-				error: function() {
-					$(thisRestRow).append( '<div class="alert alert-danger"><strong>Fail!</strong></div>' );
+				error: function(d) {
+					var result = JSON.stringify(d).toLowerCase();
+					$(thisRestRow).append( '<div class="alert alert-danger"><strong>Fail! ' + result + '</strong></div>' );
 					failCount++;
 				}
 			}).then(function(data){

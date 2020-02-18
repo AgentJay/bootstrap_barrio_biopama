@@ -1,0 +1,54 @@
+.chart-icons,
+.chart-icon,
+.view-empty,
+.view-footer,
+.eu-cookie-withdraw-wrapper,
+.ui-accordion-header-collapsed,
+#toolbar-administration,
+#header.header{
+	display: none !important;
+	visibility: hidden !important;
+}
+
+#focus_details_right{
+	height: unset !important;
+	position: relative !important;
+}
+#focus_page_top{
+	position: relative !important;
+	top: 0;
+	right: 0;
+	page-break-after: auto;
+}
+.chart-wrapper,
+.country-chart-large{
+	page-break-inside: avoid;
+	width: 70% !important;
+}
+.view-breadcrumb-protected-area-summary .views-row, .view-breadcrumb-protected-area-summary .row {
+	position: fixed !important;
+	top: 0;
+	right: 0;
+    display: flex;
+    flex-direction: column;
+	width: 500px !important;
+}
+
+.scope-summary-title{
+	    font-size: 40px !important;
+}
+
+#pa-radar{
+	    padding: 50px 20px;
+}
+#focus_main_container {
+    display: unset !important;
+}
+
+.info-hidden, .chart-large {
+    overflow: visible !important;
+}
+
+.chart-wrapper {
+    border: 0px !important;
+}

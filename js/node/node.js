@@ -22,6 +22,7 @@ var CountrySettings = {
 	selIndicatorRes: [],
 	selIndicatorCountries: [],
 	selIndicatorImages: [],
+	areaIn: [],
 	sort: [],
 };
 
@@ -176,6 +177,12 @@ jQuery(document).ready(function($) {
 					CountrySettings.selIndicatorCountries.push(indicatorCountriesArray);
 					var indicatorImages = $(this).find('img').attr('src');
 					CountrySettings.selIndicatorImages.push(indicatorImages);
+					var areaIn = $(this).find(".field--name-field-data-area-not-in").text();
+					if ( areaIn.length ) {
+						CountrySettings.areaIn.push(areaIn);
+					} else {
+						CountrySettings.areaIn.push('');
+					}
 					var restCheck = $.inArray(indicatorID, CountrySettings.selIndicators);
 					if (CountrySettings.selIndicatorRESTurl[restCheck] != null){
 						setTimeout(getCountryRestResults(restCheck), 1000)

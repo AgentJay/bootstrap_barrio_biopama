@@ -5,6 +5,7 @@ global-styling:
 
   css:
     component:
+      css/print.css: {media: print}
       css/style.css: {}
       css/navigation_menu.css: {}
       css/scroll_bar.css: {}
@@ -88,7 +89,6 @@ focus-page:
       css/node/style.css: {}
   js:
     js/node_country/country_chart.js: {minified: false, preprocess: false}
-    js/homepage/id_editor.js: {minified: false, preprocess: false}
     js/node/node_map.js: {minified: false, preprocess: false}
     js/map.js: {minified: false, preprocess: false}
     js/node/node.js: {minified: false, preprocess: false}
@@ -105,7 +105,6 @@ focus-page:
     - core/jquery.ui.tabs
     - core/drupalSettings
     - bootstrap_barrio_biopama/echarts
-    - bootstrap_barrio_biopama/id-editor
     - bootstrap_barrio_biopama/global-rest
     - bootstrap_barrio_biopama/country-address-manager
     - bootstrap_barrio_biopama/ajax-loader

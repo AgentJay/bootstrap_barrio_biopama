@@ -18,6 +18,20 @@ function getChart(error = 0){
 		//indicatorChart.disconnect();
 		//initalize the chart library and attach it to the correct div
 		//show the chart, in case it was hidden from a previous error
+		if ((selData.chart['RESTResults'].length == 0) && (selData.chart.areaIn !== '')){
+			switch(selData.chart.areaIn) {
+			case "1":
+				jQuery( ".rest-error" ).html("<div class='alert alert-info'>No data is available for the selected area.</div>");
+				jQuery( ".indicator-chart" ).hide();
+				break;
+			case "2":
+				jQuery( ".indicator-chart" ).hide();
+				break;
+			default:	//the country charts are the default for now....
+				break;
+			}
+			//return;
+		};
 		switch(currentCardScope) {
 		case "global":
 			prepGlobalChart();
@@ -226,6 +240,24 @@ function checkChartData(chartType = "barLine"){
 	indicatorResults.forEach(function(object){
 		if(selData.chart.mapLayerField  == 'WDPAID'){
 			mappedField.push(parseInt(object[selData.chart.mappedField]));
+		} else if (selData.chart.mapLayerField  == 'Group'){
+			switch(object[selData.chart.mappedField]){
+				case "western_africa":
+					mappedField.push("Western Africa");
+					break;
+				case "southern_africa":
+					mappedField.push("Southern Africa");
+					break;
+				case "eastern_africa":
+					mappedField.push("Eastern Africa");
+					break;
+				case "central_africa":
+					mappedField.push("Central Africa");
+					break;
+				default:
+					mappedField.push(object[selData.chart.mappedField]);
+					break;
+			}
 		} else {
 			mappedField.push(object[selData.chart.mappedField]);
 			countryLabels.push(object['countryLabel'])
@@ -523,10 +555,12 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 			mapCustomSwatchCat = tempCustomStopAmnt[0]
 		}
 		mapCustomSwatchColors = parseInt(tempCustomStopAmnt[1], 10);
-	} 
+	} else {
+		selData.chart.colorSwatch = "diverging-7"
+	}
 	
 	if (customNumStopPoints == 0){
-		mapColors = colorbrewer.diverging[3][3];
+		mapColors = colorbrewer.diverging[7][3];
 	} else {
 		mapColors = colorbrewer[mapCustomSwatchCat][mapCustomSwatchColors][customNumStopPoints];
 	}
@@ -549,7 +583,7 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 		var legendText = [];
 		var tempLayer = mapCountryLayer;
 		if (selData.chart.mapLayerField == "WDPAID") tempLayer = mapPaLayer;
-		if (selData.chart.mapLayerField == "Group") tempLayer = mapRegionLayer;
+		if (selData.chart.mapLayerField == "Group") tempLayer = mapSubRegionLayer;
 		thisMap.setPaintProperty("wdpaAcpFillHighlighted", "fill-opacity", 0);
 		//remove the layers that may exist that were previously added by this function.	
 		
@@ -611,6 +645,7 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 			} 
 			selectedStopPoints = calcPointSatistics(MappedSeriesZoom, customClassMethod, customNumStopPoints);
 		}
+		MappedSeriesZoom.sort(function(a, b){return a-b});
 		
 		var filteredLegendText = [];
 		var filteredLegendColors = [];

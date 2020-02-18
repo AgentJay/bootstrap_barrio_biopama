@@ -99,6 +99,22 @@ function getCountryChart(key, indicator, error) {
 
 	//Drupal.attachBehaviors(jQuery('#country-chart-' + CountrySettings.selIndicators[key]));
 	//we initialize e-charts and attach it to the chart div 
+	if ((CountrySettings.selIndicatorRes[key].length == 0) && (CountrySettings.areaIn[key] !== '')){
+		var errorContainer = jQuery('#country-sparkchart-' + CountrySettings.selIndicators[key]).closest(".views-col").find(".rest-error-container");
+		switch(CountrySettings.areaIn[key]) {
+		case "1":
+			errorContainer.html("<div class='alert alert-info'>No data is available for the selected area.</div>");
+			jQuery( ".country-sparkchart-" + CountrySettings.selIndicators[key] ).hide();
+			jQuery( ".country-sparkchart-" + CountrySettings.selIndicators[key] ).closest(".views-col").find("#mini-loader-wrapper").hide();
+			break;
+		case "2":
+			jQuery( ".country-sparkchart-" + CountrySettings.selIndicators[key] ).closest(".chart-wrapper").hide();
+			break;
+		default:	//the country charts are the default for now....
+			break;
+		}
+		//return;
+	};
 	if (sparkLine == true){
 		if (error == 0) {
 			jQuery('#country-sparkchart-' + CountrySettings.selIndicators[key]+":visible").closest("div.chart-wrapper").find(".graph-link").show();
@@ -124,6 +140,7 @@ function getCountryChart(key, indicator, error) {
 }
 
 function chartCountryError(key, error) {
+	jQuery( ".country-sparkchart-" + CountrySettings.selIndicators[key]).closest(".views-col").find("#mini-loader-wrapper").hide();
 	var errorContainer = jQuery('#country-sparkchart-' + CountrySettings.selIndicators[key]).closest(".views-col").find(".rest-error-container");
 	if (error == 2) {
 		errorContainer.html("<div class='alert alert-info'>No results for this indicator in <b>" + selSettings.countryName + "</b>.</div>");

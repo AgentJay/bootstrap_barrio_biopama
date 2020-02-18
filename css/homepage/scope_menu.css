@@ -252,6 +252,7 @@ div.menu-goals div.row-goal.views-row {
 .indicator-title-wrapper span.field.field--name-title {
     align-self: center;
 	width: 100%;
+	padding: 10px 0px;
 }
 div#map-menu div.scope-content {
 	flex-direction: column;

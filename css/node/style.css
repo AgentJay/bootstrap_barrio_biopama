@@ -1,3 +1,7 @@
+.rest-error-container .alert {
+    margin: 10px;
+}
+
 div.priority-actions .views-field-field-countries,
 div.priority-actions .views-field-field-ac-region,
 div.priority-actions .views-field-field-policy-pa,

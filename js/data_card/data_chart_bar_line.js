@@ -95,7 +95,7 @@ function makeBarLineChart(colorUpdate = 0){
 		console.log(params)
 	});  */
 	indicatorChart.on('click', function (params) {
-		console.log(params)
+		//console.log(params)
 		if (params.componentType === 'series'){
 			var mapFeature = option.series[0].mapFeature[params.dataIndex];
 			//TODO - instead if just highlighting on click, we should see if there's a tab we can navigate to based on the current selection.
@@ -115,6 +115,7 @@ function makeBarLineChart(colorUpdate = 0){
 					updateCountry('iso2');
 					break;
 				case 'Group':
+					selSettings.regionID = mapFeature;
 					regionChanged = 1;
 					zoomToRegion(selSettings.regionID, false);
 					break;

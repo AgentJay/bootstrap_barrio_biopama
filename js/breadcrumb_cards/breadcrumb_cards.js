@@ -176,11 +176,11 @@ function getCountryProtCon(){
 				var title;
 				var DOPAChart = echarts.init(document.getElementById(type));
 				if (type == "terrestrial-prot-chart"){
-					paChartVal = parseFloat(d.records[0].terrestrial_protected_perc, 10);
+					paChartVal = parseFloat(d.records[0].area_prot_terr_perc, 10);
 					TerMarGoal = 17;
 					title = "Terrestrial";
 				} else {
-					paChartVal = parseFloat(d.records[0].marine_protected_perc, 10);
+					paChartVal = parseFloat(d.records[0].area_prot_mar_perc, 10);
 					TerMarGoal = 10;
 					title = "Marine";
 				}
@@ -192,7 +192,9 @@ function getCountryProtCon(){
 					distanceOver = paChartVal - TerMarGoal;
 					paChartVal = TerMarGoal;
 				}
+				distanceToGo = parseFloat(distanceToGo).toFixed(2);
 				var inverseVal = 100 - paChartVal - distanceToGo - distanceOver;
+				
 				option = {
 					title: {
 						text: originalVal+'%',
@@ -430,7 +432,7 @@ function makeDOPAAvgClimate(containerID){
 						name: 'Temperature',
 						min: 0,
 						axisLabel: {
-							formatter: '{value} °C'
+							formatter: '{value} C'
 						}
 					}
 				],

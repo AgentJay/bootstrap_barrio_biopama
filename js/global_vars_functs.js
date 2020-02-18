@@ -11,7 +11,7 @@ var mapColors;
 var firstChartRun = 1;
 var chartSeriesGlobal = [];
 var mapCustomSwatchCat = "diverging";
-var mapCustomSwatchColors = 3;
+var mapCustomSwatchColors = 7;
 var selectedStopPoints = [];
 var dataHighCurve = [0,1,2,5,8,12,17,30,50];
 var customNumStopPoints = 0;
