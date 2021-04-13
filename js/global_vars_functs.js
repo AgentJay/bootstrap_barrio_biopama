@@ -23,6 +23,10 @@ var chartColorInvertedCheck = 0;
 var customStops;
 var mapMarkers = [];
 var userPointToggle = 0;
+var regionCurrentlyHovered = '';
+var countryCurrentlyHoverediso2 = '';
+var countryCurrentlyHoverediso3 = '';
+var countryCurrentlyHoveredUn = '';
 var pasCurrentlyHovered = [];
 var countryHover2 = null;
 var countryHover3 = null;
@@ -166,7 +170,7 @@ jQuery(window).resize(function(){
     if(jQuery(".indicator-chart")){
       myCharts.forEach(function(object, index){
         myCharts[index].resize();
-      })
+      });
     }
 });
 function resizeChart(){

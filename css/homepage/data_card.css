@@ -76,6 +76,7 @@ div#block-indicatorcard .node__content{
     flex-direction:  column;
     height:  100%;
 	overflow: none;
+	margin-top: 0px !important;
 }
 
 #indicator-chart{

@@ -49,9 +49,18 @@ img.biopama-logo {
 }
 /* .search-icon-wrapper, .help-icon-wrapper,  */
 .toolbar-icon-wrapper a{
-  color:#fff;
+  color:#fff !important;
 }
 
+.container-fluid.team-container {
+    font-size: 25px;
+}
+.container-fluid.team-container .team-icon {
+    text-align: center;
+}
+.container-fluid.team-container .row {
+    padding: 20px;
+}
 .toolbar-icon-wrapper img{
     padding: 2px;
     margin-top: -3px;
@@ -69,14 +78,8 @@ img.biopama-logo {
 .search-text-wrapper {
     margin: 20px;
 }
-div#bread-search-results-wrapper {
-    width: 450px;
-    max-height: 500px;
-    position: absolute;
-    top: 50px;
-    right: 0px;
-	z-index: -1;
-    background: #fff;
+.fac-result {
+    position: inherit; !important;
 }
 
 .arrow-up {

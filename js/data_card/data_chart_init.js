@@ -94,18 +94,21 @@ function minimizeChart(){
 }
 function sortByKey(array, key, order='asc') {
 	//console.log("boom");
-    return array.sort(function(a, b, order) {
+    return array.sort(function(a, b) {
+
 		if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
 		  // property doesn't exist on either object
 			return 0; 
 		}
-		const varA = (typeof a[key] === 'string') ? 
-		  a[key].toUpperCase() : a[key];
-		const varB = (typeof b[key] === 'string') ? 
-		  b[key].toUpperCase() : b[key];
+		var varA = parseFloat(a[key]);
+		if (isNaN(varA)) varA = 0;
+		var varB = parseFloat(b[key]);
+		if (isNaN(varB)) varB = 0;
+		//const varA = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
+		//const varB = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
 
-		//console.log(varA + "  " + varB)
-		let comparison = 0;
+		//console.log(parseFloat(varA) + "  " + parseFloat(varB))
+		let comparison = 0; //if equal no change
 		if (varA > varB) {
 		  comparison = 1;
 		} else if (varA < varB) {
@@ -179,13 +182,13 @@ function checkChartData(chartType = "barLine"){
 			return false; 
 		}
 	}
-
 	if(selData.chart.sort == "Ascending"){
 		sortByKey(indicatorResults, selData.chart.chartSeries[0].data, 'asc');
 	} 
 	if(selData.chart.sort == "Descending"){
 		sortByKey(indicatorResults, selData.chart.chartSeries[0].data, 'desc');
 	}
+	
 	//make a copy of the xaxis to modify
 	var xAxis = jQuery.extend( true, {}, selData.chart.Xaxis );
 	
@@ -286,6 +289,9 @@ function checkChartData(chartType = "barLine"){
 			}
 		}
 	}
+	
+	
+	var isChartSeriesNaN = [];
 	//here we exchange the field labels in the array with arrays of the field values. 
 	chartSeries.forEach(function(object, index){
 		var chartData = [];
@@ -294,11 +300,13 @@ function checkChartData(chartType = "barLine"){
 			indicatorResults.forEach(function(object2){
 				//var precisionCheck = precision(object2[chartSeries[index]]);
 				var tempDataVal = object2[chartSeries[index]];
-				if (tempDataVal === null || Number.isNaN(tempDataVal)) {
+				if (isNaN(tempDataVal)) {
 					chartData.push("NaN");
+					isChartSeriesNaN.push(1);
 				} else {
 					var dataVal = parseFloat(tempDataVal, 10);
 					chartData.push(dataVal);
+					isChartSeriesNaN.push(0);
 				}
 				/* if (precisionCheck >= 2){
 					tempDataVal = tempDataVal.toFixed(2);
@@ -338,6 +346,7 @@ function checkChartData(chartType = "barLine"){
 	data[0]['mapFeature'] = mappedField;
 	data[0]['countryISO2'] = countryISO2codes;
 	data[0]['countryLabels'] = countryLabels;
+	data[0]['isNaN'] = isChartSeriesNaN;
 	data[0]['emphasis'] = {itemStyle: {color: '#ff6600'}};		
 	//console.log(data[0])
 	chartSettings['xAxis'] = xAxis;
@@ -414,10 +423,10 @@ function highlightMapFeature() {
 							dataIndex: jQuery.inArray( selSettings.ISO2, chartSettings.data[0].mapFeature )
 						});
 					}
-					if (countryHover2.length > 0){
+					if (countryCurrentlyHoverediso2 !== ''){
 						indicatorChart.dispatchAction({
 							type: 'highlight',
-							dataIndex: jQuery.inArray( countryHover2, chartSettings.data[0].mapFeature )
+							dataIndex: jQuery.inArray( countryCurrentlyHoverediso2, chartSettings.data[0].mapFeature )
 						});
 					}
 					break;
@@ -429,10 +438,10 @@ function highlightMapFeature() {
 							dataIndex: jQuery.inArray( selSettings.ISO3, chartSettings.data[0].mapFeature )
 						});
 					}
-					if (countryHover3 !== null){
+					if (countryCurrentlyHoverediso3 !== ''){
 						indicatorChart.dispatchAction({
 							type: 'highlight',
-							dataIndex: jQuery.inArray( countryHover3, chartSettings.data[0].mapFeature )
+							dataIndex: jQuery.inArray( countryCurrentlyHoverediso3, chartSettings.data[0].mapFeature )
 						});
 					}
 					break;
@@ -444,10 +453,10 @@ function highlightMapFeature() {
 							dataIndex: jQuery.inArray( selSettings.NUM, chartSettings.data[0].mapFeature )
 						});
 					}
-					if (countryHoverNum !== null){
+					if (countryCurrentlyHoveredUn !== ''){
 						indicatorChart.dispatchAction({
 							type: 'highlight',
-							dataIndex: jQuery.inArray( countryHoverNum, chartSettings.data[0].mapFeature )
+							dataIndex: jQuery.inArray( countryCurrentlyHoveredUn, chartSettings.data[0].mapFeature )
 						});
 					}
 					break;
@@ -459,10 +468,10 @@ function highlightMapFeature() {
 							dataIndex: jQuery.inArray( selSettings.regionID, chartSettings.data[0].mapFeature )
 						});
 					}
-					if (regionHover !== null){
+					if (regionCurrentlyHovered !== ''){
 						indicatorChart.dispatchAction({
 							type: 'highlight',
-							dataIndex: jQuery.inArray( regionHover, chartSettings.data[0].mapFeature )
+							dataIndex: jQuery.inArray( regionCurrentlyHovered, chartSettings.data[0].mapFeature )
 						});
 					}
 					break;
@@ -591,19 +600,28 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 		var nanCheck = 0;
 		var nanCount = 0;
 		var nanMapAreas = [];
+		var MappedSeriesZoomWithoutNaN = [];
+		var MappedFieldsZoomWithoutNaN = [];
+
 		MappedSeriesZoom = MappedSeriesZoom.filter(function(elem, index, array) { 
-			if (array[index] == "NaN") {
+			//console.log(MappedFieldsZoom[index] + array[index]);
+			if (isNaN(elem)) {
 				nanCheck = 1;
 				nanCount++;
-				nanMapAreas.push(MappedFieldsZoom[0])
-				MappedFieldsZoom.splice(0, 1);
+				nanMapAreas.push(MappedFieldsZoom[index]);
+				return 'NaN';
+			} else {
+				MappedFieldsZoomWithoutNaN.push(MappedFieldsZoom[index]);
+				MappedSeriesZoomWithoutNaN.push(elem);
+				return elem;
 			}
-			return elem !== "NaN"
-		})
+		});
+
 		if (nanCheck == 1) {
 			var mapLayer = thisMap.getLayer('nan-layer');
 			if(typeof mapLayer !== 'undefined') {
 				thisMap.setFilter("nan-layer", buildFilter(nanMapAreas, 'in', selData.chart.mapLayerField));
+				thisMap.setLayoutProperty("nan-layer", 'visibility', 'visible');
 			} else {
 				thisMap.loadImage('/themes/custom/bootstrap_barrio_biopama/img/nan-pattern.png', function(err, image) {
 					// Throw an error if something went wrong
@@ -622,6 +640,7 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 				});
 			}
 			jQuery("#custom-map-legend-nan").show();
+			
 		} else {
 			jQuery("#custom-map-legend-nan").hide();
 			var mapLayer = thisMap.getLayer('nan-layer');
@@ -629,6 +648,9 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 				thisMap.setLayoutProperty("nan-layer", 'visibility', 'none');
 			}
 		}
+		
+		var stopPointMin = parseFloat(Math.min.apply(null, MappedSeriesZoomWithoutNaN), 10);
+		var stopPointMax = parseFloat(Math.max.apply(null, MappedSeriesZoomWithoutNaN), 10);
 		
 		if (customStopPoints.length > 1) {
 			console.log("Custom Points "+ customStopPoints);
@@ -643,16 +665,12 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 					customClassMethod = selData.chart.classificationMethod;
 				}
 			} 
-			selectedStopPoints = calcPointSatistics(MappedSeriesZoom, customClassMethod, customNumStopPoints);
+			selectedStopPoints = calcPointSatistics(MappedSeriesZoomWithoutNaN, customClassMethod, customNumStopPoints, stopPointMin, stopPointMax);
 		}
-		MappedSeriesZoom.sort(function(a, b){return a-b});
-		
+		//MappedSeriesZoomWithoutNaN.sort(function(a, b){return a-b});
 		var filteredLegendText = [];
 		var filteredLegendColors = [];
 		
-		var stopPointMin = parseFloat(MappedSeriesZoom[0], 10);
-		if (stopPointMin == "NaN") stopPointMin = 0;
-		var stopPointMax = parseFloat(MappedSeriesZoom[MappedSeriesZoom.length - 1], 10);
 		var stopPointsWithEnds = selectedStopPoints.slice();
 		stopPointsWithEnds.unshift(stopPointMin)//adds min to beginning
 		jQuery(stopPointsWithEnds).each(function(index) {
@@ -662,15 +680,15 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 				legendText.push(" > " + stopPointsWithEnds[index])
 			}
 		});	
-		var uniqueMappedFieldsZoom = MappedFieldsZoom.filter(function(elem, index, array) {
-			if (array.indexOf(elem) == -1) MappedSeriesZoom.splice(index, 1);
+		var uniqueMappedFieldsZoom = MappedFieldsZoomWithoutNaN.filter(function(elem, index, array) {
+			if (array.indexOf(elem) == -1) MappedSeriesZoomWithoutNaN.splice(index, 1);
 			return index === array.indexOf(elem);
 		});
 		var dataColorArray = [];
 		jQuery(uniqueMappedFieldsZoom).each(function(i, data) {
 			jQuery(stopPointsWithEnds).each(function(index) {
 				if (stopPointsWithEnds[index+1] != null) {
-					if ((MappedSeriesZoom[i] >= stopPointsWithEnds[index]) && (MappedSeriesZoom[i] < stopPointsWithEnds[index+1])){
+					if ((MappedSeriesZoomWithoutNaN[i] >= stopPointsWithEnds[index]) && (MappedSeriesZoomWithoutNaN[i] < stopPointsWithEnds[index+1])){
 						if(selData.chart.mapLayerField == "WDPAID"){
 							dataPoints[index].push(parseInt(data));
 						} else{
@@ -679,7 +697,7 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 						dataColorArray.push(mapColorCopy[index]);
 					}
 				} else {
-					if (MappedSeriesZoom[i] >= stopPointsWithEnds[stopPointsWithEnds.length -1]){
+					if (MappedSeriesZoomWithoutNaN[i] >= stopPointsWithEnds[stopPointsWithEnds.length -1]){
 						if(selData.chart.mapLayerField == "WDPAID"){
 							dataPoints[stopPointsWithEnds.length -1].push(parseInt(data));
 						} else{
@@ -707,7 +725,7 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 		buildMapLegend(filteredLegendText, filteredLegendColors);
 		buildMapSlider(selectedStopPoints, mapColorCopy, stopPointMin, stopPointMax);
 		
-		updateIndicatorChart(uniqueMappedFieldsZoom, dataColorArray, MappedSeriesZoom, nanCount);
+		updateIndicatorChart(uniqueMappedFieldsZoom, dataColorArray, MappedSeriesZoomWithoutNaN);
 
 		thisMap.addLayer({
 			"id": "1nd1l4y3r",
@@ -754,12 +772,11 @@ function map2D(MappedFieldsZoom, MappedSeriesZoom){
 		}
 	}
 }
-function calcPointSatistics(MappedSeriesZoom, classMethod, stopPoints){
+function calcPointSatistics(MappedSeriesZoom, classMethod, stopPoints, stopPointMin, stopPointMax){
 	selectedStopPoints = [];
 	var stopGap = (1 / stopPoints);
 	var stopTotal = stopGap;
-	var stopPointMin = parseFloat(MappedSeriesZoom[0], 10);
-	var stopPointMax = parseFloat(MappedSeriesZoom[MappedSeriesZoom.length - 1], 10);
+
 	//console.log(stopPointMin +" - "+stopPointMax)
 	var loopNum = 1;
 	switch(classMethod){
@@ -920,24 +937,42 @@ function calcPointSatistics(MappedSeriesZoom, classMethod, stopPoints){
 		return range; //array of breaks
 	}
 }
-function updateIndicatorChart(seriesData, colors, MappedSeriesZoom, nanCount){
+function updateIndicatorChart(seriesData, colors, MappedSeriesZoom, nanCount = 0){
 	var chartOptions = indicatorChart.getOption();
-	var startIndex = chartOptions.dataZoom[0].startValue;
+	//var startIndex = chartOptions.dataZoom[0].startValue;
+	//var endIndex = chartOptions.dataZoom[0].endValue;
 
 	var itemStyle = {
 		color: "#000", barBorderColor: '#666', barBorderWidth: 2
 	};
 	var newChartSettings = jQuery.extend( true, {}, chartSettings );
 	//newChartSettings.data[0]['itemStyle'] = itemStyle;
-	jQuery(seriesData).each(function(i, data) {
+/* 	jQuery(seriesData).each(function(i, data) {
 		var tempVal = chartSettings.data[0].data[i+startIndex+nanCount];
 		newChartSettings.data[0].data[i+startIndex+nanCount] = {
 			value: tempVal,
 			itemStyle: {color: colors[i] },
 		}
+	}); */
+	jQuery(newChartSettings.data[0].data).each(function(index, chartGlobalPlace) {
+			newChartSettings.data[0].data[index] = {
+				value: 0,
+				itemStyle: {color: '#fff' },
+			}
 	});
-
-	//console.log(newChartSettings)
+	jQuery(seriesData).each(function(i, chartProccessedPlace) {
+		jQuery(chartSettings.data[0].mapFeature).each(function(index, chartGlobalPlace) {
+			if (chartProccessedPlace == chartGlobalPlace){
+				var tempVal = chartSettings.data[0].data[index];
+				newChartSettings.data[0].data[index] = {
+					value: tempVal,
+					itemStyle: {color: colors[i] },
+				}
+				return false;
+			}
+		});
+	});
+	
 	//indicatorChart.clear();
 	var option = {
 		series: newChartSettings.data

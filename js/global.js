@@ -7,6 +7,7 @@ var tipTemplate    = '<div class="tooltip biopama-tip" role="tooltip"><div class
 var tipWideTemplate    = '<div class="tooltip biopama-tip biopama-tip-wide" role="tooltip"><div class="arrow biopama-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
 var tipTopTemplate = '<div class="tooltip biopama-tip" role="tooltip"><div class="arrow biopama-top-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
 var tipBottomTemplate = '<div class="tooltip biopama-tip-bottom" role="tooltip"><div class="arrow biopama-bottom-arrow"></div><div class="tooltip-inner biopama-tip-inner"></div></div>';
+var tTipDelay = 200; 
 var regionColor = "#a25b28";
 var countryColor = "#679B95";
 var paColor = "#8FBF4B";
@@ -181,6 +182,8 @@ var paColor = "#8FBF4B";
 			delay: tTipDelay,
 			template: tipTemplate
 		});
+		
+		$('[data-toggle="tooltip"]').tooltip(); 
     }
   };
 

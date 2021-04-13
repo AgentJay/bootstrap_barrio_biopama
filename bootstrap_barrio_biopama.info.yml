@@ -9,12 +9,23 @@ libraries:
   - bootstrap_barrio_biopama/global-styling
   
 libraries-override:
-  core/jquery.ui:
-    css:
-      theme:
-        assets/vendor/jquery.ui/themes/base/theme.css: false
-        
   bootstrap_barrio/fontawesome: bootstrap_barrio_biopama/fontawesome
+  core/drupal.dialog.off_canvas:
+    css:
+      base:
+        misc/dialog/off-canvas.reset.css: false
+        misc/dialog/off-canvas.base.css: false
+        misc/dialog/off-canvas.css: false
+        misc/dialog/off-canvas.theme.css: false
+      component:
+        misc/dialog/off-canvas.motion.css: false
+        misc/dialog/off-canvas.button.css: false
+        misc/dialog/off-canvas.form.css: false
+        misc/dialog/off-canvas.table.css: false
+        misc/dialog/off-canvas.details.css: false
+        misc/dialog/off-canvas.tabledrag.css: false
+        misc/dialog/off-canvas.dropbutton.css: false
+        misc/dialog/off-canvas.layout.css: false
 
 regions:
   top_header: 'Top Header'

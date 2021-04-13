@@ -47,7 +47,7 @@ div#country-map {
 .country-ql {
     color: #679b95;
     font-variant: small-caps;
-    /* padding: 10px 0px; */
+    padding: 5px 0px;
 }
 .country-ql {
     padding: 10px 0px;
@@ -95,8 +95,11 @@ main.main-content div.alert.alert-dismissible {
 }
 .pop-pa-iucn {
     color: #679b95;
-    font-size: 10px;
-    line-height:  7px;
+    font-size: 12px;
+}
+.field--type-entity-reference {
+    display: flex;
+    margin: 0px !important;
 }
 
 .pop-pa-name {

@@ -29,6 +29,7 @@
  * @ingroup themeable
  */
 #}
+
 {%
   set classes = [
     'block',
@@ -63,14 +64,14 @@
 	<div id="indicator-target"></div>
 	<div id="menu-scope-tabs">
 	  <ul class="menu-scope-list">
-		<li class="ui-tabs-tab ui-tab">{{ stateLabel }}</li>
-		<li class="ui-tabs-tab ui-tab">{{ pressureLabel }}</li>
+		<li class="ui-tabs-tab ui-tab state-trigger">{{ stateLabel }}</li>
+		<li class="ui-tabs-tab ui-tab pressure-trigger">{{ pressureLabel }}</li>
 		<li class="ui-tabs-tab ui-tab ui-tabs-active">{{ responseLabel }}</li>
-		<li class="ui-tabs-tab ui-tab menu-tab-list"><i class="fas fa-list-ul"></i><span class="hidden">List</span></li>
+		<li class="ui-tabs-tab ui-tab menu-tab-list list-trigger"><i class="fas fa-search"></i><span class="hidden">List</span></li>
 	  </ul>
 	  <div id="response-tab" class="menu-tab">
 	    <div id="map-menu">
-		  <div class="scope-icon-title">
+		  <div class="scope-icon-title global-trigger">
 			<div class="scope-image">
 			<svg version="1.1" viewBox="0 0 72.99 51.29" xmlns="http://www.w3.org/2000/svg">
  <defs>
@@ -88,13 +89,18 @@
 		    <div class="scope-title">{{ globalLabel }}</div>
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
 		  </div>
-		  <div class="global-content scope-content">
+		  <div id="js-view-dom-id-global-content-container" class="global-content scope-content">
 			  <div class="menu-header">
 				{{ globalLabel }} {{ policiesLabel }}
 			  </div>
-			{{ drupal_view('menu_level_1_policies_', 'block_global') }}
+{#
+/**
+{{ drupal_view('menu_level_1_policies_2', 'block_global') }}
+**/
+#}			  
+			
 		  </div>
-		  <div class="scope-icon-title">
+		  <div class="scope-icon-title regional-trigger">
 			<div class="scope-image">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 70 70" style="enable-background:new 0 0 70 70;" xml:space="preserve"><style type="text/css">.bioc2{fill:#8FBF4B;} .bioc1{fill:#679B95;} </style>
 
@@ -255,13 +261,18 @@
 		    <div class="scope-title">{{ regionalLabel }}</div>
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
 		  </div>
-		  <div class="regional-content scope-content">
+		  <div id="regional-content-container" class="regional-content scope-content">
 			  <div class="menu-header">
 				{{ regionalLabel }} {{ policiesLabel }}
 			  </div>
-			{{ drupal_view('menu_level_1_policies_', 'block_regional') }}
+{#
+/**
+{{ drupal_view('menu_level_1_policies_2', 'block_regional') }}
+**/
+#}				  
+			
 		  </div>
-		  <div class="scope-icon-title">
+		  <div class="scope-icon-title national-trigger">
 			<div class="scope-image">
 			<svg width="64" height="70" version="1.1" viewBox="0 0 64 70" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style type="text/css">
 	.st0{fill:#8FBF4B;}
@@ -271,13 +282,18 @@
 		    <div class="scope-title">{{ nationalLabel }}</div>
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
 		  </div>
-		  <div class="national-content scope-content">
+		  <div id="national-content-container" class="national-content scope-content">
 			  <div class="menu-header">
 				{{ nationalLabel }} {{ policiesLabel }}
 			  </div>
-			{{ drupal_view('menu_level_1_policies_', 'block_national') }}
+{#
+/**
+{{ drupal_view('menu_level_1_policies_2', 'block_national') }}
+**/
+#}			  
+			
 		  </div>
-		  <div class="scope-icon-title">
+		  <div class="scope-icon-title local-trigger">
 			<div class="scope-image">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 70 70" style="enable-background:new 0 0 70 70;" xml:space="preserve"><style type="text/css">.bioc2{fill:#8FBF4B;} .bioc1{fill:#679B95;} </style>
 
@@ -361,22 +377,52 @@
 		    <div class="scope-title">{{ localLabel }}</div>
 			<i class="fa fa-chevron-right" aria-hidden="true"></i>
 		  </div>
-		  <div class="local-content scope-content">
+		  <div id="local-content-container" class="local-content scope-content">
 			  <div class="menu-header">
 				{{ localLabel }} {{ policiesLabel }}
 			  </div>
-			{{ drupal_view('menu_level_1_policies_', 'block_local') }}
+{#
+/**
+{{ drupal_view('menu_level_1_policies_2', 'block_local') }}
+**/
+#}					  
+			
 		  </div>
 		</div>
 	  </div>
 	  <div id="state-tab" style="display: none;" class="menu-tab">
-		{{ drupal_view('indicators_by_target_goal', 'indicator_state') }}
+{#
+/**
+{{ drupal_view('indicators_by_target_goal', 'indicator_state') }}
+**/
+#}	  
 	  </div>
 	  <div id="pressure-tab" style="display: none;" class="menu-tab">
-		{{ drupal_view('indicators_by_target_goal', 'indicator_pressure') }}
+{#
+/**
+{{ drupal_view('indicators_by_target_goal', 'indicator_pressure') }}
+**/
+#}	
 	  </div>
 	  <div id="list-tab" style="display: none;" class="menu-tab">
-		{{ drupal_view('indicators_by_target_goal', 'indicator_list') }}
+{#
+/**
+{{ drupal_view('indicators_by_target_goal', 'indicator_list') }}
+**/
+#}
+		<div id="bread-search-results-wrapper" style="">
+			<div class="search-text-wrapper">
+				<div id="fac-menu-search-title">Search</div>
+				<input class="form-control form-text search-text" type="text" id="biopama-search-filter5" size="30" maxlength="128" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" aria-autocomplete="list" aria-owns="fac-result-country_search-0" data-np-checked="1">
+			</div>
+			<div class="search-results">
+				<div class="fac-result hidden" id="fac-result-country_search-0">
+					<div class="announce visually-hidden" role="status" aria-live="polite"></div>
+					<ul class="result-list hidden"></ul>
+					<div class="empty-result">Search for a Country, Protected Area, or an Indicator.</div>
+				</div>
+			</div>
+		</div>
 	  </div>
 	</div>
 	<div class="biopama-tour" id="menu-tourtip" title="menu tour"><i class="fas fa-atom"></i></div>

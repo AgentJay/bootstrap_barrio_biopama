@@ -294,39 +294,38 @@ function makeDOPARadar(containerID){
 						seriesNorm.push(data.site_norm_value); 
 						seriesAvg.push(data.country_avg);
 					});
-				}
-				
-				var option = {
-					tooltip: {},
-					color: ['#8fbf4b','#679b95'],
-					legend: {
-						data: ['Protected Area', 'Country Average'],
-						left:  '0'
-					}, 
-					radar: {
-						indicator: seriesTitle,
-						radius: '70%',
-					},
-					series: [{
-						//name: 'DOPA stats for' + selSettings.paName,
-						type: 'radar',
-						data : [
-							{
-								value : seriesNorm,
-								name : 'Protected Area'
-							},
-							 {
-								value : seriesAvg,
-								name : 'Country Average',
-								areaStyle: {normal: {color: 'rgba(0, 0, 0, 0.5)'}}
-							}
-						],
-						tooltip: {
-							position: [10, 10],
+					var option = {
+						tooltip: {},
+						color: ['#8fbf4b','#679b95'],
+						legend: {
+							data: ['Protected Area', 'Country Average'],
+							left:  '0'
+						}, 
+						radar: {
+							indicator: seriesTitle,
+							radius: '70%',
 						},
-					}]
-				};
-				DOPAChart.setOption(option);
+						series: [{
+							//name: 'DOPA stats for' + selSettings.paName,
+							type: 'radar',
+							data : [
+								{
+									value : seriesNorm,
+									name : 'Protected Area'
+								},
+								 {
+									value : seriesAvg,
+									name : 'Country Average',
+									areaStyle: {normal: {color: 'rgba(0, 0, 0, 0.5)'}}
+								}
+							],
+							tooltip: {
+								position: [10, 10],
+							},
+						}]
+					};
+					DOPAChart.setOption(option);
+				}
 			},
 			error: function() {
 				cardRestError('#'+containerID, "DOPA");

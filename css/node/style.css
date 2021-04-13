@@ -13,7 +13,13 @@ div.priority-actions .views-field-title,
 div.priority-actions .views-field-title-1{
 width: 30%;
 }
-
+.ui-dialog .ui-dialog-titlebar {
+    background: #578480;
+    color: white;
+}
+.ui-dialog {
+	padding: 0 !important;
+}
 .chart-title {
     font-size: 1.5em;
 }

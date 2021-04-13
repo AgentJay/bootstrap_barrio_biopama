@@ -8,7 +8,7 @@
 	<nav {{ attributes }}>
 	  <div class="container-fluid">
 	  <a href="/"><img class="biopama-logo" src="/themes/custom/bootstrap_barrio_biopama/img/PEN_Biopama_Logo_no_text_sm.png"></a>
-	    {{ content }} 
+	{# /**   {{ content }}  **/ #}
 		<ul id="indicator-breadcrumbs">
 			<li class="bread-trail bread-trail-region" style="display: none;">
 				<div id="bread-parent-region" class="bread-parent-wrapper">
@@ -109,13 +109,6 @@
 				Tours
 				</div>
 			</div>
-			<div class="search-wrapper toolbar-wrapper">
-				<div class="search-icon-wrapper toolbar-icon-wrapper">
-					<a href="#" data-toggle="tooltip" title="Open the Search Tool">
-						<i class="fas fa-search"></i>
-					</a>
-				</div>
-			</div>
 			{% endif %}
 			{% if not is_map %}
 			<div class="toolbar-wrapper">
@@ -143,8 +136,10 @@
 			</div>
 			<div class="toolbar-wrapper">
 			  <div class="toolbar-icon-wrapper">
-				<a class="use-ajax" data-dialog-type="modal" href="/node/18261" data-dialog-options="{&quot;width&quot;:800}" data-toggle="tooltip" title="BIOPAMA Yammer Community">
-				  <img src="/themes/custom/bootstrap_barrio_biopama/img/yammer-trans.png"/>
+				<a class="use-ajax" data-dialog-type="modal" href="/team" data-dialog-options="{&quot;width&quot;:800}" data-toggle="tooltip" title="BIOPAMA Community on Teams">
+				  <div class="help-icon-wrapper">
+					<i class="fas fa-user-friends"></i>
+				  </div>
 				</div></a>
 			</div>
 			<div class="toolbar-wrapper">
@@ -161,13 +156,6 @@
 	</nav>
 </div>
 <div id="bread-content-wrapper" style="display: none;">
-</div>
-<div id="bread-search-results-wrapper" style="display: none;">
-	<div class="search-text-wrapper">
-		<input class="form-control form-text search-text" type="text" id="biopama-search-filter" size="30" maxlength="128">
-	</div>
-	<div class="search-results">
-	</div>
 </div>
 {#
 /*

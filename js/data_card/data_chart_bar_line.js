@@ -61,7 +61,14 @@ function makeBarLineChart(colorUpdate = 0){
 		if (mapFeature){
 			switch(selData.chart.mapLayerField){
 				case 'WDPAID':
-					thisMap.setFilter('wdpaAcpHover', ['==', selData.chart.mapLayerField, mapFeature]);
+				case 'MARINE':
+				case 'STATUS':
+				case 'STATUS_YR':
+				case 'DESIG_TYPE':
+				case 'DESIG_ENG':
+				case 'GOV_TYPE':
+				case 'IUCN_CAT':
+					thisMap.setFilter('wdpaAcpHover', ['all', ['==', selData.chart.mapLayerField, mapFeature]/* , ['==', 'iso3', selSettings.ISO3] */]);
 					thisMap.setLayoutProperty("wdpaAcpHover", 'visibility', 'visible');	
 					break;
 				case 'iso2':

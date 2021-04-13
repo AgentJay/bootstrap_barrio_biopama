@@ -45,6 +45,13 @@ jQuery(document).ready(function($) {
 	var height = getWindowHeight();
 	resizeMap(height);
 	$('#focus_details_right').css('height', height);
+
+	$( ".actions-content" ).each(function() {
+		if($('.view-content.row', this).length) { 
+		} else { 
+			$('.views-data-export-feed', this).hide(); 
+		}
+	});
 	
 	$("div.info-link").on("click", function(e) {
 		if ($(this).hasClass("active-chart-button")){
@@ -71,9 +78,9 @@ jQuery(document).ready(function($) {
 			var indicatorID = $(this).closest("div.chart-wrapper").find(".nid").text().trim(); 
 			var activeIndicator = $.inArray(indicatorID, CountrySettings.selIndicators);
 			sparkLine = false;
-			//getCountryRestResults(activeIndicator);
+			//getNodeRestResults(activeIndicator);
 			var indicator = CountrySettings.selIndicators[activeIndicator];
-			getCountryChart(activeIndicator, indicator, 0);
+			getNodeChart(activeIndicator, indicator, 0);
 		}
 	});
 	
@@ -185,12 +192,12 @@ jQuery(document).ready(function($) {
 					}
 					var restCheck = $.inArray(indicatorID, CountrySettings.selIndicators);
 					if (CountrySettings.selIndicatorRESTurl[restCheck] != null){
-						setTimeout(getCountryRestResults(restCheck), 1000)
+						setTimeout(getNodeRestResults(restCheck), 1000)
 					}
 				} else {
 					var restCheck = $.inArray(indicatorID, CountrySettings.selIndicators);
 					var indicator = CountrySettings.selIndicators[restCheck];
-					setTimeout(getCountryChart(restCheck, indicator, 0), 1000)
+					setTimeout(getNodeChart(restCheck, indicator, 0), 1000)
 				}
 
 			});

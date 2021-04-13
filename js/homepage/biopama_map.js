@@ -1,42 +1,3 @@
-(function ($, Drupal) {
-	Drupal.behaviors.refreshView = {
-		attach: function (context, settings) {
-			var test = $( ".view-id-menu_level_1_policies_:visible" );
-			$('#drupal-off-canvas').find('form.node-policy-form .alert-success, form.node-policy-edit-form .alert-success').once('updated-view').each( function() {
-				$( ".view-id-menu_level_1_policies_:visible" ).trigger('RefreshView')
-				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
-			});
-			$('#drupal-off-canvas').find('form.node-goal-target-form .alert-success, form.node-goal-target-edit-form .alert-success').once('updated-view').each( function() {
-				$( ".menu-goals:visible" ).trigger('RefreshView');
-				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
-			});
-			$('#drupal-off-canvas').find('form.node-indicator-form .alert-success, form.node-indicator-edit-form .alert-success').once('updated-view').each( function() {
-				$( ".menu-indicators:visible" ).trigger('RefreshView');
-				if ($('#block-indicatorcard:visible').length){
-					closeIndicatorCard();
-					showIndicatorCard(currentIndicatorNodeURL);
-				}
-				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
-			});	
-			$('#drupal-off-canvas').find('form.node-indicator-data-glo-form .alert-success, form.node-indicator-data-regional-form .alert-success, form.node-indicator-data-country-form .alert-success, form.node-indicator-data-local-form .alert-success').once('updated-view').each( function() {
-				if ($('#block-indicatorcard:visible').length){
-					closeIndicatorCard();
-					showIndicatorCard(currentIndicatorNodeURL);
-				}
-				$("div.ui-dialog-titlebar button.ui-dialog-titlebar-close").delay( 800 ).trigger('click');
-			});	
-			// menuDivFix();
-			$( ".row-policy" ).each(function( index, element ) {
-				var policyTitle = $(this).find(".policy-title").first().text().trim();
-				if ( policyTitle ==  globalScope.policy) {
-				  $(this).find("div.policy-header").next().show();
-				  return false;
-				}
-			});
-		}
-	};
-})(jQuery, Drupal);
-
 function mapPostLoadOptions() {
 /* 	if (selSettings.ISO2 !== null){
 		countryChanged = 1;
@@ -53,7 +14,7 @@ function mapPostLoadOptions() {
 	thisMap.addControl(mapInfo, 'bottom-right');		
 	thisMap.addControl(mapLegend, 'bottom-right');
 	thisMap.setMinZoom(1.4);
-	thisMap.setMaxZoom(12);
+	thisMap.setMaxZoom(8);
 	jQuery('.mapboxgl-ctrl.ajax-loader').toggle(false);
 	
 	jQuery('#satellite-layer').bind("click", function(){

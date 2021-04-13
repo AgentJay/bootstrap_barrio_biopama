@@ -7,19 +7,39 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use \Drupal\taxonomy\Entity\Term;
+use Drupal\views\ViewExecutable;
 
 /*
 * implements hook_view_pre_render()
 */
-function bootstrap_barrio_biopama_views_pre_render(\Drupal\views\ViewExecutable $view)
+function bootstrap_barrio_biopama_views_post_execute(\Drupal\views\ViewExecutable $view) 
 {
 	switch($view->current_display){
-		case 'region_list':
-		case 'rest_export_1':
-		case 'rest_export_2':
-		case 'rest_export_3':
-			break;
-		default:
+		case 'scope_block_1':
+		case 'policy_block_1':
+		case 'block_global':
+		case 'block_regional':
+		case 'block_national':
+		case 'block_local':
+		case 'goal_block_1':
+		case 'country_global':
+		case 'country_regional':
+		case 'country_national':
+		case 'country_local':
+		case 'region_global':
+		case 'region_regional':
+		case 'region_national':
+		case 'region_local':
+		case 'pa_global':
+		case 'pa_regional':
+		case 'pa_national':
+		case 'pa_local':
+		case 'country_pressure':
+		case 'country_state':
+		case 'regional_pressure':
+		case 'regional_state':
+		case 'local_pressure':
+		case 'local_state':
 			$userAnon = \Drupal::currentUser()->isAnonymous();
 			$nids = array(); // array of nodes to prevent duplicates
 			$resultNoDoubleNodes = array(); // manipulated results
@@ -52,7 +72,9 @@ function bootstrap_barrio_biopama_views_pre_render(\Drupal\views\ViewExecutable 
 				if($userAnon == TRUE && $isPub == FALSE){
 					unset($view->result[$key]);
 				}
-			}
+			} 
+			break;
+		default:
 		  break;
 	}
 
@@ -178,4 +200,23 @@ function bootstrap_barrio_biopama_preprocess_node(&$variables) {
 		default:
 			break; 
 	}
+}
+
+function bootstrap_barrio_biopama_prepopulate_whitelist_alter(array &$whitelisted_types) {
+  // Adds 'my_custom_element'to the list of allowed elements that can be
+  // prepopulated.
+  $whitelisted_types[] = 'checkbox';
+  $whitelisted_types[] = 'checkboxes';
+  $whitelisted_types[] = 'radio';
+  $whitelisted_types[] = 'radios';
+}
+
+function bootstrap_barrio_biopama_node_create(Drupal\Core\Entity\EntityInterface $entity) {
+  if (\Drupal::request()->query->has('edit')) {
+    $entity_browser_field = 'field_reference_policy';
+    $edit = \Drupal::requestStack()->getCurrentRequest()->query->get('edit');
+    if (isset($edit[$entity_browser_field]['widget'][0]['target_id'])) {
+      $entity->set($entity_browser_field, $edit[$entity_browser_field]['widget'][0]['target_id']);
+    }
+  }
 }

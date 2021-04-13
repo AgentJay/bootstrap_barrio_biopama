@@ -112,6 +112,9 @@
 			<div class="actions-content">{{ drupal_view('priority_actions_by_policy_and_target', 'block_6') }}</div> 
 			<h4>Priority actions for {{ node.label }}</h4>
 			<div class="actions-content">{{ drupal_view('priority_actions_by_policy_and_target', 'block_2') }}</div> 
+			<a href="/node/add/priority_action" class="use-ajax add-indicator fancy_login_show_popup btn btn-primary btn-sm" data-dialog-type="dialog" data-dialog-renderer="off_canvas" data-dialog-options="{&quot;width&quot;:400}">
+				<i class="fas fa-plus"></i> Add a Priority Action
+			</a>
           </div>
 		{% endif %}
         <h3><i class="fas fa-chevron-circle-down"></i>State Indicators</h3>

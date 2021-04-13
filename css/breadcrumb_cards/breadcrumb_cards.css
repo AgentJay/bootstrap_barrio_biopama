@@ -1,5 +1,5 @@
 .info-card {
-    height: 320px;
+    height: 350px;
     font-family: "Maven Pro"!important;
     background-color: white;
     border-radius: 3px;
@@ -18,7 +18,20 @@
 #block-mainnavigation{
  position:relative; 
 }
+.csv-feed a.feed-icon {
+    background-image: none;
+    width: 22px;
+    height: 40px;
+	text-indent: 0;
+}
 
+.csv-feed a.feed-icon::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f019";
+    text-indent: 0;
+    font-size: 20px;
+}
 /* .bread-note-country-arrow{margin-left: 480px;}
 .bread-note-country-note{margin-left: 370px;}
 .bread-note-region-arrow{margin-left: 280px;}
@@ -69,7 +82,7 @@ div#pas-title {
 }
 
 .scope-summary-title {
-    padding: 25px 10px;
+    padding: 25px 0px;
     color: #679b95;
     font-weight: bold;
     font-size: x-large;
@@ -225,6 +238,7 @@ div#terrestrial-prot-title, div#marine-prot-title {
 div#pa-radar {
     height: 300px;
 	max-width: 500px;
+	padding: 50px 0px;
 }
 
 .view-pa-management-plan .view-empty,

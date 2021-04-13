@@ -1,5 +1,11 @@
 
+section.ultimenu__region form.lang-dropdown-form{
+	display: none;
+}
 
+section.ultimenu__region .row.bs-3col {
+    padding-bottom: 20px;
+}
 /* z-ndex fix for pop-ups*/
 .ui-widget-overlay {
     z-index: 90 !important;
@@ -99,7 +105,7 @@ table td a:hover{
   color:#009688!important;
   font-weight:bolder!important;
   text-decoration:none!important;
-  font-size:1.1em;
+  font-size:1.0em; 
 }
 
 ul#superfish-account {
@@ -216,7 +222,6 @@ li.ui-tabs-tab a{
 }
  body, :root, #drupal-off-canvas *, #drupal-off-canvas *:not(div),.ui-dialog.ui-dialog-off-canvas .ui-dialog-title {
   font-family:"Maven Pro"!important;
-  max-width: unset;
 }
 details.js-form-wrapper {
     width: 100% !important;
@@ -272,6 +277,14 @@ g#biopama-green path.cls-2 {
  /**
  * off canvas overrides
  */
+ 
+.chosen-enable,
+.chosen-container{
+  padding: 0px !important;
+  width: 100% !important;
+  border: 0px !important;
+}
+ 
 #drupal-off-canvas .source-wrapper {
     position: absolute;
     left: 0;
@@ -283,15 +296,7 @@ g#biopama-green path.cls-2 {
 #drupal-off-canvas .node__meta {
     display: none;
 }
-#drupal-off-canvas *, #drupal-off-canvas *:not(div) {
-    color: unset;
-    background: unset;
-}
-  #drupal-off-canvas .form-select, #drupal-off-canvas .form-text, #drupal-off-canvas .form-tel, #drupal-off-canvas .form-email, #drupal-off-canvas .form-url, #drupal-off-canvas .form-search, #drupal-off-canvas .form-number, #drupal-off-canvas .form-color, #drupal-off-canvas .form-file, #drupal-off-canvas .form-textarea, #drupal-off-canvas .form-date, #drupal-off-canvas .form-time {
-    color: #669a94;
-    border-color: silver;
-    background-color: #fafafa !important;
-}
+
 #drupal-off-canvas h4, #drupal-off-canvas .heading-d {
     background: #fff;
 	font-size: 16px;
@@ -339,16 +344,6 @@ g#biopama-green path.cls-2 {
 	font-size: 16px;
 	padding: 0px;
 }
-.ui-dialog input, .ui-dialog select, .ui-dialog textarea
-#drupal-off-canvas div.paragraphs-subform input,
-#drupal-off-canvas div.paragraphs-subform select,
-#drupal-off-canvas div.paragraphs-subform textarea,
-.ui-corner-all.ui-dialog div.paragraphs-subform input
-.ui-corner-all.ui-dialog div.paragraphs-subform select
-.ui-corner-all.ui-dialog div.paragraphs-subform textarea{
-    width: 100%;
-	font-size: 16px;
-}
 .ui-dialog .radio input,
 .ui-corner-all.ui-dialog div.paragraphs-subform .radio input{
     width: auto;
@@ -356,6 +351,7 @@ g#biopama-green path.cls-2 {
 #drupal-off-canvas fieldset,
 .ui-corner-all.ui-dialog fieldset {
     margin: 15px 0px;
+    width: 100%;
 }
 .js-form-item.form-item.js-form-type-radio.form-type-radio {
     display: flex;
@@ -389,12 +385,16 @@ div.entities-list {
     display: flex;
     flex-wrap: wrap;
 }
+.ui-dialog .button {
+  min-width: 70px;
+  font-size: 15px;
+  padding: 0px;
+}
 .entities-list .item-container {
-    display: flex;
     flex-direction: column;
     width: 200px;
     font-size: 100%;
-    text-align: left;
+	color: unset;
 }
 #drupal-off-canvas div.field--type-entity-reference {
     padding: 5px;
@@ -405,7 +405,7 @@ div.entities-list {
 #drupal-off-canvas div.node__content div.field {
     padding: 5px 0px;
 }
-#drupal-off-canvas .chosen-container ul.chosen-results {
+/* #drupal-off-canvas .chosen-container ul.chosen-results {
     background: #fff !important;
     padding: 0px 10px;
     border: 1px solid #ccc !important;
@@ -415,9 +415,7 @@ div.entities-list {
 	width: 100% !important;
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
 }
-/* #drupal-off-canvas fieldset.js-form-item {
-    width: 100% !important;
-} */
+
 div.details-wrapper div.form-group.js-form-wrapper, div.details-wrapper small.details-description{
 	margin: 10px !important;
 }
@@ -430,7 +428,7 @@ div.details-wrapper div.form-group.js-form-wrapper, div.details-wrapper small.de
 #drupal-off-canvas .chosen-container .chosen-choices .search-field {
     background: #f1f1f1;
     margin-top: 1px;
-}
+} */
 
 input.remove-button {
     background: #ff8e8e !important;
@@ -470,11 +468,11 @@ button.breadClose {
     background-color: #fff !important;
 	color: #41ad53 !important;
 }
-.chosen-container-multi .chosen-choices, #drupal-off-canvas .chosen-container-multi .chosen-choices {
+/* .chosen-container-multi .chosen-choices, #drupal-off-canvas .chosen-container-multi .chosen-choices {
     background-color: #f1f1f1 !important;
     background-image: none !important;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
-}
+} */
 .ui-dialog .ui-dialog-content {
     background: #fff;
     color: #679b95;
@@ -521,27 +519,13 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
     text-decoration: none;
 }
 
-
-#drupal-off-canvas input[type="submit"].button {
-      border-radius: 5px!important;
-    background-color: #41ad53!important;
-}
-
 #drupal-off-canvas input[value="Save"].button {
   width:auto;
-  padding: 10px 5px 10px 5px!important;
-  border-radius:50px!important;
-  font-size:1.5em;
-  padding: 0px 20px 3px 20px!important;
   box-shadow: 0px 2px 10px 2px rgba(17, 133, 171, 0.34);
 }
 
 #drupal-off-canvas .horizontal-tabs-panes input[type="submit"].button{
-      background-color: #d7d7d7!important;
-    border-radius: 33px!important;
-    padding: 0px 10px 3px 10px!important;
     width: auto;
-    color: #426e89;
 }
 #drupal-off-canvas details.field-group-tab {
     outline: none !important;
@@ -576,10 +560,10 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
 	font-size: 16px;
 }
 
-#drupal-off-canvas select.form-select{
+/* #drupal-off-canvas select.form-select{
   border: 1px solid silver!important;
   background-color:#fafafa!important;
-}
+} */
 
 .form-required::after {
   background:unset!important;

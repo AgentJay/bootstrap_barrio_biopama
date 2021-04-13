@@ -3,35 +3,50 @@ jQuery(document).ready(function($) {
 	//alternative interesting events 'boxzoomend', 'zoomend', 'touchend'
 	thisMap.on('click', getFeatureInfo);
 	thisMap.on('mousemove', "regionsMask", function (e) {
-		regionHover = null;
+		regionCurrentlyHovered = '';
  		if (e.features.length > 0) {
-			regionHover = e.features[0].properties.Group;
-			$('#map-region-info').text("Region: "+ e.features[0].properties.Group);
-			if(e.features[0].properties.Group == selSettings.regionID){
+			regionCurrentlyHovered = e.features[0].properties.Group;
+			$('#map-region-info').text("Region: "+ regionCurrentlyHovered);
+			if(regionCurrentlyHovered == selSettings.regionID){
 				thisMap.setLayoutProperty("regionHover", 'visibility', 'none');
 			} else {
-				thisMap.setFilter('regionHover', ['==', 'Group', e.features[0].properties.Group]);		
-				thisMap.setLayoutProperty("regionHover", 'visibility', 'visible');						
+				thisMap.setFilter('regionHover', ['==', 'Group', regionCurrentlyHovered]);		
+				thisMap.setLayoutProperty("regionHover", 'visibility', 'visible');
+				if ($(".indicator-chart:visible").length){
+					highlightMapFeature();
+				}					
 			}
         } 
 	});
 	thisMap.on("mouseleave", "regionsMask", function() {
-		regionHover = null;
+		regionCurrentlyHovered = '';
 		$('#map-region-info').empty();
         thisMap.setLayoutProperty("regionHover", 'visibility', 'none');
     });
 	thisMap.on('mousemove', "countryMask", function (e) {
+		countryCurrentlyHoverediso2 = '';
+		countryCurrentlyHoverediso3 = '';
+		countryCurrentlyHoveredUn = '';
  		if (e.features.length > 0) {
 			$('#map-country-info').text("Country: "+ e.features[0].properties.original_n);
 			if(e.features[0].properties.iso2 == selSettings.ISO2){
 				thisMap.setLayoutProperty("countryHover", 'visibility', 'none');
 			} else {
+				countryCurrentlyHoverediso2 = e.features[0].properties.iso2;
+				countryCurrentlyHoverediso3 = e.features[0].properties.iso3;
+				countryCurrentlyHoveredUn = e.features[0].properties.un_m49;
 				thisMap.setFilter('countryHover', ['==', 'iso3', e.features[0].properties.iso3]);		
-				thisMap.setLayoutProperty("countryHover", 'visibility', 'visible');						
+				thisMap.setLayoutProperty("countryHover", 'visibility', 'visible');
+				if ($(".indicator-chart:visible").length){
+					highlightMapFeature();
+				}	
 			}
         } 
 	});
 	thisMap.on("mouseleave", "countryMask", function() {
+		countryCurrentlyHoverediso2 = '';
+		countryCurrentlyHoverediso3 = '';
+		countryCurrentlyHoveredUn = '';
 		$('#map-country-info').empty();
         thisMap.setLayoutProperty("countryHover", 'visibility', 'none');
     });
@@ -88,7 +103,7 @@ jQuery(document).ready(function($) {
 			var areaCheck = "areaInactive";
 			if (selSettings.regionName == popUpContents.region)areaCheck = "areaActive";
 			var popup = popUpSection(areaCheck, popUpContents.region, popUpContents.regionID, "region");
-			var regionPopup = new mapboxgl.Popup({anchor:'right', className: 'biopamaPopup', offset: 50, closeButton: false})
+			var regionPopup = new mapboxgl.Popup({anchor:'right', className: 'biopamaPopup', offset: 40, closeButton: false})
 				.setLngLat(e.lngLat)
 				.setHTML(popup)
 				.addTo(thisMap);
@@ -98,7 +113,7 @@ jQuery(document).ready(function($) {
 			var areaCheck = "areaInactive";
 			if (selSettings.ISO2 == popUpContents.countryCode)areaCheck = "areaActive";
 			var popup = popUpSection(areaCheck, popUpContents.country, popUpContents.countryCode, "country");
-			var countryPopup = new mapboxgl.Popup({anchor:'bottom', className: 'biopamaPopup', offset: 50, closeButton: false})
+			var countryPopup = new mapboxgl.Popup({anchor:'bottom', className: 'biopamaPopup', offset: 40, closeButton: false})
 				.setLngLat(e.lngLat)
 				.setHTML(popup)
 				.addTo(thisMap);
@@ -115,7 +130,7 @@ jQuery(document).ready(function($) {
 					checkPA(popUpContents.WDPAIDs[key], key)
 				}
 			}
-			var paPopup = new mapboxgl.Popup({anchor:'left', className: 'biopamaPopup '+numberOfPas, offset: 50, closeButton: false})
+			var paPopup = new mapboxgl.Popup({anchor:'left', className: 'biopamaPopup '+numberOfPas, offset: 40, closeButton: false})
 				.setLngLat(e.lngLat)
 				.setHTML(paPopupContent)
 				.addTo(thisMap);
@@ -384,27 +399,44 @@ var homepageMapZoomOptions = {
 };
 
 function zoomToRegion(region){
-  if(region === 'central_africa'){
-	selSettings.regionName = "Central Africa";
-    thisMap.fitBounds([[1.8683898449,24.8886363352], [36.1896789074,-16.0012446593]], homepageMapZoomOptions);
-  } else if (region === 'eastern_africa'){
-	selSettings.regionName = "Eastern Africa";
-    thisMap.fitBounds([[20.3034484386,26.6692628716], [54.6247375011,-14.0916051203]], homepageMapZoomOptions);
-  } else if (region === 'western_africa'){
-	selSettings.regionName = "Western Africa";
-    thisMap.fitBounds([[-28.1462585926,31.1678846111], [20.4572570324,-0.7446243056]], homepageMapZoomOptions);
-  } else if (region === 'southern_africa'){
-	selSettings.regionName = "Southern Africa";
-    thisMap.fitBounds([[6.5265929699,-5.3073515284], [61.0187804699,-47.2924889494]], homepageMapZoomOptions);
-  } else if (region === 'Pacific'){
-	selSettings.regionName = "Pacific";
-    thisMap.fitBounds([[123.75,-24.846565], [216.914063,18.312811]], homepageMapZoomOptions);
-  } else if (region === 'Caribbean') {
-	selSettings.regionName = "Caribbean";
-	thisMap.fitBounds([[-93.691406,-1.581830], [-51.240234,28.844674]], homepageMapZoomOptions);
-  } else {
-	  return;
-  }
+	switch(region){
+		case "central_africa":
+		case "Central Africa":
+			selSettings.regionID = "central_africa";
+			selSettings.regionName = "Central Africa";
+			thisMap.fitBounds([[1.8683898449,24.8886363352], [36.1896789074,-16.0012446593]], homepageMapZoomOptions);
+			break;
+		case "eastern_africa":
+		case "Eastern Africa":
+			selSettings.regionID = "eastern_africa";
+			selSettings.regionName = "Eastern Africa";
+			thisMap.fitBounds([[20.3034484386,26.6692628716], [54.6247375011,-14.0916051203]], homepageMapZoomOptions);
+			break;
+		case "western_africa":
+		case "Western Africa":
+			selSettings.regionID = "western_africa";
+			selSettings.regionName = "Western Africa";
+			thisMap.fitBounds([[-28.1462585926,31.1678846111], [20.4572570324,-0.7446243056]], homepageMapZoomOptions);
+			break;
+		case "southern_africa":
+		case "Southern Africa":
+			selSettings.regionID = "southern_africa";
+			selSettings.regionName = "Southern Africa";
+			thisMap.fitBounds([[6.5265929699,-5.3073515284], [61.0187804699,-47.2924889494]], homepageMapZoomOptions);
+			break;
+		case "Pacific":
+			selSettings.regionID = "Pacific";
+			selSettings.regionName = "Pacific";
+			thisMap.fitBounds([[123.75,-24.846565], [216.914063,18.312811]], homepageMapZoomOptions);
+			break;
+		case "Caribbean":
+			selSettings.regionID = "Caribbean";
+			selSettings.regionName = "Caribbean";
+			thisMap.fitBounds([[-93.691406,-1.581830], [-51.240234,28.844674]], homepageMapZoomOptions);
+			break;
+		default:	//the country charts are the default for now....
+			return;
+	}
 }
 
 function zoomToCountry(iso2){

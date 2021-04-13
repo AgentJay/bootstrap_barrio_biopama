@@ -1,32 +1,24 @@
-
-function updatePa() {
-	paChanged = 0;
-	thisMap.setLayoutProperty("wdpaAcpSelected", 'visibility', 'visible');
-	thisMap.setFilter('wdpaAcpSelected', ['==', 'WDPAID', selSettings.WDPAID]);
-	thisMap.setPaintProperty('wdpaAcpSelected', 'line-width', 10);
-	setTimeout(function(){
-		thisMap.setPaintProperty('wdpaAcpSelected', 'line-width', 2);
-	}, 300);
-	//if there's a chart 
-	if (jQuery("#indicator-chart-country:visible").length){
-		highlightMapFeature();
+function updateRegion(region = selSettings.regionID, countryUpdate = true) {
+	regionChanged = 0;
+	if((selSettings.ISO2 !== null) && (countryUpdate === true)){
+		removeCountry();
 	}
-
-	updateCountry('iso3', false, false);
-
-	updateBreadPA();
+	zoomToRegion(region);
+	thisMap.setLayoutProperty("regionSelected", 'visibility', 'visible');
+	thisMap.setFilter('regionSelected', ['==', 'Group', "Caribbean"]);
 	updateAddress();
+	updateBreadRegion();
 }
 
 function updateCountry(chartValue = 'iso2', zoomTo = true, clearPA = true) {
 	countryChanged = 0;
-	if (zoomTo == true) {
+	if (zoomTo === true) {
 		zoomToCountry(selSettings.ISO2);
 		updateAddress();
 	}
 	
 	//If we are moving to a new country the currently selected PA can't follow us there, so we remove it
-	if((clearPA == true) && (selSettings.WDPAID > 0)) removePA();
+	if((clearPA === true) && (selSettings.WDPAID > 0)){ removePA(); }
 	
 	//Our Protected areas layer does not have the ISO2 country codes, it only has ISO3 codes.
 	//The mapbox geocoder only has ISO2 codes (in lower case)...
@@ -59,14 +51,21 @@ function updateCountry(chartValue = 'iso2', zoomTo = true, clearPA = true) {
 	thisMap.setLayoutProperty("wdpaAcpFillHighlighted", 'visibility', 'visible');
 	jQuery('.mapboxgl-ctrl-z-country').show();
 }
-function updateRegion(region = selSettings.regionID, countryUpdate = true) {
-	regionChanged = 0;
-	if((selSettings.ISO2 != null) && (countryUpdate == true)){
-		removeCountry();
+function updatePa() {
+	paChanged = 0;
+	thisMap.setLayoutProperty("wdpaAcpSelected", 'visibility', 'visible');
+	thisMap.setFilter('wdpaAcpSelected', ['==', 'WDPAID', selSettings.WDPAID]);
+	thisMap.setPaintProperty('wdpaAcpSelected', 'line-width', 10);
+	setTimeout(function(){
+		thisMap.setPaintProperty('wdpaAcpSelected', 'line-width', 2);
+	}, 300);
+	//if there's a chart 
+	if (jQuery("#indicator-chart-country:visible").length){
+		highlightMapFeature();
 	}
-	zoomToRegion(region);
-	thisMap.setLayoutProperty("regionSelected", 'visibility', 'visible');
-	thisMap.setFilter('regionSelected', ['==', 'Group', "Caribbean"]);
-	updateAddress();
-	updateBreadRegion();
+
+	updateCountry('iso3', false, false);
+
+	updateBreadPA();
+	udateAddress();
 }

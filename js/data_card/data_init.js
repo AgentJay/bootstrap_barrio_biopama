@@ -45,6 +45,7 @@ jQuery(document).ready(function($) {
 			areaIn: '',
 		},
 	};
+	customColorInvert = null;
 	
 	selData.info.scope = globalScope.scope;
 	selData.info.policy = globalScope.policy;

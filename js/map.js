@@ -1,5 +1,4 @@
 jQuery(document).ready(function($) {
-
 	//mapboxgl.accessToken = 'pk.eyJ1IjoiamFtZXNkYXZ5IiwiYSI6ImNpenRuMmZ6OTAxMngzM25wNG81b2MwMTUifQ.A2YdXu17spFF-gl6yvHXaw';
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYmxpc2h0ZW4iLCJhIjoiMEZrNzFqRSJ9.0QBRA2HxTb8YHErUFRMPZg';
 	var map = new mapboxgl.Map({
@@ -11,9 +10,8 @@ jQuery(document).ready(function($) {
         zoom: homepageMapZoom,
 		minZoom: 1.4,
 		maxZoom: 12,
-		attributionControl: false,
 	}).addControl(new mapboxgl.AttributionControl({
-        customAttribution: "UNEP-WCMC and IUCN (2019), <br>\n Protected Planet: The World Database on Protected Areas (WDPA),<br>\n May 2019, Cambridge, UK: UNEP-WCMC and IUCN.",
+        customAttribution: mapAttribution,
 		compact: true
     }));
 	thisMap = map;
@@ -135,24 +133,24 @@ jQuery(document).ready(function($) {
 	  }
 	});
 
-	map.on('moveend', function (e) {
+	map.on('moveend', function () {
 		//this flag can only be true in this case if the Protected Area has been changed to one in a different country from the search
-		if (countryChanged == 1){	
+		if (countryChanged === 1){	
 			updateCountry();
 		}
-		if (paChanged == 1){	
+		if (paChanged === 1){	
 			updatePa();
 		}
-		if (regionChanged == 1){	
+		if (regionChanged === 1){	
 			updateRegion();
 		}
-		var currentBounds = map.getBounds()
+/* 		var currentBounds = map.getBounds();
 		 $('input[data-drupal-selector=edit-top]').val(currentBounds._ne.lat);
 		 $('input[data-drupal-selector=edit-bottom]').val(currentBounds._sw.lat);
 		 $('input[data-drupal-selector=edit-left]').val(currentBounds._ne.lng);
 		 $('input[data-drupal-selector=edit-right]').val(currentBounds._sw.lng);
 		 $('input[data-drupal-selector=edit-iso2]').val(selSettings.ISO2);
-		 $('div[data-drupal-selector=edit-actions]').find('input[type=submit]').click();
+		 $('div[data-drupal-selector=edit-actions]').find('input[type=submit]').click(); */
 	});
 	
 	map.on('load', function () {

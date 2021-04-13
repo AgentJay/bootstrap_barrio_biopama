@@ -31,7 +31,7 @@
 			<div class="country-iso"><span class="country-sub-label">Country: {{ fields.title_1.content }}</span></div>
 			<div class="country-iso"><span class="country-sub-label">WDPA ID:</span> <span class="wdpaid-value">{{ fields.field_pa_wdpa_id.content }}</span></div>
 			<div class="country-iso"><span class="country-sub-label">IUCN Category:</span> <span class="iucn-cat-value">{{ fields.field_pa_iucn_category.content }}</span></div>
-			<div class="country-iso"><span class="country-sub-label">Management Plan:<br>{{ drupal_view('management_plans_by_pa', 'block_1', fields.nid.content|render) }}</span></div>
+			<div class="country-iso"><span class="country-sub-label">Management Plans<br>{{ drupal_view('management_plans_by_pa', 'block_1', fields.nid.content|render) }}</span></div>
 		</div>
 		<div class="col-sm-6">
 			<div class="pa-card-source">{{ drupal_entity('node', 18209, 'source_attribution') }}</div><div id="pa-radar"><div id="mini-loader-wrapper"><div id="mini-loader"></div></div></div>

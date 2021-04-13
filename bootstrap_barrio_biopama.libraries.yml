@@ -2,22 +2,22 @@ global-styling:
   version: VERSION
   js:
     js/global.js: {}
-
   css:
     component:
       css/print.css: {media: print}
       css/style.css: {}
       css/navigation_menu.css: {}
       css/scroll_bar.css: {}
-      https://fonts.googleapis.com/css?family=Maven%20Pro: {type: external, weight:2000}
+      fonts/google/mavenpro.css: {}
+main-menu:
+  js:
+    js/main-menu.js: {}
+  dependencies:
+    - bootstrap_barrio_biopama/hoverintent
 
 mapbox:
-  css:
-    theme:
-      https://cdn.jsdelivr.net/npm/mapbox-gl@1/dist/mapbox-gl.css: {type: external, weight:2000}
   header: true
   js:
-    https://cdn.jsdelivr.net/npm/mapbox-gl@1/dist/mapbox-gl.min.js: { type: external, minified: true, preprocess: false}
     /libraries/mapbox/wellknown.js: {minified: false}
 
 biopama-global-vars:
@@ -25,6 +25,7 @@ biopama-global-vars:
     js/global_vars_functs.js: {minified: false, preprocess: false}
     /biopama-config/map_settings.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 colorbrewer:
@@ -65,9 +66,11 @@ custom-mapbox:
     - core/drupal.ajax
     - core/jquery
     - core/jquery.once
-    - core/jquery.ui.effects.core
-    - core/jquery.ui.effects.slide
-    - core/jquery.ui.tabs
+    - jquery_ui_tabs/tabs
+    - core/views.ajax
+    - jquery_ui_accordion/accordion
+    - jquery_ui_effects/core
+    - jquery_ui_effects/slide
     - core/drupalSettings
     - bootstrap_barrio_biopama/echarts
     - bootstrap_barrio_biopama/id-editor
@@ -88,7 +91,7 @@ focus-page:
       css/node/node_map.css: {}
       css/node/style.css: {}
   js:
-    js/node_country/country_chart.js: {minified: false, preprocess: false}
+    js/node/charts.js: {minified: false, preprocess: false}
     js/node/node_map.js: {minified: false, preprocess: false}
     js/map.js: {minified: false, preprocess: false}
     js/node/node.js: {minified: false, preprocess: false}
@@ -99,20 +102,21 @@ focus-page:
     - core/drupal.ajax
     - core/jquery
     - core/jquery.once
-    - core/jquery.ui.effects.core
-    - core/jquery.ui.effects.slide
-    - core/jquery.ui.accordion
-    - core/jquery.ui.tabs
+    - jquery_ui_effects/core
+    - jquery_ui_effects/slide
+    - jquery_ui_accordion/accordion
+    - jquery_ui_tabs/tabs
     - core/drupalSettings
     - bootstrap_barrio_biopama/echarts
     - bootstrap_barrio_biopama/global-rest
-    - bootstrap_barrio_biopama/country-address-manager
+    - bootstrap_barrio_biopama/node-address-manager
     - bootstrap_barrio_biopama/ajax-loader
     - bootstrap_barrio_biopama/colorbrewer
     - bootstrap_barrio_biopama/nouislider
     - bootstrap_barrio_biopama/biopama-map-tooltips
     - bootstrap_barrio_biopama/breadcrumb-cards
     - bootstrap_barrio_biopama/biopama-global-vars
+    - biopama_libraries/mapbox
     - bootstrap_barrio_biopama/mapbox
 
 global-rest:
@@ -126,6 +130,7 @@ breadcrumb-cards:
   js:
     js/breadcrumb_cards/breadcrumb_cards.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     - bootstrap_barrio_biopama/echarts
 
@@ -133,14 +138,16 @@ biopama-address-manager:
   js:
     js/homepage/address_manager.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     - bootstrap_barrio_biopama/jquery-address
     - bootstrap_barrio_biopama/biopama-global-vars
 
-country-address-manager:
+node-address-manager:
   js:
     js/node/address_manager.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     - bootstrap_barrio_biopama/jquery-address
     - bootstrap_barrio_biopama/biopama-global-vars
@@ -156,12 +163,13 @@ rris-map:
   dependencies:
     - bootstrap_barrio_biopama/custom-mapbox
     - bootstrap_barrio_biopama/biopama-map-tooltips
-    - bootstrap_barrio_biopama/indicator-country-chart
+    - bootstrap_barrio_biopama/indicator-chart
 
 id-editor:
   js:
     js/homepage/id_editor.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 indicator-card:
@@ -171,8 +179,9 @@ indicator-card:
   js:
     js/data_card/data_init.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
-    - core/jquery.ui.effects.core
+    - jquery_ui_effects/core
 
 biopama-map-tooltips:
   css:
@@ -193,12 +202,14 @@ biopama-breadcrumbs:
   js:
     js/breadcrumbs.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
-    - core/jquery.ui.effects.core
-    - core/jquery.ui.effects.highlight
-    - core/jquery.ui.effects.slide
+    - jquery_ui_effects/core
+    - jquery_ui_effects/highlight
+    - jquery_ui_effects/slide
     - core/drupal.dialog.ajax
     - bootstrap_barrio_biopama/mapbox
+    - biopama_libraries/mapbox
 
 anon-link-redirect:
   js:
@@ -208,6 +219,7 @@ nice-scroll:
   js:
     https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/jquery.nicescroll.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 ajax-loader:
@@ -221,6 +233,7 @@ jquery-address:
   js:
     https://cdn.jsdelivr.net/npm/jquery-address@1.6.0/src/jquery.address.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 node-geohash:
@@ -239,17 +252,18 @@ biopama-dialog:
     theme:
       css/dialog.css: {}
 
-indicator-country-chart:
+indicator-chart:
   css:
     theme:
-      css/node_country/country_node.css: {}
+      css/node/charts.css: {}
   js:
-    js/node_country/country_chart.js: {minified: false, preprocess: false}
+    js/node/charts.js: {minified: false, preprocess: false}
 
 j-storage:
   js:
     https://cdn.jsdelivr.net/npm/jstorage@0.4.8/jstorage.min.js: {type: external, minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 bootstrap-tour:
@@ -259,12 +273,14 @@ bootstrap-tour:
   js:
     /libraries/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js: {minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 homepage-tour:
   js:
     js/homepage/homepage-tour.js: {minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     - bootstrap_barrio_biopama/bootstrap-tour
     - bootstrap_barrio_biopama/bootstrap-toggle
@@ -284,6 +300,7 @@ rest-checker:
   js:
     js/rest_checker/rest_checker.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     - bootstrap_barrio_biopama/global-rest
 
@@ -294,6 +311,7 @@ panorama-solutions:
   js:
     js/panorama/panorama_solutions.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 landing-page:
@@ -305,6 +323,7 @@ landing-page:
   js:
     js/landingpage/main.js: {minified: false, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
 
 pame:
@@ -320,6 +339,7 @@ pame:
     js/pame/map.js: {minified: false, preprocess: false}
     https://cdn.datatables.net/v/bs/jqc-1.12.4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-print-1.5.6/r-2.2.2/datatables.min.js: { external: true }
   dependencies:
+    - core/drupal
     - core/jquery
 
 globalknowledge:
@@ -349,6 +369,7 @@ datatables:
   js:
     /libraries/datatables/datatables.min.js: {minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     
 datatables-with-extensions:
@@ -359,9 +380,17 @@ datatables-with-extensions:
   js:
     /libraries/datatables-with-extensions/datatables.min.js: {minified: true, preprocess: false}
   dependencies:
+    - core/drupal
     - core/jquery
     
 fontawesome:
   css:
     component:
-      //use.fontawesome.com/releases/v5.11.2/css/all.css: {}
+      css/fontawesome-free-5.14.0-web/css/all.min.css: {}
+      
+hoverintent:
+  js:
+    /libraries/hoverintent/jquery.hoverIntent.min.js: {minified: true, preprocess: false}
+  dependencies:
+    - core/drupal
+    - core/jquery
