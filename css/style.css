@@ -505,6 +505,10 @@ body > div.ui-dialog.ui-corner-all.ui-widget.ui-widget-content.ui-front.ui-dialo
   border-left: 1px solid #679b9587!important
 }
 
+div#drupal-off-canvas {
+    height: 85% !important;
+}
+
 #drupal-off-canvas ul li.horizontal-tab-button{
     margin: 5px 10px;
     padding-left: 5px!important;
