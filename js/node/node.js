@@ -101,6 +101,7 @@ jQuery(document).ready(function($) {
 	  collapsible: true,
 	  active: false,
 	  heightStyle: "content",
+	  icons: null,
 	  activate: checkForCharts, 
 	  create: checkForCharts
 	});
