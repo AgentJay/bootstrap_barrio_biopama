@@ -43,7 +43,7 @@ function poulateCountryCard(){
 	});
 	getWbRestData("wb-total-pop", "SP.POP.TOTL", "number", false);
 	getWbRestData("wb-area", "AG.LND.TOTL.K2", "number");
-	getWbRestData("wb-gdp", "NY.GDP.PCAP.PP.CD", "number");
+	//getWbRestData("wb-gdp", "NY.GDP.PCAP.PP.CD", "number");
 	getWbRestData("wb-gdp-growth", "NY.GDP.MKTP.KD.ZG", "number");
 	getDOPAPaNums();
 	getCountryProtCon();
